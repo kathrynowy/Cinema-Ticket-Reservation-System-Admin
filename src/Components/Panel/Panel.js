@@ -16,6 +16,7 @@ const styles = theme => ({
     width: '100%',
     maxWidth: 220,
     backgroundColor: theme.palette.background.paper,
+    zIndex: 0
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
@@ -37,7 +38,7 @@ class NestedList extends React.Component {
     return (
       <List
         component="nav"
-        subheader={<ListSubheader component="div">Menu</ListSubheader>}
+        subheader={<ListSubheader component="div" className={classes.root}>Menu</ListSubheader>}
         className={classes.root}
       >
         <Link to="/cinemas" className="cinemas_link">
@@ -58,12 +59,14 @@ class NestedList extends React.Component {
           </ListItem>
         </Link>
 
-        <ListItem button>
-          <ListItemIcon>
-            <ScheduleIcon className={classes.icon} />
-          </ListItemIcon>
-          <ListItemText inset primary="Sessions" />
-        </ListItem>
+        <Link to="/add-session" className="cinemas_link">
+          <ListItem button>
+            <ListItemIcon>
+              <ScheduleIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText inset primary="Sessions" />
+          </ListItem>
+        </Link>
       </List>
     );
   }
