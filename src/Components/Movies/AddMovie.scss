@@ -1,0 +1,115 @@
+@import '../../variables.scss';
+  
+
+.movie__datepicker, focus {
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  outline: none;
+}
+
+.movie {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  
+  &__datepicker{
+    appearance: none;
+    width: 250px;
+    height: 35px;
+    border: 2px solid $light-orange;
+    margin-bottom: 20px;
+    font-size: 18px;
+    padding-left: 15px;
+
+    &::-webkit-inner-spin-button { 
+      display: none;
+    }
+  }
+
+  &__square {
+    width: 250px;
+    height: 35px;
+    background-color: transparent;
+    border: 2px solid $light-orange;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  &__add-hall {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+    height: 35px;
+    margin-top: 5px;
+  }
+
+  &__add-icon {
+    border: 4px solid $light-orange;
+    background-color: $light-orange;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      border: 4px solid $orange;
+      background-color: $orange;
+    }
+  }
+
+  &__label {
+    font-size: 18px;
+    display: flex;
+    align-content: flex-end;
+    padding: 10px 5px;
+    padding-bottom: 2px;
+  }
+
+  &__input {
+    background-color: transparent;
+    border: none;
+    width: 200px;
+    height: 35px;
+    outline: none;
+    font-size: 18px;
+    padding-left: 15px;
+  }
+
+  &__close{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__add-movie {
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    margin-top: 40px;
+    width: 100px;
+    height: 35px;
+    border: 2px solid $light-orange;
+    background-color: transparent;
+    color: $black;
+
+    &:hover {
+      background-color: $light-orange;
+      color: $white;
+    }
+  }
+
+  &__description {
+    overflow-y: auto;
+    margin-top: 10px;
+    height: 200px;
+    width: 400px;
+    border: 2px solid $light-orange;
+    background-color: transparent;
+    outline: none;
+    font-size: 18px;
+  }
+}

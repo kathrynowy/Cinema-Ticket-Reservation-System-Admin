@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import DeleteIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import './Cinemas.scss';
 
-import { Link } from "react-router-dom";
-
 
 class Cinemas extends Component {
-
-
   render() {
     return (
       <div className="cinemas">
