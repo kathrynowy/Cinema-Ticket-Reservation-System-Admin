@@ -13,7 +13,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 280,
+    maxWidth: 220,
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
@@ -45,15 +45,17 @@ class NestedList extends React.Component {
           </ListItemIcon>
           <ListItemText inset primary="Cinemas" />
         </ListItem>
+
         <ListItem button>
           <ListItemIcon>
             <MovieIcon />
           </ListItemIcon>
           <ListItemText inset primary="Movies" />
         </ListItem>
-        <ListItem>
+
+        <ListItem button>
           <ListItemIcon>
-            <ScheduleIcon />
+            <ScheduleIcon className={classes.icon} />
           </ListItemIcon>
           <ListItemText inset primary="Sessions" />
         </ListItem>
