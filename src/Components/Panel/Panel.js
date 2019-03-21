@@ -39,7 +39,7 @@ class NestedList extends React.Component {
         subheader={<ListSubheader component="div">Menu</ListSubheader>}
         className={classes.root}
       >
-        <ListItem button>
+        <ListItem button onClick={this.props.openCinemas}>
           <ListItemIcon>
             <HomeIcon className={classes.icon} />
           </ListItemIcon>
