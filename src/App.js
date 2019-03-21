@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import NestedList from './Components/Panel/Panel.js'
+import AddCinema from './Components/Cinemas/AddCinema';
 import Cinemas from './Components/Cinemas/Cinemas';
 
 class App extends Component {
