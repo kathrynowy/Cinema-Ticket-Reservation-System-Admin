@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import MovieIcon from '@material-ui/icons/Movie';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import { Link } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -39,12 +40,14 @@ class NestedList extends React.Component {
         subheader={<ListSubheader component="div">Menu</ListSubheader>}
         className={classes.root}
       >
-        <ListItem button onClick={this.props.openCinemas}>
-          <ListItemIcon>
-            <HomeIcon className={classes.icon} />
-          </ListItemIcon>
-          <ListItemText inset primary="Cinemas" />
-        </ListItem>
+        <Link to="/cinemas" className="cinemas_link">
+          <ListItem button onClick={this.props.openCinemas}>
+            <ListItemIcon>
+              <HomeIcon className={classes.icon} />
+            </ListItemIcon>
+            <ListItemText inset primary="Cinemas" />
+          </ListItem>
+        </Link>
 
         <ListItem button>
           <ListItemIcon>
