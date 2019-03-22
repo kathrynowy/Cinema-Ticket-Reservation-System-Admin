@@ -99,6 +99,14 @@
     border: 2px solid $light-orange;
     background-color: transparent;
   }
+
+  &__time-picker {
+    margin-bottom: 20px;
+    margin-top: 7px;
+    align-self: flex-start;
+  }
+
+ 
 }
 
 p {
@@ -106,49 +114,75 @@ p {
 }
 
 
-.modal-container {
-  position: fixed;
-  background-color: #fff;
-  border: 1px solid #000;
-  width: 70%;
-  max-width: 400px;
-  left: 50%;
-  padding: 20px;
-  border-radius: 5px;
-  top: -50%;
-  
-  
-  -webkit-transform: translate(-50%, -200%);
-  -ms-transform: translate(-50%, -200%);
-  transform: translate(-50%, -200%);
-  
-  
-  /* Step 3 */
-  -webkit-transition: -webkit-transform 200ms ease-out;
-  transition: transform 200ms ease-out;
+.modal__add-session {
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  width: 70px;
+  height: 28px;
+  border: 2px solid $light-orange;
+  background-color: transparent;
+  color: black;
+  text-decoration: none;
+  align-content: center;
+  text-align: center;
+  padding-top: 7px;
+
+  &:hover {
+    background-color: $light-orange;
+    color: white;
+  }
 }
 
-.modal:before {
-  content: "";
-  position: fixed;
-  display: none;
-  background-color: rgba(0,0,0,.8);
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100% 
-}
+  .modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #000;
+    width: 70%;
+    max-width: 400px;
+    left: 50%;
+    padding: 20px;
+    border-radius: 5px;
+    top: -50%;
+    
+    
+    -webkit-transform: translate(-50%, -200%);
+    -ms-transform: translate(-50%, -200%);
+    transform: translate(-50%, -200%);
+    
+    
+    /* Step 3 */
+    -webkit-transition: -webkit-transform 200ms ease-out;
+    transition: transform 200ms ease-out;
+  }
 
-/* Step 2 */
+  .modal:before {
+    content: "";
+    position: fixed;
+    display: none;
+    background-color: rgba(0,0,0,.8);
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100% 
+  }
 
-.modal:target:before {
-  display: block;
-}
+  /* Step 2 */
 
-.modal:target .modal-container {
-  top: 20%;
+  .modal:target:before {
+    display: block;
+  }
+
+  .modal:target .modal-container {
+    top: 20%;
+    
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+  }
+
   
-  -webkit-transform: translate(-50%, 0);
-  -ms-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
-}
