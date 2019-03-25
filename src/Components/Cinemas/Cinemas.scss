@@ -1,6 +1,62 @@
+@import '../../variables.scss';
+
 .cinemas {
   width: 100%;
-  background-color: rgb(250, 250, 250);
-  border-left: 1px solid rgb(235, 205, 205);
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+
+  &_link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__add-cinema {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 35px;
+  }
+
+  &__add-icon {
+    border: 5px solid $light-orange;
+    background-color: $light-orange;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      border: 5px solid $orange;
+      background-color: $orange;
+    }
+  }
+
+  &__label {
+    font-size: 22px;
+    display: flex;
+    align-content: flex-end;
+    padding: 10px 5px;
+    padding-bottom: 2px;
+  }
+
+  &__list {
+    width: 250px;
+    text-align: start;
+    height: 500px;
+    overflow-y: auto;
+  }
+
+  &__list-item {
+    font-size: 18px;
+    height: 25px;
+    margin-top: 10px;
+    border-bottom: 1px solid $white;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid $orange;
+    }
+  }
 }
