@@ -16,7 +16,6 @@ class Input extends Component {
   }
 
   handleChange = (event) => {
-
     this.setState({
       value: event.target.value
     });
@@ -30,9 +29,7 @@ class Input extends Component {
           className="input-container__input"
           id={`${this.props.inputName}-name`}
           onChange={(event) => this.handleChange(event)}
-          ref={`input${this.props.inputName}`}
           value={this.state.value}
-
         />
         <button
           className={`input-container__clear`}

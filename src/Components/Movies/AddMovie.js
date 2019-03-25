@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import './AddMovie.scss';
-import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
 
 
@@ -9,11 +8,16 @@ class AddMovie extends Component {
   render() {
     return (
       <div className="movie">
-
         <span className="movie__label"> Movie title</span>
         <Input inputName="movie" />
-
         <span className="movie__label"> Start date</span>
+        <input
+          type="date"
+          name="start-date"
+          id="start-date"
+          className="movie__datepicker"
+        />
+        <span className="movie__label"> End date</span>
         <input
           type="date"
           name="start-date"
@@ -21,12 +25,7 @@ class AddMovie extends Component {
           className="movie__datepicker"
         >
         </input>
-
-
-        <span className="movie__label"> End date</span>
-        <input type="date" name="start-date" id="start-date" className="movie__datepicker"></input>
-
-        <textarea className="movie__description">  </textarea>
+        <textarea className="movie__description"> </textarea>
         <button className="movie__add-movie"> Add</button>
       </div >
     );

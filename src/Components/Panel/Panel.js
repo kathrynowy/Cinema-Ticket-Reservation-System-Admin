@@ -34,7 +34,6 @@ function HomeIcon(props) {
 class NestedList extends React.Component {
   render() {
     const { classes } = this.props;
-
     return (
       <List
         component="nav"

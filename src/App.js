@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import './App.scss';
 import NestedList from './Components/Panel/Panel.js'
 import AddCinema from './Components/Cinemas/AddCinema';
 import Cinemas from './Components/Cinemas/Cinemas';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import Movies from './Components/Movies/Movies';
 import AddMovie from './Components/Movies/AddMovie';
 import AddSession from './Components/Sessions/AddSession';
