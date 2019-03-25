@@ -49,12 +49,14 @@ class NestedList extends React.Component {
           </ListItem>
         </Link>
 
-        <ListItem button>
-          <ListItemIcon>
-            <MovieIcon />
-          </ListItemIcon>
-          <ListItemText inset primary="Movies" />
-        </ListItem>
+        <Link to="/movies" className="cinemas_link">
+          <ListItem button>
+            <ListItemIcon>
+              <MovieIcon />
+            </ListItemIcon>
+            <ListItemText inset primary="Movies" />
+          </ListItem>
+        </Link>
 
         <ListItem button>
           <ListItemIcon>
