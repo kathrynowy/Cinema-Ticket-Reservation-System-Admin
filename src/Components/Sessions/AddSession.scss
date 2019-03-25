@@ -1,79 +1,8 @@
 @import '../../variables.scss';
 
+
 .session {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 15px;
-
-  &__add-button {
-    text-decoration: none;
-
-    &:visited, 
-    &:hover,
-    &:active {
-      color: inherit;
-    }
-  }
-
-  &__square {
-    width: 250px;
-    height: 35px;
-    background-color: transparent;
-    border: 2px solid $light-orange;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-  }
-
-  &__add-session {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-    height: 35px;
-    margin-top: 5px;
-  }
-
-  &__add-icon {
-    border: 4px solid $light-orange;
-    background-color: $light-orange;
-    border-radius: 50%;
-    cursor: pointer;
-    text-decoration: none;
-
-    &:hover {
-      border: 4px solid $orange;
-      background-color: $orange;
-    }
-  }
-
-  &__label {
-    font-size: 18px;
-    display: flex;
-    align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 2px;
-  }
-
-  &__input {
-    background-color: transparent;
-    border: none;
-    width: 200px;
-    height: 35px;
-    outline: none;
-    font-size: 18px;
-    padding-left: 15px;
-  }
-
-  &__close{
-    background-color: transparent;
-    outline: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  &__add-sessions {
+  &__add {
     cursor: pointer;
     font-size: 18px;
     outline: none;
@@ -84,105 +13,13 @@
     background-color: transparent;
     color: black;
     text-decoration: none;
+    align-self: flex-start;
 
     &:hover {
       background-color: $light-orange;
       color: white;
     }
   }
-
-  &-halls {
-    overflow-y: auto;
-    margin-top: 30px;
-    height: 200px;
-    width: 400px;
-    border: 2px solid $light-orange;
-    background-color: transparent;
-  }
-
-  &__time-picker {
-    margin-bottom: 20px;
-    margin-top: 7px;
-    align-self: flex-start;
-  }
-
- 
 }
-
-p {
-  margin-top: 0px;
-}
-
-
-.modal__add-session {
-  cursor: pointer;
-  font-size: 18px;
-  outline: none;
-  width: 70px;
-  height: 28px;
-  border: 2px solid $light-orange;
-  background-color: transparent;
-  color: black;
-  text-decoration: none;
-  align-content: center;
-  text-align: center;
-  padding-top: 7px;
-
-  &:hover {
-    background-color: $light-orange;
-    color: white;
-  }
-}
-
-  .modal-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    position: fixed;
-    background-color: #fff;
-    border: 1px solid #000;
-    width: 70%;
-    max-width: 400px;
-    left: 50%;
-    padding: 20px;
-    border-radius: 5px;
-    top: -50%;
-    
-    
-    -webkit-transform: translate(-50%, -200%);
-    -ms-transform: translate(-50%, -200%);
-    transform: translate(-50%, -200%);
-    
-    
-    /* Step 3 */
-    -webkit-transition: -webkit-transform 200ms ease-out;
-    transition: transform 200ms ease-out;
-  }
-
-  .modal:before {
-    content: "";
-    position: fixed;
-    display: none;
-    background-color: rgba(0,0,0,.8);
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100% 
-  }
-
-  /* Step 2 */
-
-  .modal:target:before {
-    display: block;
-  }
-
-  .modal:target .modal-container {
-    top: 20%;
-    
-    -webkit-transform: translate(-50%, 0);
-    -ms-transform: translate(-50%, 0);
-    transform: translate(-50%, 0);
-  }
 
   

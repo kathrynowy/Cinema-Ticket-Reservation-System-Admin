@@ -59,7 +59,7 @@ class NestedList extends React.Component {
           </ListItem>
         </Link>
 
-        <Link to="/add-session" className="cinemas_link">
+        <Link to="/sessions" className="cinemas_link">
           <ListItem button>
             <ListItemIcon>
               <ScheduleIcon className={classes.icon} />

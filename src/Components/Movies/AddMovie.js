@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './AddMovie.scss';
 
-import DeleteIcon from '@material-ui/icons/Close';
+import './AddMovie.scss';
 import AddIcon from '@material-ui/icons/Add';
+import Input from '../Input/Input';
 
 
 class AddMovie extends Component {
@@ -11,14 +11,16 @@ class AddMovie extends Component {
       <div className="movie">
 
         <span className="movie__label"> Movie title</span>
-        <div className="movie__square">
-          <input type="text" className="movie__input" id="movie-name" />
-          <button className="movie__close"><DeleteIcon /></button>
-        </div>
-
+        <Input inputName="movie" />
 
         <span className="movie__label"> Start date</span>
-        <input type="date" name="start-date" id="start-date" className="movie__datepicker"></input>
+        <input
+          type="date"
+          name="start-date"
+          id="start-date"
+          className="movie__datepicker"
+        >
+        </input>
 
 
         <span className="movie__label"> End date</span>

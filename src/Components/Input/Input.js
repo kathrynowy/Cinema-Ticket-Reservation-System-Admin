@@ -1,45 +1,46 @@
 import React, { Component } from 'react';
 import DeleteIcon from '@material-ui/icons/Close';
 
+import './Input.scss';
+
 
 class Input extends Component {
   state = {
-    name: ''
+    value: ''
   }
 
   handleClear = () => {
     this.setState({
-      name: ''
+      value: ''
     });
   }
 
   handleChange = (event) => {
 
     this.setState({
-      name: event.target.value
+      value: event.target.value
     });
   }
 
   render() {
     return (
       <div className="input-container">
-        <div className="input-container__square">
-          <input
-            type="text"
-            className="input-container__input"
-            id={`${this.props.inputName}-name`}
-            onChange={(event) => this.handleChange(event)}
-            ref={`input${this.props.inputName}`}
-            value={this.state.name}
-          />
-          <button
-            className={`input-container__${this.props.inputName}-close`}
-            onClick={this.handleClear}
-            type="button"
-          >
-            <DeleteIcon />
-          </button>
-        </div>
+        <input
+          type="text"
+          className="input-container__input"
+          id={`${this.props.inputName}-name`}
+          onChange={(event) => this.handleChange(event)}
+          ref={`input${this.props.inputName}`}
+          value={this.state.value}
+
+        />
+        <button
+          className={`input-container__clear`}
+          onClick={this.handleClear}
+          type="button"
+        >
+          <DeleteIcon />
+        </button>
       </div>
     );
   }

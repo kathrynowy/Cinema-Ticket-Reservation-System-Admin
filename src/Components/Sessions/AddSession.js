@@ -1,71 +1,34 @@
 import React, { Component } from 'react';
 import './AddSession.scss';
 
-import DeleteIcon from '@material-ui/icons/Close';
-import AddIcon from '@material-ui/icons/Add';
-import TimeInput from 'material-ui-time-picker'
-
+import Input from '../Input/Input';
+import MaterialUIPickers from '../Pickers/pickers'
 
 
 class AddSession extends Component {
-  y
-
-
   render() {
     return (
-      <div className="session">
+      <form className="session">
+        <span className="session__label"> City </span>
+        <Input inputName="session-city" />
 
-        <div className="session__add-session">
-          <span className="session__label"> Add session</span>
-          <a href="#open-modal" className="session__add-button">
-            <AddIcon className="session__add-icon" />
-          </a>
-        </div>
-        <div className="session-halls">  </div>
-        <button className="session__add-sessions">Add</button>
+        <span className="session__label"> Cinema </span>
+        <Input inputName="session-cinema" />
 
-        <div className="modal" id="open-modal">
-          <div className="modal-container">
-            <span className="session__cinema-label"> Cinema </span>
-            <div className="session__square">
-              <input type="text" className="cinema__input" id="cinema-name" />
-              <button className="cinema__close" type="reset"><DeleteIcon /></button>
-            </div>
+        <span className="session__label"> Hall</span>
+        <Input inputName="session-hall" />
 
+        <span className="session__label"> Movie</span>
+        <Input inputName="session-movie" />
 
-            <span className="session__hall-label"> Hall</span>
-            <div className="session__square">
-              <input type="text" className="cinema__input" id="cinema-city" />
-              <button className="cinema__close"><DeleteIcon /></button>
-            </div>
+        <span className="session__label"> Ticket cost</span>
+        <Input inputName="session-cost" />
 
-            <span className="session__hall-label"> Movie</span>
-            <div className="session__square">
-              <input type="text" className="cinema__input" id="cinema-city" />
-              <button className="cinema__close"><DeleteIcon /></button>
-            </div>
+        <span className="session__label"> Date & Time</span>
+        <MaterialUIPickers />
 
-
-
-            <span className="session__hall-label"> Ticket cost</span>
-            <div className="session__square">
-              <input type="text" className="cinema__input" id="cinema-city" />
-              <button className="cinema__close"><DeleteIcon /></button>
-            </div>
-
-            <span className="session__hall-label"> Date & Time</span>
-            <div className="session__time-picker">
-              <TimeInput
-                mode='24h'
-              /* onChange={(time) => this.handleChange(time)} */
-              />
-            </div>
-
-
-            <a href="#" className="modal__add-session">Close</a>
-          </div>
-        </div>
-      </div>
+        <button type="submit" className="session__add">Add</button>
+      </form>
     );
   }
 }

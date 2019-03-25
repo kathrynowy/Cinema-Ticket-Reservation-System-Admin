@@ -1,4 +1,6 @@
-&__square {
+@import '../../variables.scss';
+
+.input-container {
   width: 250px;
   height: 35px;
   background-color: transparent;
@@ -6,30 +8,22 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
-}
+  
+  &__input {
+    background-color: transparent;
+    border: none;
+    width: 200px;
+    height: 35px;
+    outline: none;
+    font-size: 18px;
+    padding-left: 15px;
+  }
 
-&__add-hall {
-  display: flex;
-  flex-direction: row;
-  width: 250px;
-  justify-content: space-between;
-  height: 35px;
-  margin-top: 5px;
-}
-&__label {
-  font-size: 18px;
-  display: flex;
-  align-content: flex-end;
-  padding: 10px 5px;
-  padding-bottom: 2px;
-}
-
-&__input {
-  background-color: transparent;
-  border: none;
-  width: 200px;
-  height: 35px;
-  outline: none;
-  font-size: 18px;
-  padding-left: 15px;
+  &__clear{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+  
 }
