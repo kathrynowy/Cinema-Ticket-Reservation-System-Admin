@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import DeleteIcon from '@material-ui/icons/Close';
+import { getMoviesAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
 import './Movies.scss';
 
 
 class Movies extends Component {
+  componentDidMount() {
+    this.props.getMoviesAsync();
+  }
+
   render() {
     return (
       <div className="movies">
@@ -18,22 +23,25 @@ class Movies extends Component {
         </div>
 
         <ul className="movies__list">
-          <li className="movies__list-item">
-            Alita
-          </li>
-          <li className="movies__list-item">
-            Marvel
-          </li>
-          <li className="movies__list-item">
-            Time
-          </li>
-          <li className="movies__list-item">
-            Rapsody
-          </li>
+          {
+            this.props.movies.map((movie) => {
+              return <li className="movies__list-item">{movie.name}</li>
+            })
+          }
         </ul>
       </div>
     )
   }
 }
 
-export default Movies;
+const mapStateToProps = store => ({
+  movies: store.movies.movies
+})
+
+const mapDispatchToProps = dispatch => ({
+  getMoviesAsync() {
+    dispatch(getMoviesAsync());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
