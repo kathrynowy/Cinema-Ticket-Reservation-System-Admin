@@ -10,8 +10,8 @@ class AddCinema extends Component {
     return (
       <form>
         <div className="cinema">
-          <Input inputName="cinema" />
-          <Input inputName="city" />
+          <Input label="cinema" />
+          <Input label="city" />
 
           <div className="cinema__add-hall">
             <span className="cinema__label"> add hall</span>
