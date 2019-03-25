@@ -8,16 +8,15 @@ class AddMovie extends Component {
   render() {
     return (
       <div className="movie">
-        <span className="movie__label"> Movie title</span>
         <Input inputName="movie" />
-        <span className="movie__label"> Start date</span>
+        <span className="movie__label"> start date</span>
         <input
           type="date"
           name="start-date"
           id="start-date"
           className="movie__datepicker"
         />
-        <span className="movie__label"> End date</span>
+        <span className="movie__label"> end date</span>
         <input
           type="date"
           name="start-date"
@@ -26,7 +25,7 @@ class AddMovie extends Component {
         >
         </input>
         <textarea className="movie__description"> </textarea>
-        <button className="movie__add-movie"> Add</button>
+        <button className="movie__add-movie"> add</button>
       </div >
     );
   }

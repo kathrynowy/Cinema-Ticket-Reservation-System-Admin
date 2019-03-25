@@ -17,7 +17,6 @@ class Sessions extends Component {
         </div>
         <div className="session-halls">  </div>
         <button className="session__add-sessions">Add</button>
-
       </div>
     );
   }

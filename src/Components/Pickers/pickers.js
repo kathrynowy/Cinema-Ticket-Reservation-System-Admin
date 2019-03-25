@@ -15,7 +15,6 @@ const styles = {
 
 class MaterialUIPickers extends React.Component {
   state = {
-    // The first commit of Material-UI
     selectedDate: new Date(),
   };
 

@@ -23,21 +23,24 @@ class Input extends Component {
 
   render() {
     return (
-      <div className="input-container">
-        <input
-          type="text"
-          className="input-container__input"
-          id={`${this.props.inputName}-name`}
-          onChange={(event) => this.handleChange(event)}
-          value={this.state.value}
-        />
-        <button
-          className={`input-container__clear`}
-          onClick={this.handleClear}
-          type="button"
-        >
-          <DeleteIcon />
-        </button>
+      <div>
+        <label className="input-container__label">{this.props.inputName}</label>
+        <div className="input-container">
+          <input
+            type="text"
+            className="input-container__input"
+            id={`${this.props.inputName}-name`}
+            onChange={(event) => this.handleChange(event)}
+            value={this.state.value}
+          />
+          <button
+            className={`input-container__clear`}
+            onClick={this.handleClear}
+            type="button"
+          >
+            <DeleteIcon />
+          </button>
+        </div>
       </div>
     );
   }
