@@ -3,6 +3,8 @@ import {
   GET_CINEMAS_FAILURE,
   GET_MOVIES_SUCCESS,
   GET_MOVIES_FAILURE,
+  GET_SESSIONS_SUCCESS,
+  GET_SESSIONS_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -56,5 +58,30 @@ export const getMoviesFailure = (isError) => {
   return {
     type: GET_MOVIES_FAILURE,
     payload: isError
+  }
+}
+
+export const getSessionsSuccess = (sessions) => {
+  return {
+    type: GET_SESSIONS_SUCCESS,
+    payload: sessions
+  }
+}
+
+export const getSessionsFailure = (isError) => {
+  return {
+    type: GET_SESSIONS_FAILURE,
+    payload: isError
+  }
+}
+
+export function getSessionsAsync() {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${url}sessions`);
+      dispatch(getSessionsSuccess(data));
+    } catch (error) {
+      dispatch(getSessionsFailure(error));
+    }
   }
 }

@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
+import { getSessionsAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
 import './Session.scss';
 
 
 class Sessions extends Component {
+  componentDidMount() {
+    this.props.getSessionsAsync();
+  }
+
   render() {
+    console.log(this.props.sessions);
     return (
       <div className="session">
         <div className="session__add-session">
@@ -15,11 +22,30 @@ class Sessions extends Component {
             <AddIcon className="session__add-icon" />
           </Link>
         </div>
-        <div className="session-halls">  </div>
+        <ul className="session-halls">
+          {
+            this.props.sessions.map(session => {
+              console.log(session.cinemaId.name)
+              return <li key={session}>
+                {`city: minsk, cinema: ${session.cinemaId.name}, hall: small, movie: ${(session.movieId.name).toLowerCase()}`}
+              </li>
+            })
+          }
+        </ul>
         <button className="session__add-sessions">Add</button>
       </div>
     );
   }
 }
 
-export default Sessions;
+const mapStateToProps = store => ({
+  sessions: store.sessions.sessions
+})
+
+const mapDispatchToProps = dispatch => ({
+  getSessionsAsync() {
+    dispatch(getSessionsAsync());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sessions);
