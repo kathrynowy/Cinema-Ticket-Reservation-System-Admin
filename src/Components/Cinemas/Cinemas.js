@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 
 
 class Cinemas extends Component {
-
-
   render() {
     return (
       <div className="cinemas">
