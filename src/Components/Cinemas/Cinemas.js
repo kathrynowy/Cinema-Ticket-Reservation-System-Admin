@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -19,7 +19,7 @@ class Cinemas extends Component {
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <div className="cinemas">
+            : <Fragment >
               <div className="cinemas__add-cinema">
                 <span className="cinemas__label"> Add cinema</span>
                 <Link to="/add-cinema" className="cinemas_link">
@@ -32,7 +32,7 @@ class Cinemas extends Component {
                   this.props.cinemas.map((cinema) => <li className="cinemas__list-item" key={cinema.id}>{cinema.name}</li>)
                 }
               </ul>
-            </div>
+            </Fragment>
         }
       </div>
     )

@@ -8,7 +8,7 @@ import {
 } from '../actionTypes';
 
 import axios from 'axios';
-const url = "http://localhost:8080/";
+axios.defaults.baseURL = 'http://localhost:8080/';
 
 
 export const getCinemasSuccess = (cinemas) => {
@@ -28,7 +28,7 @@ export const getCinemasFailure = (error) => {
 export function getCinemasAsync() {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${url}cinemas`);
+      const { data } = await axios.get(`cinemas`);
       dispatch(getCinemasSuccess(data));
     } catch (error) {
       dispatch(getCinemasFailure(error));
@@ -39,7 +39,7 @@ export function getCinemasAsync() {
 export function getMoviesAsync() {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${url}movies`);
+      const { data } = await axios.get(`movies`);
       dispatch(getMoviesSuccess(data));
     } catch (error) {
       dispatch(getMoviesFailure(error));
@@ -78,7 +78,7 @@ export const getSessionsFailure = (error) => {
 export function getSessionsAsync() {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`${url}sessions`);
+      const { data } = await axios.get(`sessions`);
       dispatch(getSessionsSuccess(data));
     } catch (error) {
       dispatch(getSessionsFailure(error));
