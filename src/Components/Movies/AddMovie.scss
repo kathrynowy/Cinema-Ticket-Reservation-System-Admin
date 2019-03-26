@@ -32,7 +32,7 @@
   &__square {
     width: 250px;
     height: 35px;
-    background-color: transparent;
+    background-color: $transparent;
     border: 2px solid $light-orange;
     display: flex;
     flex-direction: row;
@@ -70,7 +70,7 @@
   }
 
   &__input {
-    background-color: transparent;
+    background-color: $transparent;
     border: none;
     width: 200px;
     height: 35px;
@@ -80,7 +80,7 @@
   }
 
   &__close{
-    background-color: transparent;
+    background-color: $transparent;
     outline: none;
     border: none;
     cursor: pointer;
@@ -94,7 +94,7 @@
     width: 100px;
     height: 35px;
     border: 2px solid $light-orange;
-    background-color: transparent;
+    background-color: $transparent;
     color: $black;
 
     &:hover {
@@ -109,7 +109,7 @@
     height: 200px;
     width: 400px;
     border: 2px solid $light-orange;
-    background-color: transparent;
+    background-color: $transparent;
     outline: none;
     font-size: 18px;
   }

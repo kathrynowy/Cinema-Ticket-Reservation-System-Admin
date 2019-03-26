@@ -49,11 +49,12 @@
   }
 
   &__list-item {
-    font-size: 18px;
+    font-size: 17px;
     height: 25px;
     margin-top: 10px;
     border-bottom: 1px solid $white;
     cursor: pointer;
+    overflow: hidden;
 
     &:hover { 
       border-bottom: 1px solid $orange;

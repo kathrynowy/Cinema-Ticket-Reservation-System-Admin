@@ -6,7 +6,6 @@ import { DatePicker, TimePicker, DateTimePicker } from 'material-ui-pickers';
 import DeleteIcon from '@material-ui/icons/Close';
 
 
-
 const styles = {
   grid: {
     width: '250px',
@@ -45,11 +44,27 @@ const styles = {
   }
 };
 
-const OPTIONS = {
+const DATE_OPTIONS = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 };
+
+const TIME_OPTIONS = {
+  hour: 'numeric',
+  minute: 'numeric',
+};
+
+const DATE_TIME_OPTIONS = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
+};
+
+
+
 
 class CustomDatePicker extends React.Component {
   choosePicker = (type, classes, selectedDate) => {
@@ -83,13 +98,29 @@ class CustomDatePicker extends React.Component {
   };
 
   render() {
+    let options = '';
     const { classes } = this.props;
     const { selectedDate } = this.state;
+    switch (this.props.type) {
+      case 'date':
+        options = DATE_OPTIONS;
+        break;
+
+      case 'time':
+        options = TIME_OPTIONS;
+        break;
+
+      case 'date-time':
+        options = DATE_TIME_OPTIONS;
+        break;
+
+      default: options = DATE_OPTIONS;
+    }
 
     return (
       <label className={classes.label}> {this.props.label}
         <div className={classes.grid}>
-          <label className={classes.timeLabel}> {this.state.selectedDate.toLocaleString('en', OPTIONS)}
+          <label className={classes.timeLabel}> {this.state.selectedDate.toLocaleString('en', options)}
             {this.choosePicker(this.props.type, classes, selectedDate)}
           </label>
           <button

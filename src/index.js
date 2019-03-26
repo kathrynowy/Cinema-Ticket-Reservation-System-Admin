@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import axios from 'axios';
+
 import App from './App';
-import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
+import rootReducer from "./reducers/index";
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+
+
+axios.defaults.baseURL = 'http://localhost:8080/';
+
 ReactDOM.render(
-  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    <App />
-  </MuiPickersUtilsProvider>,
+  <Provider store={store}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <App />
+    </MuiPickersUtilsProvider>
+  </Provider>,
   document.getElementById('root')
 );
 
