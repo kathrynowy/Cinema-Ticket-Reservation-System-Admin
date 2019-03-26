@@ -1,16 +1,24 @@
 @import '../../variables.scss';
 
-.input-container {
-  width: 250px;
-  height: 35px;
-  background-color: transparent;
-  border: 2px solid $light-orange;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
+.input{
+  &__label{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  &__container {
+    width: 250px;
+    height: 35px;
+    background-color: $transparent;
+    border: 2px solid $light-orange;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-top: 5px;
+  }
   
   &__input {
-    background-color: transparent;
+    background-color: $transparent;
     border: none;
     width: 200px;
     height: 35px;
@@ -20,7 +28,7 @@
   }
 
   &__clear{
-    background-color: transparent;
+    background-color: $transparent;
     outline: none;
     border: none;
     cursor: pointer;
@@ -31,7 +39,6 @@
     font-size: 18px;
     display: flex;
     align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 2px;
+    padding: 10px 0px;
   }
 }

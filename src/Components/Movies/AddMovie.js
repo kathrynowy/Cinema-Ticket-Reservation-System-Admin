@@ -2,30 +2,18 @@ import React, { Component } from 'react';
 
 import './AddMovie.scss';
 import Input from '../Input/Input';
+import CustomDatePicker from '../Pickers/DatePicker'
 
 
 class AddMovie extends Component {
   render() {
     return (
       <div className="movie">
-        <Input inputName="movie" />
-        <span className="movie__label"> start date</span>
-        <input
-          type="date"
-          name="start-date"
-          id="start-date"
-          className="movie__datepicker"
-        />
-        <span className="movie__label"> end date</span>
-        <input
-          type="date"
-          name="start-date"
-          id="start-date"
-          className="movie__datepicker"
-        >
-        </input>
+        <Input label="Movie" />
+        <CustomDatePicker type="date" label="Start date" />
+        <CustomDatePicker type="date" label="End date" />
         <textarea className="movie__description"> </textarea>
-        <button className="movie__add-movie"> add</button>
+        <button className="movie__add-movie"> Add</button>
       </div >
     );
   }

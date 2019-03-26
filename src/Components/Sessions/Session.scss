@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px 15px;
+  padding-top: 20px;
   user-select: none;
 
   &__add-button {
@@ -44,8 +44,8 @@
     font-size: 18px;
     display: flex;
     align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 2px;
+    padding: 10px 0px;
+    padding-bottom: 8px;
   }
 
   &__add-sessions {
