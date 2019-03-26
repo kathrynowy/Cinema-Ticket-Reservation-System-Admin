@@ -13,6 +13,7 @@ class Sessions extends Component {
   }
 
   render() {
+
     return (
       <div className="session">
         <div className="session__add-session">
@@ -24,8 +25,9 @@ class Sessions extends Component {
         <ul className="session-halls">
           {
             this.props.sessions.map(session => {
-              return <li key={session}>
-                {`city: minsk, cinema: ${session.cinemaId.name}, hall: small, movie: ${(session.movieId.name).toLowerCase()}`}
+              const times = session.times.map(time => new Date(+time));
+              return <li key={session.id}>
+                {`city: minsk, cinema: ${session.cinemaId.name}, hall: small, movie: ${(session.movieId.name).toLowerCase()}, times: ${times}`}
               </li>
             })
           }

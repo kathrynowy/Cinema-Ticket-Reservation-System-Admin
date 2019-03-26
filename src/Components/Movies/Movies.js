@@ -25,7 +25,7 @@ class Movies extends Component {
         <ul className="movies__list">
           {
             this.props.movies.map((movie) => {
-              return <li className="movies__list-item">{movie.name}</li>
+              return <li className="movies__list-item" key={movie.id}>{movie.name}</li>
             })
           }
         </ul>

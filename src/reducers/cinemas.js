@@ -2,7 +2,7 @@ import { GET_CINEMAS_SUCCESS, GET_CINEMAS_FAILURE } from '../actionTypes'
 
 const initialState = {
   cinemas: [],
-  isErrored: false
+  error: {}
 }
 
 export default function getCinemas(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function getCinemas(state = initialState, action) {
       });
     case GET_CINEMAS_FAILURE:
       return Object.assign({}, state, {
-        isErrored: action.payload
+        errors: action.payload
       });
     default: return state;
   }

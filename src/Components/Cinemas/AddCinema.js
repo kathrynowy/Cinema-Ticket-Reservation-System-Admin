@@ -12,15 +12,15 @@ class AddCinema extends Component {
         <div className="cinema">
           <div className="cinema__add-hall">
             <span className="cinema__label"> add hall</span>
-          <Input label="Cinema" />
-          <Input label="City" />
-          <div className="cinema__add-hall">
-            <span className="cinema__label"> Add hall</span>
-            <AddIcon className="cinema__add-icon" />
+            <Input label="Cinema" />
+            <Input label="City" />
+            <div className="cinema__add-hall">
+              <span className="cinema__label"> Add hall</span>
+              <AddIcon className="cinema__add-icon" />
+            </div>
+            <div className="halls"> </div>
+            <button className="cinema__add-cinema">Add</button>
           </div>
-
-          <div className="halls"> </div>
-          <button className="cinema__add-cinema">Add</button>
         </div>
       </form>
     );

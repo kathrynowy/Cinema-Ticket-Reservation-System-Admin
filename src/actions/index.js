@@ -18,10 +18,10 @@ export const getCinemasSuccess = (cinemas) => {
   }
 }
 
-export const getCinemasFailure = (isError) => {
+export const getCinemasFailure = (error) => {
   return {
     type: GET_CINEMAS_FAILURE,
-    payload: isError
+    payload: error.request.statusText
   }
 }
 
@@ -54,10 +54,10 @@ export const getMoviesSuccess = (movies) => {
   }
 }
 
-export const getMoviesFailure = (isError) => {
+export const getMoviesFailure = (error) => {
   return {
     type: GET_MOVIES_FAILURE,
-    payload: isError
+    payload: error
   }
 }
 
@@ -68,10 +68,10 @@ export const getSessionsSuccess = (sessions) => {
   }
 }
 
-export const getSessionsFailure = (isError) => {
+export const getSessionsFailure = (error) => {
   return {
     type: GET_SESSIONS_FAILURE,
-    payload: isError
+    payload: error
   }
 }
 
