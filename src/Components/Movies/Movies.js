@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -20,7 +20,7 @@ class Movies extends Component {
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <div className="movies">
+            : <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
                 <Link to="/add-movie" className="movies_link">
@@ -43,7 +43,7 @@ class Movies extends Component {
                   })
                 }
               </ul>
-            </div>
+            </Fragment>
         }
       </div>
     )
