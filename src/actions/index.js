@@ -8,7 +8,6 @@ import {
 } from '../actionTypes';
 
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8080/';
 
 
 export const getCinemasSuccess = (cinemas) => {
@@ -28,7 +27,7 @@ export const getCinemasFailure = (error) => {
 export function getCinemasAsync() {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`cinemas`);
+      const { data } = await axios.get(`cineas`);
       dispatch(getCinemasSuccess(data));
     } catch (error) {
       dispatch(getCinemasFailure(error));
