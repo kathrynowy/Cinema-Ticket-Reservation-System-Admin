@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import './App.scss';
 import NestedList from './Components/Panel/Panel.js'
 import AddCinema from './Components/Cinemas/AddCinema';
 import Cinemas from './Components/Cinemas/Cinemas';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Movies from './Components/Movies/Movies';
 import AddMovie from './Components/Movies/AddMovie';
+import AddSession from './Components/Sessions/AddSession';
+import Sessions from './Components/Sessions/Sessions'
 
 
 class App extends Component {
@@ -19,6 +22,8 @@ class App extends Component {
             <Route path="/add-cinema" component={AddCinema} />
             <Route path="/movies" component={Movies} />
             <Route path="/add-movie" component={AddMovie} />
+            <Route path="/sessions" component={Sessions} />
+            <Route path="/add-session" component={AddSession} />
           </div>
         </Router>
       </div>

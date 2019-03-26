@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
-import './AddCinema.scss';
 
-import DeleteIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
+import Input from '../Input/Input';
+import './AddCinema.scss';
 
 
 class AddCinema extends Component {
   render() {
     return (
-      <div className="cinema">
+      <form>
+        <div className="cinema">
+          <Input label="Cinema" />
+          <Input label="City" />
 
-        <span className="cinema__label"> Cinema Name</span>
-        <div className="cinema__square">
-          <input type="text" className="cinema__input" id="cinema-name" />
-          <button className="cinema__close"><DeleteIcon /></button>
+          <div className="cinema__add-hall">
+            <span className="cinema__label"> Add hall</span>
+            <AddIcon className="cinema__add-icon" />
+          </div>
+
+          <div className="halls"> </div>
+          <button className="cinema__add-cinema">Add</button>
         </div>
-
-
-        <span className="cinema__label"> City</span>
-        <div className="cinema__square">
-          <input type="text" className="cinema__input" id="cinema-city" />
-          <button className="cinema__close"><DeleteIcon /></button>
-        </div>
-
-        <div className="cinema__add-hall">
-          <span className="cinema__label"> Add hall</span>
-          <AddIcon className="cinema__add-icon" />
-        </div>
-        <div className="cinema-halls">  </div>
-        <button className="cinema__add-cinema"> Add</button>
-      </div>
+      </form>
     );
   }
 }

@@ -37,7 +37,7 @@
     font-size: 22px;
     display: flex;
     align-content: flex-end;
-    padding: 10px 5px;
+    padding: 10px 0px;
     padding-bottom: 2px;
   }
 
@@ -55,7 +55,7 @@
     border-bottom: 1px solid $white;
     cursor: pointer;
 
-    &:hover {
+    &:hover { 
       border-bottom: 1px solid $orange;
     }
   }
