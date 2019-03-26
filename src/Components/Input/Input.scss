@@ -9,15 +9,16 @@
   &__container {
     width: 250px;
     height: 35px;
-    background-color: transparent;
+    background-color: $transparent;
     border: 2px solid $light-orange;
     display: flex;
     flex-direction: row;
     margin-bottom: 20px;
+    margin-top: 5px;
   }
   
   &__input {
-    background-color: transparent;
+    background-color: $transparent;
     border: none;
     width: 200px;
     height: 35px;
@@ -27,7 +28,7 @@
   }
 
   &__clear{
-    background-color: transparent;
+    background-color: $transparent;
     outline: none;
     border: none;
     cursor: pointer;

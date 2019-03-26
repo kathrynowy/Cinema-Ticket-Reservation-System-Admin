@@ -9,13 +9,12 @@ class AddSession extends Component {
   render() {
     return (
       <form className="session">
-        <Input label="city" />
-        <Input label="cinema" />
-        <Input label="hall" />
-        <Input label="movie" />
-        <Input label="cost" />
-        <span className="session__label"> date & time</span>
-        <CustomDatePicker type="date-time" />
+        <Input label="City" />
+        <Input label="Cinema" />
+        <Input label="Hall" />
+        <Input label="Movie" />
+        <Input label="Cost" />
+        <CustomDatePicker type="date-time" label="Date & Time" />
         <button type="submit" className="session__add">Add</button>
       </form>
     );
