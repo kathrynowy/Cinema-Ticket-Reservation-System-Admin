@@ -2,7 +2,7 @@ import { GET_MOVIES_SUCCESS, GET_MOVIES_FAILURE } from '../actionTypes.js';
 
 const initialState = {
   movies: [],
-  errors: []
+  errors: ''
 }
 
 export default function getMovies(state = initialState, action) {
@@ -13,7 +13,7 @@ export default function getMovies(state = initialState, action) {
       });
     case GET_MOVIES_FAILURE:
       return Object.assign({}, state, {
-        errores: action.payload
+        errors: action.payload
       });
     default: return state;
   }

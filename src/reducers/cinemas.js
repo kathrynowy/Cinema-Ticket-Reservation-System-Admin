@@ -2,7 +2,7 @@ import { GET_CINEMAS_SUCCESS, GET_CINEMAS_FAILURE } from '../actionTypes'
 
 const initialState = {
   cinemas: [],
-  error: {}
+  error: ''
 }
 
 export default function getCinemas(state = initialState, action) {

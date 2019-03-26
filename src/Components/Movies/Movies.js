@@ -15,27 +15,34 @@ class Movies extends Component {
   render() {
     return (
       <div className="movies">
-        <div className="movies__add-movie">
-          <span className="movies__label"> Add movie</span>
-          <Link to="/add-movie" className="movies_link">
-            <AddIcon className="movies__add-icon" />
-          </Link>
-        </div>
+        {
+          this.props.errors
+            ? this.props.history.push('/error-page')
+            : <div className="movies">
+              <div className="movies__add-movie">
+                <span className="movies__label"> Add movie</span>
+                <Link to="/add-movie" className="movies_link">
+                  <AddIcon className="movies__add-icon" />
+                </Link>
+              </div>
 
-        <ul className="movies__list">
-          {
-            this.props.movies.map((movie) => {
-              return <li className="movies__list-item" key={movie.id}>{movie.name}</li>
-            })
-          }
-        </ul>
+              <ul className="movies__list">
+                {
+                  this.props.movies.map((movie) => {
+                    return <li className="movies__list-item" key={movie.id}>{movie.name}</li>
+                  })
+                }
+              </ul>
+            </div>
+        }
       </div>
     )
   }
 }
 
 const mapStateToProps = store => ({
-  movies: store.movies.movies
+  movies: store.movies.movies,
+  errors: store.movies.errors
 })
 
 const mapDispatchToProps = dispatch => ({

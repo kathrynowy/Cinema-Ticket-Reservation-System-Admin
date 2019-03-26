@@ -11,24 +11,6 @@
     color: inherit;
   }
 
-  &__cat-img {
-    width: 100%;
-    min-height: 50%;
-  }
-
-  &__cats {
-    position: relative;
-  }
-
-  &__cat-error {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 38px;
-    color: white;
-  }
-
   &__add-cinema {
     display: flex;
     flex-direction: row;

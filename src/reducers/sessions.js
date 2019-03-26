@@ -2,7 +2,7 @@ import { GET_SESSIONS_SUCCESS, GET_SESSIONS_FAILURE } from '../actionTypes.js'
 
 const initialState = {
   sessions: [],
-  errors: []
+  errors: ''
 }
 
 export default function getSessions(state = initialState, action) {
