@@ -5,6 +5,8 @@ import {
   GET_MOVIES_FAILURE,
   GET_SESSIONS_SUCCESS,
   GET_SESSIONS_FAILURE,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_FAILURE
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -84,3 +86,28 @@ export function getSessionsAsync() {
     }
   }
 }
+
+export function addMovieAsync(movie) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`movies`, movie);
+      dispatch(addMovieSuccess(data.movie));
+    } catch (error) {
+      dispatch(addMovieFailure(error));
+    }
+  }
+}
+
+
+export const addMovieSuccess = movie => ({
+  type: ADD_MOVIE_SUCCESS,
+  payload: movie
+})
+
+
+export const addMovieFailure = error => ({
+  type: ADD_MOVIE_FAILURE,
+  payload: error
+})
+
+

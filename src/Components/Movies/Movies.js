@@ -35,7 +35,7 @@ class Movies extends Component {
                       <li className="movies__list-item" key={movie.id}>
                         <MovieIcon className="movies__movie-icon" />
                         <span className="movies__movie-info">
-                          {`${movie.name}`}
+                          {movie.name}
                         </span>
                         <DeleteIcon className="movies__delete-icon" />
                       </li>
