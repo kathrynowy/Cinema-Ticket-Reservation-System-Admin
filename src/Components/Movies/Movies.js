@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { getMoviesAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import MovieIcon from '@material-ui/icons/Movie';
 import './Movies.scss';
 
 
@@ -29,7 +31,15 @@ class Movies extends Component {
               <ul className="movies__list">
                 {
                   this.props.movies.map((movie) => {
-                    return <li className="movies__list-item" key={movie.id}>{movie.name}</li>
+                    return (
+                      <li className="movies__list-item" key={movie.id}>
+                        <MovieIcon className="movies__movie-icon" />
+                        <span className="movies__movie-info">
+                          {`${movie.name}`}
+                        </span>
+                        <DeleteIcon className="movies__delete-icon" />
+                      </li>
+                    )
                   })
                 }
               </ul>

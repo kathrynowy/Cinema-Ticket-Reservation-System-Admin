@@ -69,7 +69,7 @@
   &__list {
     overflow-y: auto;
     margin-top: 30px;
-    height: 70%;
+    height: 80%;
     width: 95%;
     background-color: $transparent;
 
@@ -77,9 +77,9 @@
       width: 20px;
       height: 20px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: -webkit-gradient(linear,left top,left bottom,from(#f0e294),to(#f3a7c3));
-      /* background: linear-gradient(to bottom,#ff8a00,#da1b60); */
       border-radius: 30px;
       -webkit-box-shadow: inset 2px 2px 2px rgba(255,255,255,.25), inset -2px -2px 2px rgba(0,0,0,.25);
       box-shadow: inset 2px 2px 2px rgba(255,255,255,.25), inset -2px -2px 2px rgba(0,0,0,.25);
@@ -102,9 +102,6 @@
     &:not(:first-child) {
       border-top: none;
     }
-
-
-    
   }
 
   &__event-icon, &__delete-icon {
@@ -115,8 +112,5 @@
   &__session-info {
     width: 80%;
   }
-  
-
-
 }
 
