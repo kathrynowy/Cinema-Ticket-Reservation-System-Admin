@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getMoviesAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import MovieIcon from '@material-ui/icons/Movie';
 import './Movies.scss';
 
 
@@ -18,7 +20,7 @@ class Movies extends Component {
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <div className="movies">
+            : <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
                 <Link to="/add-movie" className="movies_link">
@@ -29,11 +31,17 @@ class Movies extends Component {
               <ul className="movies__list">
                 {
                   this.props.movies.map((movie) => {
-                    return <li className="movies__list-item" key={movie.id}>{movie.name}</li>
+                    return (
+                      <li className="movies__list-item movie" key={movie.id}>
+                        <MovieIcon className="movie__icon" />
+                        <span className="movie__name"> {movie.name} </span>
+                        <DeleteIcon className="movie__icon movie__icon_delete" />
+                      </li>
+                    )
                   })
                 }
               </ul>
-            </div>
+            </Fragment>
         }
       </div>
     )

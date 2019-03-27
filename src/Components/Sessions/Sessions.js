@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getSessionsAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
+import EventIcon from '@material-ui/icons/Event';
+import DeleteIcon from '@material-ui/icons/Delete';
 import './Session.scss';
 
 const OPTIONS = {
@@ -22,31 +24,36 @@ class Sessions extends Component {
   render() {
 
     return (
-      <div className="session">
+      <div className="sessions">
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <div className="session">
-              <div className="session__add-session">
-                <span className="session__label"> Add session</span>
+            : <Fragment>
+              <div className="sessions__add-session">
+                <span className="sessions__label"> Add session</span>
                 <Link to="/add-session" className="movies_link">
-                  <AddIcon className="session__add-icon" />
+                  <AddIcon className="sessions__add-icon" />
                 </Link>
               </div>
-              <ul className="session-halls">
+              <ul className="sessions__list">
                 {
                   this.props.sessions.map(session => {
                     const times = session.times.map(time => new Date(+time).toLocaleString('en', OPTIONS));
-                    return <li key={session.id}>
-                      {`Minsk, ${session.cinemaId.name},
-                      hall: small, ${(session.movieId.name).toLowerCase()},
-                        ${times}`}
-                    </li>
+                    return (
+                      <li key={session.id} className="sessions__list-item session">
+                        <EventIcon className="session__icon" />
+                        <span className="session__name">
+                          {`Minsk, ${session.cinemaId.name},
+                          hall: small, ${(session.movieId.name).toLowerCase()},
+                          ${times}`}
+                        </span>
+                        <DeleteIcon className="session__icon session__icon_delete" />
+                      </li>
+                    )
                   })
                 }
               </ul>
-              <button className="session__add-sessions">Add</button>
-            </div>
+            </Fragment>
         }
       </div>
     );

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { getCinemasAsync } from '../../actions/index'
 import './Cinemas.scss';
 
@@ -29,7 +31,15 @@ class Cinemas extends Component {
 
               <ul className="cinemas__list">
                 {
-                  this.props.cinemas.map((cinema) => <li className="cinemas__list-item" key={cinema.id}>{cinema.name}</li>)
+                  this.props.cinemas.map((cinema) => {
+                    return (
+                      <li className="cinemas__list-item cinema" key={cinema.id}>
+                        <HomeIcon className="cinema__icon" />
+                        <span className="cinema__name"> {cinema.name}</span>
+                        <DeleteIcon className="cinema__icon cinema__icon_delete" />
+                      </li>
+                    )
+                  })
                 }
               </ul>
             </Fragment>
