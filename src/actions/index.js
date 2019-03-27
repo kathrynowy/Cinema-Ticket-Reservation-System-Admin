@@ -22,7 +22,7 @@ export const deleteMovieAsync = id => {
   return async (dispatch) => {
     try {
       const { data } = await axios.delete(`/movies/${id}`);
-      dispatch(deleteMovieSuccess(data));
+      dispatch(deleteMovieSuccess(id));
     }
     catch (error) {
       dispatch(deleteMovieFailure(error))
@@ -30,10 +30,10 @@ export const deleteMovieAsync = id => {
   }
 }
 
-export const deleteMovieSuccess = (movie) => {
+export const deleteMovieSuccess = (id) => {
   return {
     type: DELETE_MOVIE_SUCCESS,
-    payload: movie
+    payload: id
   }
 }
 

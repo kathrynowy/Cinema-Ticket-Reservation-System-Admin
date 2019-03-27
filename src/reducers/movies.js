@@ -23,7 +23,6 @@ export default function getMovies(state = initialState, action) {
     case EDIT_MOVIE_SUCCESS: {
       let newMovie = state.movies.find(movie => movie.id === action.payload.id);
       newMovie = action.payload;
-
       return Object.assign({}, state)
     }
 
@@ -38,9 +37,10 @@ export default function getMovies(state = initialState, action) {
       })
 
     case DELETE_MOVIE_SUCCESS:
-      return Object.assign({}, state/* , {
-        movies: action.payload
-      } */);
+      let newMovies = state.movies.filter(movie => movie.id !== action.payload);
+      return Object.assign({}, state, {
+        movies: newMovies
+      });
 
     case DELETE_MOVIE_FAILURE:
       return Object.assign({}, state, {

@@ -24,7 +24,7 @@ class Movies extends Component {
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <Fragment>
+            : this.props.movies && <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
                 <Link to="/add-movie" className="movies_link">
