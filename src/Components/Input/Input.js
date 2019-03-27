@@ -19,6 +19,7 @@ class Input extends Component {
     this.setState({
       value: event.target.value
     });
+    this.props.handleChanges(event.target.value);
   }
 
   render() {

@@ -85,4 +85,13 @@
       width: 80%;
     }
   }
+
+  &__movie-icon, &__delete-icon {
+    width: 10% !important;
+    height: 30px !important;
+  }
+
+  &__movie-info {
+    width: 80%;
+  }
 }

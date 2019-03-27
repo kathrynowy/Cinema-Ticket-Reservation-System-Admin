@@ -1,13 +1,4 @@
 @import '../../variables.scss';
-  
-
-.movie__datepicker, focus {
-  font-family: Arial, Helvetica, sans-serif;
-  box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  outline: none;
-}
 
 .movie {
   width: 100%;
@@ -60,15 +51,6 @@
     }
   }
 
-  &__label {
-    font-size: 18px;
-    display: flex;
-    align-items: flex-start;
-    padding: 10px 0px;
-    padding-bottom: 2px;
-    flex-direction: column;
-  }
-
   &__input {
     background-color: $transparent;
     border: none;
@@ -101,16 +83,5 @@
       background-color: $light-orange;
       color: $white;
     }
-  }
-
-  &__description {
-    overflow-y: auto;
-    margin-top: 10px;
-    height: 200px;
-    width: 400px;
-    border: 2px solid $light-orange;
-    background-color: $transparent;
-    outline: none;
-    font-size: 18px;
   }
 }
