@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import './AddMovie.scss';
 import Input from '../Input/Input';
+import Textarea from '../Textarea/Textarea'
 import { addMovieAsync } from '../../actions/index'
 
 
@@ -24,20 +25,22 @@ class AddMovie extends Component {
     this.setState({ url });
   }
 
-  changeDescription = (event) => {
-    this.setState({ description: event.target.value });
+  changeDescription = (description) => {
+    this.setState({ description });
   }
 
   render() {
     return (
       <div className="movie">
         <Input label="Movie" handleChanges={this.changeMovie} />
-        <label className="movie__label"> Description
-          <textarea className="movie__description" onChange={(event) => this.changeDescription(event)}></textarea>
-        </label>
+        <Textarea
+          label="Descripton"
+          initialValue={this.props.movie.description}
+          onChange={this.changeDescription}
+        />
         <Input label="Image url" handleChanges={this.changeUrl} />
         <button type="submit" className="movie__add-movie" onClick={this.addMovie}> Add</button>
-      </div>
+      </div >
     );
   }
 }
