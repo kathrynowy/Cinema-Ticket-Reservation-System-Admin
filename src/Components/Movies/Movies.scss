@@ -83,21 +83,14 @@
       width: 10% !important;
       height: 30px !important;
     }
+
+    &__delete-icon {
+      align-self: flex-end;
+    }
   
-    &__name {
-      display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-decoration: none;
+    &__item-link {
+      text-decoration: none;
+      color: inherit;
     }
   }
-  &__delete-icon {
-    align-self: flex-end;
-  }
-
-  &__item-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
 }
