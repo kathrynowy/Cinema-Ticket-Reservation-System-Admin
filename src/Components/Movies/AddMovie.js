@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import './AddMovie.scss';
 import Input from '../Input/Input';
+import Textarea from '../Textarea/Textarea'
 import { addMovieAsync, getMovieAsync, clearMovie, editMovieAsync } from '../../actions/index'
 
 
@@ -51,8 +52,8 @@ class AddMovie extends Component {
     this.setState({ url });
   }
 
-  changeDescription = (event) => {
-    this.setState({ description: event.target.value });
+  changeDescription = (description) => {
+    this.setState({ description });
   }
 
   render() {
@@ -63,13 +64,11 @@ class AddMovie extends Component {
           handleChanges={this.changeMovie}
           initialValue={this.props.movie.name}
         />
-        <label className="movie__label"> Description
-          <textarea
-            className="movie__description"
-            onChange={(event) => this.changeDescription(event)}
-            value={this.state.description || this.props.movie.description}
-          />
-        </label>
+        <Textarea
+          label="Descripton"
+          initialValue={this.props.movie.description}
+          onChange={this.changeDescription}
+        />
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
