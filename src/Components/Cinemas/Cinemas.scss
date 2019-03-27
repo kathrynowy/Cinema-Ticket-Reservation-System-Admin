@@ -84,6 +84,15 @@
       width: 80%;
     }
   }
+
+  &__home-icon, &__delete-icon {
+    width: 10% !important;
+    height: 30px !important;
+  }
+
+  &__cinema-info {
+    width: 80%;
+  }
 }
 
 .cinema {
