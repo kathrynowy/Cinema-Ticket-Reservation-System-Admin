@@ -11,7 +11,7 @@ class Input extends Component {
 
   handleClear = () => {
     this.setState({
-      value: ''
+      value: ' '
     });
   }
 

@@ -67,7 +67,7 @@ class AddMovie extends Component {
           <textarea
             className="movie__description"
             onChange={(event) => this.changeDescription(event)}
-            value={this.state.description}
+            value={this.state.description || this.props.movie.description}
           />
         </label>
         <Input
