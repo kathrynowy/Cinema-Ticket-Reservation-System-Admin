@@ -33,7 +33,7 @@ class Cinemas extends Component {
                 {
                   this.props.cinemas.map((cinema) => {
                     return (
-                      <li className="cinemas__list-item  cinema" key={cinema.id}>
+                      <li className="cinemas__list-item cinema" key={cinema.id}>
                         <HomeIcon className="cinema__icon" />
                         <span className="cinema__name"> {cinema.name}</span>
                         <DeleteIcon className="cinema__icon cinema__icon_delete" />
