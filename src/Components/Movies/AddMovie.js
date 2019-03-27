@@ -35,7 +35,6 @@ class AddMovie extends Component {
         <Input label="Movie" handleChanges={this.changeMovie} />
         <Textarea
           label="Descripton"
-          initialValue={this.props.movie.description}
           onChange={this.changeDescription}
         />
         <Input label="Image url" handleChanges={this.changeUrl} />
