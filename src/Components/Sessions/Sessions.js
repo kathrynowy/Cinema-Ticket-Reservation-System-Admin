@@ -40,14 +40,14 @@ class Sessions extends Component {
                   this.props.sessions.map(session => {
                     const times = session.times.map(time => new Date(+time).toLocaleString('en', OPTIONS));
                     return (
-                      <li key={session.id} className="sessions__list-item">
-                        <EventIcon className="sessions__event-icon" />
-                        <span className="sessions__session-info">
+                      <li key={session.id} className="sessions__list-item session">
+                        <EventIcon className="session__icon" />
+                        <span className="session__name">
                           {`Minsk, ${session.cinemaId.name},
                           hall: small, ${(session.movieId.name).toLowerCase()},
                           ${times}`}
                         </span>
-                        <DeleteIcon className="sessions__delete-icon" />
+                        <DeleteIcon className="session__icon session__icon_delete" />
                       </li>
                     )
                   })
