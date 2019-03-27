@@ -7,7 +7,9 @@ import {
   ADD_MOVIE_FAILURE,
   CLEAR_MOVIE,
   EDIT_MOVIE_SUCCESS,
-  EDIT_MOVIE_FAILURE
+  EDIT_MOVIE_FAILURE,
+  DELETE_MOVIE_SUCCESS,
+  DELETE_MOVIE_FAILURE
 } from '../actionTypes.js';
 
 const initialState = {
@@ -34,6 +36,16 @@ export default function getMovies(state = initialState, action) {
       return Object.assign({}, state, {
         movie: {}
       })
+
+    case DELETE_MOVIE_SUCCESS:
+      return Object.assign({}, state/* , {
+        movies: action.payload
+      } */);
+
+    case DELETE_MOVIE_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
 
     case GET_MOVIES_SUCCESS:
       return Object.assign({}, state, {

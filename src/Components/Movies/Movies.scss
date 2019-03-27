@@ -65,12 +65,11 @@
       background: linear-gradient(to right,#f1e3f0,#f7dff1 1px,rgb(241, 211, 239) 1px,#f1f0f0);
     }
   }
+
   &__list-link {
+    justify-content: space-between;
     color: inherit;
     text-decoration: none;
-  } 
-
-  &__list-item {
     width: 95%;
     padding: 8px 2px;
     border: 1px solid rgba(0, 0, 0, 0.125);
@@ -78,19 +77,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
-
     &:not(:first-child) {
       border-top: none;
     }
+  } 
+
+  &__list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
   }
 
   &__movie-icon, &__delete-icon {
     width: 10% !important;
     height: 30px !important;
   }
-
-  &__movie-info {
-    width: 80%;
+  &__delete-icon {
+    align-self: flex-end;
   }
+
+  &__item-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
 }

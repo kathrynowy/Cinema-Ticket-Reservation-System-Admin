@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getMoviesAsync } from '../../actions/index'
+import { getMoviesAsync, deleteMovieAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MovieIcon from '@material-ui/icons/Movie';
@@ -12,6 +12,10 @@ import './Movies.scss';
 class Movies extends Component {
   componentDidMount() {
     this.props.getMoviesAsync();
+  }
+
+  deleteMovie = (id) => {
+    this.props.deleteMovie(id);
   }
 
   render() {
@@ -32,15 +36,15 @@ class Movies extends Component {
                 {
                   this.props.movies.map((movie) => {
                     return (
-                      <Link to={{ pathname: `/movie-edit/${movie.id}` }} className="movies__list-link">
-                        <li className="movies__list-item" key={movie.id}>
-                          <MovieIcon className="movies__movie-icon" />
-                          <span className="movies__movie-info">
+                      <div className="movies__list-link">
+                        <MovieIcon className="movies__movie-icon" />
+                        <Link to={{ pathname: `/movie-edit/${movie.id}` }} className="movies__item-link">
+                          <li className="movies__list-item" key={movie.id}>
                             {movie.name}
-                          </span>
-                          <DeleteIcon className="movies__delete-icon" />
-                        </li>
-                      </Link>
+                          </li>
+                        </Link>
+                        <DeleteIcon className="movies__delete-icon" onClick={() => this.deleteMovie(movie.id)} />
+                      </div>
                     )
                   })
                 }
@@ -60,6 +64,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getMoviesAsync() {
     dispatch(getMoviesAsync());
+  },
+  deleteMovie(id) {
+    dispatch(deleteMovieAsync(id));
   }
 });
 
