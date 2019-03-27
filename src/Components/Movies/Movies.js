@@ -32,13 +32,15 @@ class Movies extends Component {
                 {
                   this.props.movies.map((movie) => {
                     return (
-                      <li className="movies__list-item" key={movie.id}>
-                        <MovieIcon className="movies__movie-icon" />
-                        <span className="movies__movie-info">
-                          {movie.name}
-                        </span>
-                        <DeleteIcon className="movies__delete-icon" />
-                      </li>
+                      <Link to={{ pathname: `/movie-edit/${movie.id}` }}>
+                        <li className="movies__list-item" key={movie.id}>
+                          <MovieIcon className="movies__movie-icon" />
+                          <span className="movies__movie-info">
+                            {movie.name}
+                          </span>
+                          <DeleteIcon className="movies__delete-icon" />
+                        </li>
+                      </Link>
                     )
                   })
                 }

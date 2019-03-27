@@ -58,34 +58,34 @@
       background: -webkit-gradient(linear,left top,left bottom,from(#f0e294),to(#f3a7c3));
       border-radius: 30px;
       -webkit-box-shadow: inset 2px 2px 2px rgba(255,255,255,.25), inset -2px -2px 2px rgba(0,0,0,.25);
-      box-shadow: inset 2px 2px 2px rgba(255,255,255,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+      box-shadow: inset 2px 2px 2px #ffffff40, inset -2px -2px 2px rgba(0,0,0,.25);
     }
 
     &::-webkit-scrollbar-track {
       background: linear-gradient(to right,#f1e3f0,#f7dff1 1px,rgb(241, 211, 239) 1px,#f1f0f0);
     }
   }
+}
 
-  &__list-item {
-    width: 95%;
-    padding: 8px 2px;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    font-size: 18px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.cinema {
+  width: 95%;
+  padding: 8px 2px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    &:not(:first-child) {
-      border-top: none;
-    }
+  &:not(:first-child) {
+    border-top: none;
   }
 
-  &__home-icon, &__delete-icon {
+  &__icon, &__icon_delete {
     width: 10% !important;
     height: 30px !important;
   }
 
-  &__cinema-info {
+  &__name {
     width: 80%;
   }
 }

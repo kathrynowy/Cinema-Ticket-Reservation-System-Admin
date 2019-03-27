@@ -6,7 +6,7 @@ import './Input.scss';
 
 class Input extends Component {
   state = {
-    value: ''
+    value: this.props.initialValue || ''
   }
 
   handleClear = () => {
@@ -32,7 +32,7 @@ class Input extends Component {
               name={this.props.label}
               className="input__input"
               onChange={(event) => this.handleChange(event)}
-              value={this.state.value}
+              value={this.state.value || this.props.initialValue}
             />
             <button
               className={`input__clear`}

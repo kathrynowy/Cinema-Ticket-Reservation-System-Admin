@@ -3,14 +3,44 @@ import {
   GET_CINEMAS_FAILURE,
   GET_MOVIES_SUCCESS,
   GET_MOVIES_FAILURE,
+  GET_MOVIE_SUCCESS,
+  GET_MOVIE_FAILURE,
   GET_SESSIONS_SUCCESS,
   GET_SESSIONS_FAILURE,
   ADD_MOVIE_SUCCESS,
-  ADD_MOVIE_FAILURE
+  ADD_MOVIE_FAILURE,
+  CLEAR_MOVIE,
+  EDIT_MOVIE_SUCCESS,
+  EDIT_MOVIE_FAILURE
 } from '../actionTypes';
 
 import axios from 'axios';
 
+export const editMovieAsync = (movie, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/movies/${id}`, movie);
+      dispatch(editMovieSuccess(data));
+    }
+    catch (error) {
+      dispatch(editMovieFailure(error))
+    }
+  }
+}
+
+export const editMovieSuccess = (movie) => {
+  return {
+    type: EDIT_MOVIE_SUCCESS,
+    payload: movie
+  }
+}
+
+export const editMovieFailure = (error) => {
+  return {
+    type: EDIT_MOVIE_FAILURE,
+    payload: error.request.statusText
+  }
+}
 
 export const getCinemasSuccess = (cinemas) => {
   return {
@@ -110,4 +140,28 @@ export const addMovieFailure = error => ({
   payload: error
 })
 
+export function getMovieAsync(id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`movies/${id}`);
+      dispatch(getMovieSuccess(data));
+    } catch (error) {
+      dispatch(getMovieFailure(error));
+    }
+  }
+}
 
+export const getMovieSuccess = movie => ({
+  type: GET_MOVIE_SUCCESS,
+  payload: movie
+});
+
+export const getMovieFailure = movie => ({
+  type: GET_MOVIE_FAILURE,
+  payload: movie
+});
+
+
+export const clearMovie = () => ({
+  type: CLEAR_MOVIE
+});

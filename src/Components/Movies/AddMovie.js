@@ -3,10 +3,28 @@ import { connect } from 'react-redux';
 
 import './AddMovie.scss';
 import Input from '../Input/Input';
-import { addMovieAsync } from '../../actions/index'
+import { addMovieAsync, getMovieAsync, clearMovie, editMovieAsync } from '../../actions/index'
 
 
 class AddMovie extends Component {
+  state = {
+    description: this.props.movie.description || '',
+    name: this.props.movie.name || '',
+    url: this.props.movie.img || ''
+  }
+
+  componentDidMount() {
+    const movieId = this.props.match.params.id;
+    if (movieId) {
+      this.props.clearMovie();
+      this.props.getMovie(movieId);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearMovie();
+  }
+
   addMovie = () => {
     const movie = {
       name: this.state.name,
@@ -14,6 +32,15 @@ class AddMovie extends Component {
       description: this.state.description
     }
     this.props.onAddMovie(movie);
+  }
+
+  editMovie = () => {
+    const movie = {
+      name: this.state.name,
+      img: this.state.url,
+      description: this.state.description
+    }
+    this.props.editMovie(movie, this.props.match.params.id)
   }
 
   changeMovie = (name) => {
@@ -31,21 +58,54 @@ class AddMovie extends Component {
   render() {
     return (
       <div className="movie">
-        <Input label="Movie" handleChanges={this.changeMovie} />
+        <Input
+          label="Movie"
+          handleChanges={this.changeMovie}
+          initialValue={this.props.movie.name}
+        />
         <label className="movie__label"> Description
-          <textarea className="movie__description" onChange={(event) => this.changeDescription(event)}></textarea>
+          <textarea
+            className="movie__description"
+            onChange={(event) => this.changeDescription(event)}
+            value={this.state.description}
+          />
         </label>
-        <Input label="Image url" handleChanges={this.changeUrl} />
-        <button type="submit" className="movie__add-movie" onClick={this.addMovie}> Add</button>
+        <Input
+          label="Image url"
+          handleChanges={this.changeUrl}
+          initialValue={this.props.movie.img}
+        />
+        <button
+          type="submit"
+          className="movie__add-movie"
+          onClick={this.props.match.params.id
+            ? this.editMovie
+            : this.addMovie}
+        >
+          Add
+        </button>
       </div>
     );
   }
 }
 
+const mapStateToProps = store => ({
+  movie: store.movies.movie,
+})
+
 const mapDispatchToProps = dispatch => ({
   onAddMovie(movie) {
     dispatch(addMovieAsync(movie));
+  },
+  clearMovie() {
+    dispatch(clearMovie());
+  },
+  getMovie(id) {
+    dispatch(getMovieAsync(id));
+  },
+  editMovie(movie, id) {
+    dispatch(editMovieAsync(movie, id))
   }
 });
 
-export default connect(null, mapDispatchToProps)(AddMovie);
+export default connect(mapStateToProps, mapDispatchToProps)(AddMovie);
