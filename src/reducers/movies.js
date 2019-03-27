@@ -46,16 +46,8 @@ export default function getMovies(state = initialState, action) {
       });
 
     case GET_MOVIE_SUCCESS:
-      {
-        let newState = { ...state }
+      return Object.assign({}, state);
 
-        newState.movie = action.payload;
-        return newState;
-      }
-    /* return Object.assign({}, state, {
-      movie: action.payload
-    });
-*/
     case GET_MOVIE_FAILURE:
       return Object.assign({}, state, {
         errors: action.payload

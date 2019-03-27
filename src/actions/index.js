@@ -128,7 +128,6 @@ export function addMovieAsync(movie) {
   }
 }
 
-
 export const addMovieSuccess = movie => ({
   type: ADD_MOVIE_SUCCESS,
   payload: movie
