@@ -133,7 +133,6 @@ export const addMovieSuccess = movie => ({
   payload: movie
 })
 
-
 export const addMovieFailure = error => ({
   type: ADD_MOVIE_FAILURE,
   payload: error
@@ -159,7 +158,6 @@ export const getMovieFailure = movie => ({
   type: GET_MOVIE_FAILURE,
   payload: movie
 });
-
 
 export const clearMovie = () => ({
   type: CLEAR_MOVIE
