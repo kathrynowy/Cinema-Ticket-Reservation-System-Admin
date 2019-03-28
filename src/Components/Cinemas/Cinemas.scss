@@ -94,3 +94,26 @@
     width: 80%;
   }
 }
+
+.cinema {
+  width: 95%;
+  padding: 8px 2px;
+  border: 1px solid $blackBorder;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &:not(:first-child) {
+    border-top: none;
+  }
+
+  &__icon, &__icon_delete {
+    width: 10% !important;
+    height: 30px !important;
+  }
+
+  &__name {
+    width: 80%;
+  }
+}
