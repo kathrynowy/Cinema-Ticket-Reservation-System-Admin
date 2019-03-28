@@ -35,7 +35,7 @@ class Input extends Component {
               name={this.props.label}
               className="input__input"
               onChange={(event) => this.handleChange(event)}
-              value={this.state.dirty ? this.state.value : this.state.value || this.props.initialValue}
+              value={this.state.dirty ? this.state.value : this.props.initialValue}
             />
             <button
               className={`input__clear`}
