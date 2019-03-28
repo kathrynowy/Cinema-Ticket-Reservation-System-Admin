@@ -38,13 +38,13 @@ class Cinemas extends Component {
                 {
                   this.props.cinemas.map((cinema) => {
                     return (
-                      <div className="cinemas__list-link" key={cinema.id}>
-                        <HomeIcon className="cinemas__icon" />
-                        <li className="cinemas__list-item">
+                      <div className="cinemas__list-item cinema" key={cinema.id}>
+                        <HomeIcon className="cinema__icon" />
+                        <li className="cinema__name">
                           {cinema.name}
                         </li>
                         <DeleteIcon
-                          className="cinemas__icon cinemas__icon_delete"
+                          className="cinema__icon cinema__icon_delete"
                           onClick={() => this.deleteCinemaAsync(cinema.id)}
                         />
                       </div>
