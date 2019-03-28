@@ -45,6 +45,7 @@ class Movies extends Component {
                         </Link>
                         <DeleteIcon className="movie__icon movie__icon_delete" onClick={() => this.deleteMovie(movie.id)} />
                       </div>
+
                     )
                   })
                 }

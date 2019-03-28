@@ -28,8 +28,8 @@ class App extends Component {
             <Route path="/cinemas" component={Cinemas} />
             <Route path="/add-cinema" component={AddCinema} />
             <Route path="/movies" component={Movies} />
-            <Route path="/add-movie" /* render={(props) => <AddMovie label={this.props.label} />} */ component={AddMovie} />
-            <Route path="/movie-edit/:id" /* render={(props) => <AddMovie label={this.props.label} />} */ component={AddMovie} />
+            <Route path="/add-movie" component={AddMovie} />
+            <Route path="/movie-edit/:id" component={AddMovie} />
             <Route path="/sessions" component={Sessions} />
             <Route path="/add-session" component={AddSession} />
             <Route path="/error-page" component={ErrorPage} />

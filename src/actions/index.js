@@ -44,7 +44,6 @@ export const deleteMovieFailure = (error) => {
   }
 }
 
-
 export const editMovieAsync = (movie, id) => {
   return async (dispatch) => {
     try {
@@ -157,12 +156,10 @@ export function addMovieAsync(movie) {
   }
 }
 
-
 export const addMovieSuccess = movie => ({
   type: ADD_MOVIE_SUCCESS,
   payload: movie
 })
-
 
 export const addMovieFailure = error => ({
   type: ADD_MOVIE_FAILURE,
@@ -189,7 +186,6 @@ export const getMovieFailure = movie => ({
   type: GET_MOVIE_FAILURE,
   payload: movie
 });
-
 
 export const clearMovie = () => ({
   type: CLEAR_MOVIE

@@ -66,9 +66,9 @@ class AddMovie extends Component {
         />
        <Textarea
           label="Descripton"
+          initialValue={this.props.movie.description}
           onChange={this.changeDescription}
         />
-        </label>
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
