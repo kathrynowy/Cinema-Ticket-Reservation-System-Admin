@@ -23,7 +23,8 @@ import {
   ADD_ROW,
   ADD_HALL,
   CLEAR_ROW,
-  CLEAR_HALLS
+  CLEAR_HALLS,
+  DELETE_HALL
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -37,6 +38,11 @@ export const addRow = (row) => {
 
 export const addHall = (hall) => ({
   type: ADD_HALL,
+  payload: hall
+})
+
+export const deleteHall = (hall) => ({
+  type: DELETE_HALL,
   payload: hall
 })
 

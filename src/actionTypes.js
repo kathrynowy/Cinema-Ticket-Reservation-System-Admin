@@ -23,3 +23,4 @@ export const ADD_HALL_SUCCESS = 'ADD_HALL_SUCCESS';
 export const ADD_HALL_FAILURE = 'ADD_HALL_FAILURE';
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_HALL = 'ADD_HALL';
+export const DELETE_HALL = 'DELETE_HALL';

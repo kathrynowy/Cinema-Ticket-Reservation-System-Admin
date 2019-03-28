@@ -4,7 +4,8 @@ import {
   ADD_ROW,
   ADD_HALL,
   CLEAR_ROW,
-  CLEAR_HALLS
+  CLEAR_HALLS,
+  DELETE_HALL
 } from '../actionTypes'
 
 const initialState = {
@@ -34,6 +35,13 @@ export default function getHalls(state = initialState, action) {
       return Object.assign({}, state, {
         halls: [...state.halls, action.payload]
       });
+
+    case DELETE_HALL: {
+      const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
+      return Object.assign({}, state, {
+        halls: newHalls
+      });
+    }
 
     case CLEAR_ROW:
       return Object.assign({}, state, {

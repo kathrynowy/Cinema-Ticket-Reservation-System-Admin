@@ -6,7 +6,8 @@ import {
   addCinemaAsync,
   addHallsAsync,
   getCinemasAsync,
-  clearHalls
+  clearHalls,
+  deleteHall
 } from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
@@ -41,6 +42,10 @@ class AddCinema extends Component {
     this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
   }
 
+  onDeleteHall = (hall) => {
+    this.props.onDeleteHall(hall);
+  }
+
   render() {
     return (
       <div className="cinema">
@@ -59,7 +64,7 @@ class AddCinema extends Component {
         <div className="cinema__halls halls">
           {
             this.props.halls.map(hall => {
-              return <Hall name={hall.name} />
+              return <Hall name={hall.name} hall={hall} onDelete={this.onDeleteHall} />
             })
           }
         </div>
@@ -84,6 +89,9 @@ const mapDispatchToProps = dispatch => ({
   onAddHalls(cinemaId, halls) {
     dispatch(addHallsAsync(cinemaId, halls));
     dispatch(clearHalls());
+  },
+  onDeleteHall(hall) {
+    dispatch(deleteHall(hall));
   }
 });
 
