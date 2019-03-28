@@ -51,15 +51,6 @@
     }
   }
 
-  &__label {
-    font-size: 18px;
-    display: flex;
-    align-items: flex-start;
-    padding: 10px 0px;
-    padding-bottom: 2px;
-    flex-direction: column;
-  }
-
   &__input {
     background-color: $transparent;
     border: none;
