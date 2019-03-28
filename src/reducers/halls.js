@@ -5,7 +5,11 @@ import {
   ADD_HALL,
   CLEAR_ROW,
   CLEAR_HALLS,
-  DELETE_HALL
+  DELETE_NEW_HALL,
+  GET_HALLS_SUCCESS,
+  GET_HALLS_FAILURE,
+  DELETE_HALL_SUCCESS,
+  DELETE_HALL_FAILURE
 } from '../actionTypes'
 
 const initialState = {
@@ -26,6 +30,16 @@ export default function getHalls(state = initialState, action) {
         errors: action.payload
       });
 
+    case GET_HALLS_SUCCESS:
+      return Object.assign({}, state, {
+        halls: action.payload
+      });
+
+    case GET_HALLS_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
+
     case ADD_ROW:
       return Object.assign({}, state, {
         rows: [...state.rows, action.payload]
@@ -36,12 +50,23 @@ export default function getHalls(state = initialState, action) {
         halls: [...state.halls, action.payload]
       });
 
-    case DELETE_HALL: {
+    case DELETE_NEW_HALL: {
       const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
       return Object.assign({}, state, {
         halls: newHalls
       });
     }
+
+    case DELETE_HALL_SUCCESS:
+      const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
+      return Object.assign({}, state, {
+        halls: newHalls
+      });
+
+    case DELETE_HALL_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
 
     case CLEAR_ROW:
       return Object.assign({}, state, {

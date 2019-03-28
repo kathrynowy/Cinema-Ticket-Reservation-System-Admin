@@ -24,7 +24,14 @@ import {
   ADD_HALL,
   CLEAR_ROW,
   CLEAR_HALLS,
-  DELETE_HALL
+  DELETE_NEW_HALL,
+  GET_CINEMA_SUCCESS,
+  GET_CINEMA_FAILURE,
+  CLEAR_CINEMA,
+  GET_HALLS_SUCCESS,
+  GET_HALLS_FAILURE,
+  DELETE_HALL_SUCCESS,
+  DELETE_HALL_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -41,10 +48,36 @@ export const addHall = (hall) => ({
   payload: hall
 })
 
-export const deleteHall = (hall) => ({
-  type: DELETE_HALL,
+export const deleteNewHall = (hall) => ({
+  type: DELETE_NEW_HALL,
   payload: hall
 })
+
+export const deleteHallAsync = hall => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/halls/${hall.id}`);
+      dispatch(deleteHallSuccess(hall));
+    }
+    catch (error) {
+      dispatch(deleteHallFailure(error))
+    }
+  }
+}
+
+export const deleteHallSuccess = (id) => {
+  return {
+    type: DELETE_HALL_SUCCESS,
+    payload: id
+  }
+}
+
+export const deleteHallFailure = (error) => {
+  return {
+    type: DELETE_HALL_FAILURE,
+    payload: error.request.statusText
+  }
+}
 
 export const deleteMovieAsync = id => {
   return async (dispatch) => {
@@ -123,6 +156,31 @@ export function getCinemasAsync() {
   }
 }
 
+export function getHallsAsync(id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`halls/cinema/${id}`);
+      dispatch(getHallsSuccess(data));
+    } catch (error) {
+      dispatch(getHallsFailure(error));
+    }
+  }
+}
+
+export const getHallsSuccess = (halls) => {
+  return {
+    type: GET_HALLS_SUCCESS,
+    payload: halls
+  }
+}
+
+export const getHallsFailure = (error) => {
+  return {
+    type: GET_HALLS_FAILURE,
+    payload: error
+  }
+}
+
 export function getMoviesAsync() {
   return async (dispatch) => {
     try {
@@ -173,7 +231,7 @@ export function getSessionsAsync() {
   }
 }
 
-export function addCinemaAsync(cinema, halls) {
+export function addCinemaAsync(cinema) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`cinemas`, cinema);
@@ -255,6 +313,27 @@ export const deleteCinemaAsync = id => {
   }
 }
 
+export function getCinemaAsync(id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`cinemas/${id}`);
+      dispatch(getCinemaSuccess(data));
+    } catch (error) {
+      dispatch(getCinemaFailure(error));
+    }
+  }
+}
+
+export const getCinemaSuccess = cinema => ({
+  type: GET_CINEMA_SUCCESS,
+  payload: cinema
+});
+
+export const getCinemaFailure = error => ({
+  type: GET_CINEMA_FAILURE,
+  payload: error
+});
+
 export function getMovieAsync(id) {
   return async (dispatch) => {
     try {
@@ -265,6 +344,16 @@ export function getMovieAsync(id) {
     }
   }
 }
+
+export const getMovieSuccess = movie => ({
+  type: GET_MOVIE_SUCCESS,
+  payload: movie
+});
+
+export const getMovieFailure = error => ({
+  type: GET_MOVIE_FAILURE,
+  payload: error
+});
 
 export const deleteCinemaSuccess = (id) => {
   return {
@@ -280,16 +369,6 @@ export const deleteCinemaFailure = (error) => {
   }
 }
 
-export const getMovieSuccess = movie => ({
-  type: GET_MOVIE_SUCCESS,
-  payload: movie
-});
-
-export const getMovieFailure = movie => ({
-  type: GET_MOVIE_FAILURE,
-  payload: movie
-});
-
 export const clearMovie = () => ({
   type: CLEAR_MOVIE
 });
@@ -300,4 +379,8 @@ export const clearRows = () => ({
 
 export const clearHalls = () => ({
   type: CLEAR_HALLS
+});
+
+export const clearCinema = () => ({
+  type: CLEAR_CINEMA
 });

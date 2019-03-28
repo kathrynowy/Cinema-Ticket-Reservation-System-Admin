@@ -5,11 +5,15 @@ import {
   DELETE_CINEMA_FAILURE,
   ADD_CINEMA_SUCCESS,
   ADD_CINEMA_FAILURE,
+  GET_CINEMA_SUCCESS,
+  GET_CINEMA_FAILURE,
+  CLEAR_CINEMA
 } from '../actionTypes'
 
 const initialState = {
   cinemas: [],
-  error: ''
+  error: '',
+  cinema: {}
 }
 
 export default function getCinemas(state = initialState, action) {
@@ -43,6 +47,21 @@ export default function getCinemas(state = initialState, action) {
       return Object.assign({}, state, {
         errors: action.payload
       });
+
+    case GET_CINEMA_SUCCESS:
+      return Object.assign({}, state, {
+        cinema: action.payload
+      });
+
+    case GET_CINEMA_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
+
+    case CLEAR_CINEMA:
+      return Object.assign({}, state, {
+        cinema: {}
+      })
 
     default: return state;
   }

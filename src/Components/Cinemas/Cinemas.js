@@ -40,9 +40,11 @@ class Cinemas extends Component {
                     return (
                       <div className="cinemas__list-item cinema" key={cinema.id}>
                         <HomeIcon className="cinema__icon" />
-                        <li className="cinema__name">
-                          {cinema.name}
-                        </li>
+                        <Link to={{ pathname: `/cinema-edit/${cinema.id}` }} className="cinema__item-link">
+                          <li className="cinema__name">
+                            {cinema.name}
+                          </li>
+                        </Link>
                         <DeleteIcon
                           className="cinema__icon cinema__icon_delete"
                           onClick={() => this.deleteCinemaAsync(cinema.id)}

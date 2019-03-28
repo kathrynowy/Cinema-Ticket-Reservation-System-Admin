@@ -64,6 +64,8 @@
 
   .cinema {
     width: 95%;
+    color: inherit;
+    text-decoration: none;
     padding: 8px 2px;
     border: 1px solid $blackBorder;
     font-size: 18px;
@@ -75,7 +77,9 @@
       border-top: none;
     }
   
-    &__name {
+    &__item-link {
+      text-decoration: none;
+      color: inherit;
       width: 80%;
     }
 

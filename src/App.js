@@ -22,6 +22,7 @@ class App extends Component {
             <NestedList />
             <Route path="/cinemas" component={Cinemas} />
             <Route path="/add-cinema" component={AddCinema} />
+            <Route path="/cinema-edit/:id" component={AddCinema} />
             <Route path="/movies" component={Movies} />
             <Route path="/add-movie" component={AddMovie} />
             <Route path="/movie-edit/:id" component={AddMovie} />

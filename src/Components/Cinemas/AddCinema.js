@@ -7,7 +7,11 @@ import {
   addHallsAsync,
   getCinemasAsync,
   clearHalls,
-  deleteHall
+  deleteNewHall,
+  getCinemaAsync,
+  clearCinema,
+  getHallsAsync,
+  deleteHallAsync
 } from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
@@ -23,6 +27,16 @@ class AddCinema extends Component {
 
   componentDidMount() {
     this.props.getCinemasAsync();
+    const cinemaId = this.props.match.params.id;
+    if (cinemaId) {
+      this.props.clearCinema();
+      this.props.getCinema(cinemaId);
+      this.props.getHalls(cinemaId);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearCinema();
   }
 
   changeCinema = (name) => {
@@ -40,10 +54,13 @@ class AddCinema extends Component {
     };
     this.props.onAddСinema(cinema);
     this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
+    this.props.history.push(`/cinemas`);
   }
 
   onDeleteHall = (hall) => {
-    this.props.onDeleteHall(hall);
+    this.props.match.params.id
+      ? this.props.onDeleteHallAsync(hall)
+      : this.props.onDeleteNewHall(hall)
   }
 
   render() {
@@ -52,10 +69,12 @@ class AddCinema extends Component {
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
+          initialValue={this.props.cinema.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
+          initialValue={this.props.cinema.city}
         />
         <Link to="/add-hall" className="cinema__link link">
           <span className="link__label"> Add hall</span>
@@ -75,8 +94,9 @@ class AddCinema extends Component {
 }
 
 const mapStateToProps = store => ({
-  halls: store.halls.halls || [],
+  halls: store.halls.halls,
   cinemas: store.cinemas.cinemas || [],
+  cinema: store.cinemas.cinema
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -90,8 +110,20 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addHallsAsync(cinemaId, halls));
     dispatch(clearHalls());
   },
-  onDeleteHall(hall) {
-    dispatch(deleteHall(hall));
+  onDeleteNewHall(hall) {
+    dispatch(deleteNewHall(hall));
+  },
+  onDeleteHallAsync(hall) {
+    dispatch(deleteHallAsync(hall));
+  },
+  clearCinema() {
+    dispatch(clearCinema());
+  },
+  getCinema(id) {
+    dispatch(getCinemaAsync(id));
+  },
+  getHalls(id) {
+    dispatch(getHallsAsync(id));
   }
 });
 

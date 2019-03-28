@@ -64,7 +64,7 @@ class AddMovie extends Component {
           handleChanges={this.changeMovie}
           initialValue={this.props.movie.name}
         />
-       <Textarea
+        <Textarea
           label="Descripton"
           initialValue={this.props.movie.description}
           onChange={this.changeDescription}
