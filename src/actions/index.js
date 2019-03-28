@@ -11,10 +11,38 @@ import {
   ADD_MOVIE_FAILURE,
   CLEAR_MOVIE,
   EDIT_MOVIE_SUCCESS,
-  EDIT_MOVIE_FAILURE
+  EDIT_MOVIE_FAILURE,
+  DELETE_MOVIE_FAILURE,
+  DELETE_MOVIE_SUCCESS
 } from '../actionTypes';
 
 import axios from 'axios';
+
+export const deleteMovieAsync = id => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/movies/${id}`);
+      dispatch(deleteMovieSuccess(id));
+    }
+    catch (error) {
+      dispatch(deleteMovieFailure(error))
+    }
+  }
+}
+
+export const deleteMovieSuccess = (id) => {
+  return {
+    type: DELETE_MOVIE_SUCCESS,
+    payload: id
+  }
+}
+
+export const deleteMovieFailure = (error) => {
+  return {
+    type: DELETE_MOVIE_FAILURE,
+    payload: error.request.statusText
+  }
+}
 
 export const editMovieAsync = (movie, id) => {
   return async (dispatch) => {

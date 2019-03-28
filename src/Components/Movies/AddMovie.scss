@@ -84,4 +84,16 @@
       color: $white;
     }
   }
+
+  &__description {
+    overflow-y: auto;
+    margin-top: 10px;
+    height: 200px;
+    width: 400px;
+    border: 2px solid $light-orange;
+    background-color: $transparent;
+    outline: none;
+    font-size: 18px;
+    resize: none;
+  }
 }

@@ -63,6 +63,9 @@
   }
 
   .movie {
+    justify-content: space-between;
+    color: inherit;
+    text-decoration: none;
     width: 95%;
     padding: 8px 2px;
     border: 1px solid $blackBorder;
@@ -80,9 +83,14 @@
       width: 10% !important;
       height: 30px !important;
     }
+
+    &__delete-icon {
+      align-self: flex-end;
+    }
   
-    &__name {
-      width: 80%;
+    &__item-link {
+      text-decoration: none;
+      color: inherit;
     }
   }
 
