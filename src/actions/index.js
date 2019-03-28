@@ -18,6 +18,8 @@ import {
   DELETE_MOVIE_SUCCESS,
   ADD_CINEMA_SUCCESS,
   ADD_CINEMA_FAILURE,
+  ADD_HALL_SUCCESS,
+  ADD_HALL_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -167,6 +169,27 @@ export const addCinemaSuccess = cinema => ({
 
 export const addCinemaFailure = error => ({
   type: ADD_CINEMA_FAILURE,
+  payload: error
+})
+
+export function addHallAsync(hall) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`halls`, hall);
+      dispatch(addHallSuccess(data));
+    } catch (error) {
+      dispatch(addHallFailure(error));
+    }
+  }
+}
+
+export const addHallSuccess = hall => ({
+  type: ADD_HALL_SUCCESS,
+  payload: hall
+})
+
+export const addHallFailure = error => ({
+  type: ADD_HALL_FAILURE,
   payload: error
 })
 

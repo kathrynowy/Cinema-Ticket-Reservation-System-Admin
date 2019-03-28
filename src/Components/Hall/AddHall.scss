@@ -1,0 +1,97 @@
+@import '../../variables.scss';
+
+.hall-form{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+
+  &__info {
+    width: 300px;
+    background-color: $transparent;
+    color: $black;
+    font-size: 18px;
+    padding-top: 5px;
+  }
+
+  &__add-row-button {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+    height: 35px;
+    margin-top: 5px;
+    margin-bottom: 35px;
+  }
+
+  &__label {
+    font-size: 22px;
+    display: flex;
+    align-content: flex-end;
+    padding: 10px 5px;
+    padding-bottom: 8px;
+  }
+
+  &__add-icon {
+    border: 5px solid $light-orange;
+    background-color: $light-orange;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      border: 5px solid $orange;
+      background-color: $orange;
+    }
+  }
+
+  &__row-list {
+    overflow-y: auto;
+    height: 250px;
+    background-color: $transparent;
+
+    &::-webkit-scrollbar {
+      width: 20px;
+      height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
+      border-radius: 30px;
+      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+    }
+  }
+
+  .row {
+    width: 95%;
+    padding: 8px 2px;
+    border: 1px solid $blackBorder;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &:not(:first-child) {
+      border-top: none;
+    }
+  }
+
+  &__add-button {
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    margin-top: 40px;
+    width: 100px;
+    height: 35px;
+    border: 2px solid $light-orange;
+    background-color: $transparent;
+    color: $black;
+
+    &:hover {
+      background-color: $light-orange;
+      color: $white;
+    }
+  }
+}

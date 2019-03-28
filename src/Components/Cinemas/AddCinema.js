@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
+import { addCinemaAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
-import { Link } from "react-router-dom";
+import Hall from '../Hall/Hall';
 import './AddCinema.scss';
-import { addCinemaAsync } from '../../actions/index'
 
 
 class AddCinema extends Component {
@@ -46,7 +47,11 @@ class AddCinema extends Component {
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
-        <div className="halls"> </div>
+        <div className="cinema__halls halls">
+          <Hall name="small" />
+          <Hall name="big" />
+          <Hall name="3" />
+        </div>
         <button className="cinema__add-cinema" onClick={this.addCinema}>Add</button>
       </div>
     );

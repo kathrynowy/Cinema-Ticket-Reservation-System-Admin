@@ -9,7 +9,7 @@ import Movies from './Components/Movies/Movies';
 import AddMovie from './Components/Movies/AddMovie';
 import AddSession from './Components/Sessions/AddSession';
 import Sessions from './Components/Sessions/Sessions';
-import Hall from './Components/Hall/Hall';
+import AddHall from './Components/Hall/AddHall';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 
@@ -27,7 +27,7 @@ class App extends Component {
             <Route path="/movie-edit/:id" component={AddMovie} />
             <Route path="/sessions" component={Sessions} />
             <Route path="/add-session" component={AddSession} />
-            <Route path="/add-hall" component={Hall} />
+            <Route path="/add-hall" component={AddHall} />
             <Route path="/error-page" component={ErrorPage} />
           </div>
         </Router>
