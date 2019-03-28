@@ -1,18 +1,22 @@
 @import '../../variables.scss';
 
-.movies {
-  width: 100%;
+.hall{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
-  user-select: none;
+  flex: 1 1 auto;
 
-  &_link {
-    text-decoration: none;
-    color: inherit;
+  &__info {
+    width: 300px;
+    background-color: $transparent;
+    color: $black;
+    font-size: 18px;
+    padding-top: 5px;
   }
 
-  &__add-movie {
+  &__add-row-button {
     display: flex;
     flex-direction: row;
     width: 250px;
@@ -20,6 +24,14 @@
     height: 35px;
     margin-top: 5px;
     margin-bottom: 35px;
+  }
+
+  &__label {
+    font-size: 22px;
+    display: flex;
+    align-content: flex-end;
+    padding: 10px 5px;
+    padding-bottom: 8px;
   }
 
   &__add-icon {
@@ -34,19 +46,9 @@
     }
   }
 
-  &__label {
-    font-size: 22px;
-    display: flex;
-    align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 8px;
-  }
-
-  &__list {
+  &__row-list {
     overflow-y: auto;
-    margin-top: 30px;
-    height: 70%;
-    width: 95%;
+    height: 250px;
     background-color: $transparent;
 
     &::-webkit-scrollbar {
@@ -62,10 +64,7 @@
     }
   }
 
-  .movie {
-    justify-content: space-between;
-    color: inherit;
-    text-decoration: none;
+  .row {
     width: 95%;
     padding: 8px 2px;
     border: 1px solid $blackBorder;
@@ -73,32 +72,26 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-  
+
     &:not(:first-child) {
       border-top: none;
     }
-  
-    &__icon {
-      width: 10% !important;
-      height: 30px !important;
-    }
-
-    &__delete-icon {
-      align-self: flex-end;
-    }
-  
-    &__item-link {
-      text-decoration: none;
-      color: inherit;
-    }
   }
 
-  &__movie-icon, &__delete-icon {
-    width: 10% !important;
-    height: 30px !important;
-  }
+  &__add-button {
+    cursor: pointer;
+    font-size: 18px;
+    outline: none;
+    margin-top: 40px;
+    width: 100px;
+    height: 35px;
+    border: 2px solid $light-orange;
+    background-color: $transparent;
+    color: $black;
 
-  &__movie-info {
-    width: 80%;
+    &:hover {
+      background-color: $light-orange;
+      color: $white;
+    }
   }
 }
