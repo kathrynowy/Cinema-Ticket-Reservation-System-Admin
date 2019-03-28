@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
-import { addCinemaAsync } from '../../actions/index'
+import {
+  addCinemaAsync,
+  addHallsAsync,
+  getCinemasAsync,
+  clearHalls
+} from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
 import Hall from '../Hall/Hall';
@@ -13,6 +18,10 @@ class AddCinema extends Component {
   state = {
     name: '',
     city: ''
+  }
+
+  componentDidMount() {
+    this.props.getCinemasAsync();
   }
 
   changeCinema = (name) => {
@@ -26,10 +35,10 @@ class AddCinema extends Component {
   addCinema = () => {
     const cinema = {
       name: this.state.name,
-      city: this.state.city,
-      halls: [{ id: "5c8f6ae18a8fdcb1e0a7811c" }]
+      city: this.state.city
     };
     this.props.onAddСinema(cinema);
+    this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
   }
 
   render() {
@@ -48,9 +57,11 @@ class AddCinema extends Component {
           <AddIcon className="link__add-icon" />
         </Link>
         <div className="cinema__halls halls">
-          <Hall name="small" />
-          <Hall name="big" />
-          <Hall name="3" />
+          {
+            this.props.halls.map(hall => {
+              return <Hall name={hall.name} />
+            })
+          }
         </div>
         <button className="cinema__add-cinema" onClick={this.addCinema}>Add</button>
       </div>
@@ -58,10 +69,22 @@ class AddCinema extends Component {
   }
 }
 
+const mapStateToProps = store => ({
+  halls: store.halls.halls || [],
+  cinemas: store.cinemas.cinemas || [],
+})
+
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema) {
     dispatch(addCinemaAsync(cinema));
+  },
+  getCinemasAsync() {
+    dispatch(getCinemasAsync());
+  },
+  onAddHalls(cinemaId, halls) {
+    dispatch(addHallsAsync(cinemaId, halls));
+    dispatch(clearHalls());
   }
 });
 
-export default connect(null, mapDispatchToProps)(AddCinema);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCinema);

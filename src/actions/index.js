@@ -20,9 +20,25 @@ import {
   ADD_CINEMA_FAILURE,
   ADD_HALL_SUCCESS,
   ADD_HALL_FAILURE,
+  ADD_ROW,
+  ADD_HALL,
+  CLEAR_ROW,
+  CLEAR_HALLS
 } from '../actionTypes';
 
 import axios from 'axios';
+
+export const addRow = (row) => {
+  return {
+    type: ADD_ROW,
+    payload: row
+  }
+}
+
+export const addHall = (hall) => ({
+  type: ADD_HALL,
+  payload: hall
+})
 
 export const deleteMovieAsync = id => {
   return async (dispatch) => {
@@ -151,7 +167,7 @@ export function getSessionsAsync() {
   }
 }
 
-export function addCinemaAsync(cinema) {
+export function addCinemaAsync(cinema, halls) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`cinemas`, cinema);
@@ -172,11 +188,18 @@ export const addCinemaFailure = error => ({
   payload: error
 })
 
-export function addHallAsync(hall) {
+export function addHallsAsync(cinemaId, halls) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`halls`, hall);
-      dispatch(addHallSuccess(data));
+      for (let i = 0; i < halls.length; i++) {
+        const hall = {
+          cinemaId,
+          hall: halls[i].hall,
+          name: halls[i].name
+        };
+        const { data } = await axios.post(`halls`, hall);
+        dispatch(addHallSuccess(data));
+      }
     } catch (error) {
       dispatch(addHallFailure(error));
     }
@@ -263,4 +286,12 @@ export const getMovieFailure = movie => ({
 
 export const clearMovie = () => ({
   type: CLEAR_MOVIE
+});
+
+export const clearRows = () => ({
+  type: CLEAR_ROW
+});
+
+export const clearHalls = () => ({
+  type: CLEAR_HALLS
 });

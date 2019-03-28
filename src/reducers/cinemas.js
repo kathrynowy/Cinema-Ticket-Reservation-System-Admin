@@ -36,7 +36,7 @@ export default function getCinemas(state = initialState, action) {
 
     case ADD_CINEMA_SUCCESS:
       return Object.assign({}, state, {
-        cinemas: [...this.state.cinemas, action.payload]
+        cinemas: [...state.cinemas, action.payload]
       });
 
     case ADD_CINEMA_FAILURE:
