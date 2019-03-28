@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getMoviesAsync } from '../../actions/index'
+import { getMoviesAsync, deleteMovieAsync } from '../../actions/index'
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MovieIcon from '@material-ui/icons/Movie';
@@ -14,13 +14,17 @@ class Movies extends Component {
     this.props.getMoviesAsync();
   }
 
+  deleteMovie = (id) => {
+    this.props.deleteMovie(id);
+  }
+
   render() {
     return (
       <div className="movies">
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <Fragment>
+            : this.props.movies && <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
                 <Link to="/add-movie" className="movies_link">
@@ -32,15 +36,16 @@ class Movies extends Component {
                 {
                   this.props.movies.map((movie) => {
                     return (
-                      <Link to={{ pathname: `/movie-edit/${movie.id}` }} className="movies__list-link">
-                        <li className="movies__list-item movie" key={movie.id}>
-                          <MovieIcon className="movie__icon" />
-                          <span className="movie__name">
+                      <div className="movies__list-item movie">
+                        <MovieIcon className="movie__icon" />
+                        <Link to={{ pathname: `/movie-edit/${movie.id}` }} className="movie__item-link">
+                          <li className="movie__name" key={movie.id}>
                             {movie.name}
-                          </span>
-                          <DeleteIcon className="movie__icon movie__icon_delete" />
-                        </li>
-                      </Link>
+                          </li>
+                        </Link>
+                        <DeleteIcon className="movie__icon movie__icon_delete" onClick={() => this.deleteMovie(movie.id)} />
+                      </div>
+
                     )
                   })
                 }
@@ -60,6 +65,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getMoviesAsync() {
     dispatch(getMoviesAsync());
+  },
+  deleteMovie(id) {
+    dispatch(deleteMovieAsync(id));
   }
 });
 
