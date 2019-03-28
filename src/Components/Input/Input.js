@@ -7,7 +7,7 @@ import './Input.scss';
 class Input extends Component {
   state = {
     dirty: false,
-    value: this.props.initialValue || ''
+    value: ''
   }
 
   handleClear = () => {
