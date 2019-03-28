@@ -80,6 +80,11 @@
     }
   }
 
+  &__add-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
   &-halls {
     overflow-y: auto;
     margin-top: 30px;

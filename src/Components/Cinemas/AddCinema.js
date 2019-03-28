@@ -12,7 +12,7 @@ class AddCinema extends Component {
       <div className="cinema">
         <Input label="Cinema" />
         <Input label="City" />
-        <Link to="/add-hall">
+        <Link to="/add-hall" className="cinema__add-link">
           <div className="cinema__add-hall">
             <span className="cinema__label"> Add hall</span>
             <AddIcon className="cinema__add-icon" />
