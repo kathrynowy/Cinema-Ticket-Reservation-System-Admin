@@ -9,6 +9,8 @@ import {
   GET_SESSIONS_FAILURE,
   ADD_MOVIE_SUCCESS,
   ADD_MOVIE_FAILURE,
+  DELETE_CINEMA_SUCCESS,
+  DELETE_CINEMA_FAILURE,
   CLEAR_MOVIE,
   EDIT_MOVIE_SUCCESS,
   EDIT_MOVIE_FAILURE,
@@ -166,6 +168,18 @@ export const addMovieFailure = error => ({
   payload: error
 })
 
+export const deleteCinemaAsync = id => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/cinemas/${id}`);
+      dispatch(deleteCinemaSuccess(id));
+    }
+    catch (error) {
+      dispatch(deleteCinemaFailure(error))
+    }
+  }
+}
+
 export function getMovieAsync(id) {
   return async (dispatch) => {
     try {
@@ -174,6 +188,20 @@ export function getMovieAsync(id) {
     } catch (error) {
       dispatch(getMovieFailure(error));
     }
+  }
+}
+
+export const deleteCinemaSuccess = (id) => {
+  return {
+    type: DELETE_CINEMA_SUCCESS,
+    payload: id
+  }
+}
+
+export const deleteCinemaFailure = (error) => {
+  return {
+    type: DELETE_CINEMA_FAILURE,
+    payload: error.request.statusText
   }
 }
 

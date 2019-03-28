@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getCinemasAsync } from '../../actions/index'
+import { getCinemasAsync, deleteCinemaAsync } from '../../actions/index'
 import './Cinemas.scss';
 
 
@@ -13,6 +13,11 @@ import './Cinemas.scss';
 class Cinemas extends Component {
   componentDidMount() {
     this.props.getCinemasAsync();
+  }
+
+
+  deleteCinemaAsync = (id) => {
+    this.props.deleteCinemaAsync(id);
   }
 
   render() {
@@ -33,11 +38,16 @@ class Cinemas extends Component {
                 {
                   this.props.cinemas.map((cinema) => {
                     return (
-                      <li className="cinemas__list-item cinema" key={cinema.id}>
+                      <div className="cinemas__list-item cinema" key={cinema.id}>
                         <HomeIcon className="cinema__icon" />
-                        <span className="cinema__name"> {cinema.name}</span>
-                        <DeleteIcon className="cinema__icon cinema__icon_delete" />
-                      </li>
+                        <li className="cinema__name">
+                          {cinema.name}
+                        </li>
+                        <DeleteIcon
+                          className="cinema__icon cinema__icon_delete"
+                          onClick={() => this.deleteCinemaAsync(cinema.id)}
+                        />
+                      </div>
                     )
                   })
                 }
@@ -57,6 +67,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getCinemasAsync() {
     dispatch(getCinemasAsync());
+  },
+  deleteCinemaAsync(id) {
+    dispatch(deleteCinemaAsync(id));
   }
 });
 
