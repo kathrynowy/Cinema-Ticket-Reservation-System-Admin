@@ -19,9 +19,6 @@ const initialState = {
 export default function getMovies(state = initialState, action) {
   switch (action.type) {
     case EDIT_MOVIE_SUCCESS: {
-      let newMovie = state.movies.find(movie => movie.id === action.payload.id);
-      newMovie = action.payload;
-
       return Object.assign({}, state)
     }
 
