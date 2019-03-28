@@ -67,7 +67,7 @@ export default function getMovies(state = initialState, action) {
 
     case ADD_MOVIE_SUCCESS:
       return Object.assign({}, state, {
-        movies: action.payload
+        movies: [...this.state.movies, action.payload]
       });
 
     case ADD_MOVIE_FAILURE:

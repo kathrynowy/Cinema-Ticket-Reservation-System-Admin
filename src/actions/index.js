@@ -15,7 +15,9 @@ import {
   EDIT_MOVIE_SUCCESS,
   EDIT_MOVIE_FAILURE,
   DELETE_MOVIE_FAILURE,
-  DELETE_MOVIE_SUCCESS
+  DELETE_MOVIE_SUCCESS,
+  ADD_CINEMA_SUCCESS,
+  ADD_CINEMA_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -147,11 +149,32 @@ export function getSessionsAsync() {
   }
 }
 
+export function addCinemaAsync(cinema) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`cinemas`, cinema);
+      dispatch(addCinemaSuccess(data));
+    } catch (error) {
+      dispatch(addCinemaFailure(error));
+    }
+  }
+}
+
+export const addCinemaSuccess = cinema => ({
+  type: ADD_CINEMA_SUCCESS,
+  payload: cinema
+})
+
+export const addCinemaFailure = error => ({
+  type: ADD_CINEMA_FAILURE,
+  payload: error
+})
+
 export function addMovieAsync(movie) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`movies`, movie);
-      dispatch(addMovieSuccess(data.movie));
+      dispatch(addMovieSuccess(data));
     } catch (error) {
       dispatch(addMovieFailure(error));
     }
