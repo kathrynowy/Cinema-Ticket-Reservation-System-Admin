@@ -14,12 +14,6 @@ import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 class App extends Component {
   render() {
-    const WrappedMovie = function () {
-      // Конструкция "{...props}" нужна, чтобы не потерять
-      // параметры, переданные от компонента Route
-      return (<AddMovie edit={true} />);
-    };
-
     return (
       <div className="App">
         <Router >

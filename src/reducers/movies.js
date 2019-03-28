@@ -10,7 +10,6 @@ import {
   EDIT_MOVIE_FAILURE,
   DELETE_MOVIE_SUCCESS,
   DELETE_MOVIE_FAILURE
-
 } from '../actionTypes.js';
 
 const initialState = {
@@ -36,7 +35,7 @@ export default function getMovies(state = initialState, action) {
       })
 
     case DELETE_MOVIE_SUCCESS:
-      let newMovies = state.movies.filter(movie => movie.id !== action.payload);
+      const newMovies = state.movies.filter(movie => movie.id !== action.payload);
       return Object.assign({}, state, {
         movies: newMovies
       });
