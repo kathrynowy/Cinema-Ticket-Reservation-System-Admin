@@ -26,13 +26,13 @@
   }
 
   &__add-icon {
-    border: 4px solid $light-orange;
+    border: 5px solid $light-orange;
     background-color: $light-orange;
     border-radius: 50%;
     cursor: pointer;
 
     &:hover {
-      border: 4px solid $orange;
+      border: 5px solid $orange;
       background-color: $orange;
     }
   }

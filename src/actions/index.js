@@ -6,7 +6,9 @@ import {
   GET_SESSIONS_SUCCESS,
   GET_SESSIONS_FAILURE,
   ADD_MOVIE_SUCCESS,
-  ADD_MOVIE_FAILURE
+  ADD_MOVIE_FAILURE,
+  DELETE_CINEMA_SUCCESS,
+  DELETE_CINEMA_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -110,4 +112,28 @@ export const addMovieFailure = error => ({
   payload: error
 })
 
+export const deleteCinemaAsync = id => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/cinemas/${id}`);
+      dispatch(deleteCinemaSuccess(id));
+    }
+    catch (error) {
+      dispatch(deleteCinemaFailure(error))
+    }
+  }
+}
 
+export const deleteCinemaSuccess = (id) => {
+  return {
+    type: DELETE_CINEMA_SUCCESS,
+    payload: id
+  }
+}
+
+export const deleteCinemaFailure = (error) => {
+  return {
+    type: DELETE_CINEMA_FAILURE,
+    payload: error.request.statusText
+  }
+}

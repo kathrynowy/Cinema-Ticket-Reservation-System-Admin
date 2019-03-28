@@ -62,7 +62,7 @@
     }
   }
 
-  .cinema {
+  &__list-link {
     width: 95%;
     padding: 8px 2px;
     border: 1px solid $blackBorder;
@@ -74,23 +74,18 @@
     &:not(:first-child) {
       border-top: none;
     }
-
-    &__icon {
-      width: 10% !important;
-      height: 30px !important;
-    }
-
-    &__name {
-      width: 80%;
-    }
+  }
+  
+  &__list-item {
+    width: 80%;
   }
 
-  &__home-icon, &__delete-icon {
+  &__icon {
     width: 10% !important;
     height: 30px !important;
-  }
 
-  &__cinema-info {
-    width: 80%;
+    &_delete {
+      cursor: pointer;
+    }
   }
 }
