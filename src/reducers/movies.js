@@ -21,7 +21,15 @@ const initialState = {
 export default function getMovies(state = initialState, action) {
   switch (action.type) {
     case EDIT_MOVIE_SUCCESS: {
-      return Object.assign({}, state)
+      const newMovies = state.movies.map(movie => {
+        if (movie.id === action.payload.id) {
+          movie = action.payload;
+        }
+        return movie;
+      });
+      return Object.assign({}, state, {
+        movies: newMovies
+      })
     }
 
     case EDIT_MOVIE_FAILURE:
@@ -34,11 +42,12 @@ export default function getMovies(state = initialState, action) {
         movie: {}
       })
 
-    case DELETE_MOVIE_SUCCESS:
+    case DELETE_MOVIE_SUCCESS: {
       const newMovies = state.movies.filter(movie => movie.id !== action.payload);
       return Object.assign({}, state, {
         movies: newMovies
       });
+    }
 
     case DELETE_MOVIE_FAILURE:
       return Object.assign({}, state, {

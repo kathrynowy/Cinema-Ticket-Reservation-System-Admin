@@ -11,7 +11,8 @@ import {
   getCinemaAsync,
   clearCinema,
   getHallsAsync,
-  deleteHallAsync
+  deleteHallAsync,
+  editCinemaAsync
 } from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
 import Input from '../Input/Input';
@@ -31,7 +32,9 @@ class AddCinema extends Component {
     if (cinemaId) {
       this.props.clearCinema();
       this.props.getCinema(cinemaId);
-      this.props.getHalls(cinemaId);
+      if (!this.props.halls.length) {
+        this.props.getHalls(cinemaId);
+      }
     }
   }
 
@@ -48,11 +51,14 @@ class AddCinema extends Component {
   }
 
   addCinema = () => {
+    const id = this.props.cinema.id || this.props.match.params.id;
     const cinema = {
-      name: this.state.name,
-      city: this.state.city
+      name: this.state.name || this.props.cinema.name,
+      city: this.state.city || this.props.cinema.city
     };
-    this.props.onAddСinema(cinema);
+    this.props.match.params.id
+      ? this.props.onEditСinema(this.props.match.params.id, cinema)
+      : this.props.onAddСinema(cinema);
     this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
     this.props.history.push(`/cinemas`);
   }
@@ -76,7 +82,8 @@ class AddCinema extends Component {
           handleChanges={this.changeCity}
           initialValue={this.props.cinema.city}
         />
-        <Link to="/add-hall" className="cinema__link link">
+        <Link
+          to={{ pathname: this.props.match.params.id ? `/add/newhall/${this.props.match.params.id}` : `/add/hall` }} className="cinema__link link">
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
@@ -102,6 +109,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema) {
     dispatch(addCinemaAsync(cinema));
+  },
+  onEditСinema(id, cinema) {
+    dispatch(editCinemaAsync(id, cinema));
   },
   getCinemasAsync() {
     dispatch(getCinemasAsync());

@@ -32,6 +32,8 @@ import {
   GET_HALLS_FAILURE,
   DELETE_HALL_SUCCESS,
   DELETE_HALL_FAILURE,
+  EDIT_CINEMA_SUCCESS,
+  EDIT_CINEMA_FAILURE
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -252,17 +254,43 @@ export const addCinemaFailure = error => ({
   payload: error
 })
 
+export function editCinemaAsync(id, cinema) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/cinemas/${id}`, cinema);
+      dispatch(editCinemaSuccess(data));
+    } catch (error) {
+      dispatch(editCinemaFailure(error));
+    }
+  }
+}
+
+export const editCinemaSuccess = cinema => ({
+  type: EDIT_CINEMA_SUCCESS,
+  payload: cinema
+})
+
+export const editCinemaFailure = error => ({
+  type: EDIT_CINEMA_FAILURE,
+  payload: error
+})
+
 export function addHallsAsync(cinemaId, halls) {
   return async (dispatch) => {
     try {
       for (let i = 0; i < halls.length; i++) {
-        const hall = {
-          cinemaId,
-          hall: halls[i].hall,
-          name: halls[i].name
-        };
-        const { data } = await axios.post(`halls`, hall);
-        dispatch(addHallSuccess(data));
+        if (halls[i].cinemaId) {
+          const { data } = await axios.put(`halls/${(halls[i]).id}`, halls[i]);
+          dispatch(addHallSuccess(data));
+        } else {
+          const hall = {
+            cinemaId,
+            hall: halls[i].hall,
+            name: halls[i].name
+          };
+          const { data } = await axios.post(`halls`, hall);
+          dispatch(addHallSuccess(data));
+        }
       }
     } catch (error) {
       dispatch(addHallFailure(error));

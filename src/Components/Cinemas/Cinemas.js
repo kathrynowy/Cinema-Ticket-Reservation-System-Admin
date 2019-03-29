@@ -29,7 +29,7 @@ class Cinemas extends Component {
             : <Fragment >
               <div className="cinemas__add-cinema">
                 <span className="cinemas__label"> Add cinema</span>
-                <Link to="/add-cinema" className="cinemas_link">
+                <Link to="/add/cinema" className="cinemas_link">
                   <AddIcon className="cinemas__add-icon" />
                 </Link>
               </div>
@@ -40,7 +40,7 @@ class Cinemas extends Component {
                     return (
                       <div className="cinemas__list-item cinema" key={cinema.id}>
                         <HomeIcon className="cinema__icon" />
-                        <Link to={{ pathname: `/cinema-edit/${cinema.id}` }} className="cinema__item-link">
+                        <Link to={{ pathname: `/edit/cinema/${cinema.id}` }} className="cinema__item-link">
                           <li className="cinema__name">
                             {cinema.name}
                           </li>
