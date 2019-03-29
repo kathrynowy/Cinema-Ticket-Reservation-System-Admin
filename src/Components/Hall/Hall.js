@@ -9,9 +9,13 @@ class Hall extends Component {
     this.props.onDelete(this.props.hall);
   }
 
+  handleClick = () => {
+    this.props.onEditHall(this.props.hall);
+  }
+
   render() {
     return (
-      <div className="hall">
+      <div className="hall" onClick={this.handleClick}>
         {this.props.name}
         <CloseIcon className="hall_close" onClick={this.deleteHall} />
       </div>

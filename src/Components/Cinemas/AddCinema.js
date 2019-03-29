@@ -69,28 +69,54 @@ class AddCinema extends Component {
       : this.props.onDeleteNewHall(hall)
   }
 
+  onEditHall = (hall) => {
+    const name = this.props.cinema.name || this.props.match.params.name;
+    const city = this.props.cinema.city || this.props.match.params.city;
+    if (hall.cinemaId) {
+      this.props.history.push(`/edit/hall/name/${name}/city/${city}/${hall.id}`)
+    } else {
+      this.props.history.push(`/edit/new/hall/name/${name}/city/${city}`);
+    }
+  }
+
   render() {
+    const name = this.props.cinema.name || this.props.match.params.name;
+    const city = this.props.cinema.city || this.props.match.params.city;
     return (
       <div className="cinema">
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
-          initialValue={this.props.cinema.name || this.props.match.params.name}
+          initialValue={name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
-          initialValue={this.props.cinema.city || this.props.match.params.city}
+          initialValue={city}
         />
         <Link
-          to={{ pathname: this.props.match.params.id ? `/add/newhall/${this.props.match.params.id}` : `/add/hall/name/${this.state.name}/city/${this.state.city}` }} className="cinema__link link">
+          to={{
+            pathname: this.props.match.params.id
+              ? `/add/newhall/${this.props.cinema.id || this.props.match.params.id}`
+              : `/add/hall/name/${this.state.name || 'cinema'}/city/${this.state.city || 'city'}`
+          }}
+          className="cinema__link link"
+        >
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
         <div className="cinema__halls halls">
           {
             this.props.halls.map(hall => {
-              return <Hall name={hall.name} hall={hall} key={hall.id} onDelete={this.onDeleteHall} />
+              return (
+                <Hall
+                  name={hall.name}
+                  hall={hall}
+                  key={hall.hall + hall.name}
+                  onDelete={this.onDeleteHall}
+                  onEditHall={this.onEditHall}
+                />
+              );
             })
           }
         </div>

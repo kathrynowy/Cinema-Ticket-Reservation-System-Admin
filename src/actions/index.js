@@ -22,8 +22,9 @@ import {
   ADD_HALL_FAILURE,
   ADD_ROW,
   ADD_HALL,
-  CLEAR_ROW,
+  CLEAR_ROWS,
   CLEAR_HALLS,
+  CLEAR_HALL,
   DELETE_NEW_HALL,
   GET_CINEMA_SUCCESS,
   GET_CINEMA_FAILURE,
@@ -33,7 +34,10 @@ import {
   DELETE_HALL_SUCCESS,
   DELETE_HALL_FAILURE,
   EDIT_CINEMA_SUCCESS,
-  EDIT_CINEMA_FAILURE
+  EDIT_CINEMA_FAILURE,
+  GET_HALL_SUCCESS,
+  GET_HALL_FAILURE,
+  ADD_ROWS
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -42,6 +46,13 @@ export const addRow = (row) => {
   return {
     type: ADD_ROW,
     payload: row
+  }
+}
+
+export const addRows = (rows) => {
+  return {
+    type: ADD_ROWS,
+    payload: rows
   }
 }
 
@@ -383,6 +394,27 @@ export const getMovieFailure = error => ({
   payload: error
 });
 
+export function getHallAsync(id) {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`halls/${id}`);
+      dispatch(getHallSuccess(data));
+    } catch (error) {
+      dispatch(getHallFailure(error));
+    }
+  }
+}
+
+export const getHallSuccess = hall => ({
+  type: GET_HALL_SUCCESS,
+  payload: hall
+});
+
+export const getHallFailure = error => ({
+  type: GET_HALL_FAILURE,
+  payload: error
+});
+
 export const deleteCinemaSuccess = (id) => {
   return {
     type: DELETE_CINEMA_SUCCESS,
@@ -402,11 +434,15 @@ export const clearMovie = () => ({
 });
 
 export const clearRows = () => ({
-  type: CLEAR_ROW
+  type: CLEAR_ROWS
 });
 
 export const clearHalls = () => ({
   type: CLEAR_HALLS
+});
+
+export const clearHall = () => ({
+  type: CLEAR_HALL
 });
 
 export const clearCinema = () => ({

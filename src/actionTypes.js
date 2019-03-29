@@ -32,8 +32,12 @@ export const DELETE_NEW_HALL = 'DELETE_NEW_HALL';
 export const DELETE_HALL_SUCCESS = 'DELETE_HALL_SUCCESS';
 export const DELETE_HALL_FAILURE = 'DELETE_HALL_FAILURE';
 export const CLEAR_HALLS = 'CLEAR_HALLS';
+export const CLEAR_HALL = 'CLEAR_HALL';
 export const GET_HALLS_SUCCESS = 'GET_HALLS_SUCCESS';
 export const GET_HALLS_FAILURE = 'GET_HALLS_FAILURE';
+export const GET_HALL_SUCCESS = 'GET_HALL_SUCCESS';
+export const GET_HALL_FAILURE = 'GET_HALL_FAILURE';
 
 export const ADD_ROW = 'ADD_ROW';
-export const CLEAR_ROW = 'CLEAR_ROW';
+export const ADD_ROWS = 'ADD_ROWS';
+export const CLEAR_ROWS = 'CLEAR_ROWS';

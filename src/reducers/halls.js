@@ -3,18 +3,23 @@ import {
   ADD_HALL_FAILURE,
   ADD_ROW,
   ADD_HALL,
-  CLEAR_ROW,
+  CLEAR_ROWS,
   CLEAR_HALLS,
   DELETE_NEW_HALL,
   GET_HALLS_SUCCESS,
   GET_HALLS_FAILURE,
   DELETE_HALL_SUCCESS,
-  DELETE_HALL_FAILURE
+  DELETE_HALL_FAILURE,
+  GET_HALL_SUCCESS,
+  GET_HALL_FAILURE,
+  ADD_ROWS,
+  CLEAR_HALL
 } from '../actionTypes'
 
 const initialState = {
   halls: [],
   rows: [],
+  hall: {},
   errors: ''
 }
 
@@ -40,9 +45,24 @@ export default function getHalls(state = initialState, action) {
         errors: action.payload
       });
 
+    case GET_HALL_SUCCESS:
+      return Object.assign({}, state, {
+        hall: action.payload
+      });
+
+    case GET_HALL_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
+
     case ADD_ROW:
       return Object.assign({}, state, {
         rows: [...state.rows, action.payload]
+      });
+
+    case ADD_ROWS:
+      return Object.assign({}, state, {
+        rows: action.payload
       });
 
     case ADD_HALL:
@@ -68,7 +88,7 @@ export default function getHalls(state = initialState, action) {
         errors: action.payload
       });
 
-    case CLEAR_ROW:
+    case CLEAR_ROWS:
       return Object.assign({}, state, {
         rows: []
       })
@@ -76,6 +96,11 @@ export default function getHalls(state = initialState, action) {
     case CLEAR_HALLS:
       return Object.assign({}, state, {
         halls: []
+      })
+
+    case CLEAR_HALL:
+      return Object.assign({}, state, {
+        hall: {}
       })
 
     default: return state;

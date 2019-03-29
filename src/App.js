@@ -29,8 +29,10 @@ class App extends Component {
             <Route path="/movie-edit/:id" component={AddMovie} />
             <Route path="/sessions" component={Sessions} />
             <Route path="/add-session" component={AddSession} />
+            <Route path="/edit/hall/name/:name/city/:city/:hallId" component={AddHall} />
+            <Route path="/edit/new/hall/name/:name/city/:city" component={AddHall} />
             <Route path="/add/hall/name/:name/city/:city" component={AddHall} />
-            <Route path="/add/newhall/:id" component={AddHall} />
+            <Route path="/add/newhall/:cinemaId" component={AddHall} />
             <Route path="/error-page" component={ErrorPage} />
           </div>
         </Router>
