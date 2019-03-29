@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
 import Input from '../Input/Input';
 import './AddHall.scss';
 import { addHall, addRow, clearRows, getHallAsync, addRows, clearHall } from '../../actions/index'
@@ -12,7 +15,18 @@ class AddHall extends Component {
     cost: 0,
     row: '',
     name: '',
-    amountOfSeats: ''
+    amountOfSeats: '',
+    isEdit: false,
+    rows: this.props.rows.map((row, index) => {
+      console.log(row);
+      return ({
+        id: index,
+        isEdit: false,
+        row: row.row,
+        cost: row.cost,
+        amountOfSeats: row.amountOfSeats
+      })
+    })
   }
 
   componentDidMount() {
@@ -67,6 +81,30 @@ class AddHall extends Component {
       cost: +this.state.cost
     }
     this.props.onAddRow(row);
+    this.setState({
+      rows: [...this.state.rows, { row: row.row, cost: row.cost, amountOfSeats: row.amountOfSeats, isEdit: false, id: row.row }]
+    })
+  }
+
+  handleEditRow = (index) => {
+    let newRows = this.state.rows.map(row => {
+      row.isEdit = false;
+      return row;
+    })
+
+
+    newRows[index].isEdit = true;
+    this.setState({
+      rows: newRows
+    })
+  }
+
+  handleConfirmEdit = (index) => {
+    const newRows = this.state.rows;
+    newRows[index].isEdit = false;
+    this.setState({
+      rows: newRows
+    })
   }
 
   render() {
@@ -77,19 +115,6 @@ class AddHall extends Component {
           handleChanges={this.changeHall}
           initialValue={this.props.hall.name || this.state.name}
         />
-        <div className="hall-form__info">
-          <ul className="hall-form__row-list">
-            {
-              this.props.rows.map((row, index) => {
-                return (
-                  <li className="hall-form__list-item row" key={row + index}>
-                    {`№${row.row} seats: ${row.amountOfSeats} cost: ${row.cost}`}
-                  </li>
-                );
-              })
-            }
-          </ul>
-        </div>
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
             <span className="hall-form__label"> Add row</span>
@@ -105,6 +130,26 @@ class AddHall extends Component {
               handleChanges={this.changeCost}
             />
           </div>
+        </div>
+        <div className="hall-form__info">
+          <ul className="hall-form__row-list">
+            {
+              this.props.rows.map((row, index) => {
+                return (
+                  <div className="hall-form__list-item row" key={row + index}>
+                    <li className="row__info">
+                      {`№${row.row} seats: ${row.amountOfSeats} cost: ${row.cost}`}
+                    </li>
+                    <div className="row__icons">
+                      {!this.state.rows[index].isEdit && <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />}
+                      {this.state.rows[index].isEdit && <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />}
+                      <DeleteIcon className="row__icon" />
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </ul>
         </div>
         <button
           type="button"
