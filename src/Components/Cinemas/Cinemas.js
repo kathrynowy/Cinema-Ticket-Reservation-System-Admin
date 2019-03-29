@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { getCinemasAsync, deleteCinemaAsync } from '../../actions/index'
+import {
+  getCinemasAsync,
+  clearHalls,
+  deleteCinemaAsync
+} from '../../actions/index';
 import './Cinemas.scss';
 
 
@@ -13,6 +17,7 @@ import './Cinemas.scss';
 class Cinemas extends Component {
   componentDidMount() {
     this.props.getCinemasAsync();
+    this.props.clearHalls();
   }
 
 
@@ -69,6 +74,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getCinemasAsync() {
     dispatch(getCinemasAsync());
+  },
+  clearHalls() {
+    dispatch(clearHalls());
   },
   deleteCinemaAsync(id) {
     dispatch(deleteCinemaAsync(id));

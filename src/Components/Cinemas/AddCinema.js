@@ -22,8 +22,8 @@ import './AddCinema.scss';
 
 class AddCinema extends Component {
   state = {
-    name: '',
-    city: ''
+    name: '' || this.props.match.params.name,
+    city: '' || this.props.match.params.city
   }
 
   componentDidMount() {
@@ -51,7 +51,6 @@ class AddCinema extends Component {
   }
 
   addCinema = () => {
-    const id = this.props.cinema.id || this.props.match.params.id;
     const cinema = {
       name: this.state.name || this.props.cinema.name,
       city: this.state.city || this.props.cinema.city
@@ -61,6 +60,7 @@ class AddCinema extends Component {
       : this.props.onAddСinema(cinema);
     this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
     this.props.history.push(`/cinemas`);
+    this.props.clearHalls();
   }
 
   onDeleteHall = (hall) => {
@@ -75,22 +75,22 @@ class AddCinema extends Component {
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
-          initialValue={this.props.cinema.name}
+          initialValue={this.props.cinema.name || this.props.match.params.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
-          initialValue={this.props.cinema.city}
+          initialValue={this.props.cinema.city || this.props.match.params.city}
         />
         <Link
-          to={{ pathname: this.props.match.params.id ? `/add/newhall/${this.props.match.params.id}` : `/add/hall` }} className="cinema__link link">
+          to={{ pathname: this.props.match.params.id ? `/add/newhall/${this.props.match.params.id}` : `/add/hall/name/${this.state.name}/city/${this.state.city}` }} className="cinema__link link">
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
         <div className="cinema__halls halls">
           {
             this.props.halls.map(hall => {
-              return <Hall name={hall.name} hall={hall} onDelete={this.onDeleteHall} />
+              return <Hall name={hall.name} hall={hall} key={hall.id} onDelete={this.onDeleteHall} />
             })
           }
         </div>
@@ -102,7 +102,7 @@ class AddCinema extends Component {
 
 const mapStateToProps = store => ({
   halls: store.halls.halls,
-  cinemas: store.cinemas.cinemas || [],
+  cinemas: store.cinemas.cinemas,
   cinema: store.cinemas.cinema
 })
 
@@ -128,6 +128,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearCinema() {
     dispatch(clearCinema());
+  },
+  clearHalls() {
+    dispatch(clearHalls());
   },
   getCinema(id) {
     dispatch(getCinemaAsync(id));

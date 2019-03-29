@@ -23,7 +23,7 @@ class AddHall extends Component {
     this.props.onAddHall(hall);
     this.props.match.params.id
       ? this.props.history.push(`/edit/cinema/${this.props.match.params.id}`)
-      : this.props.history.push(`/add/cinema`);
+      : this.props.history.push(`/add/new/cinema/name/${this.props.match.params.name}/city/${this.props.match.params.city}`);
   }
 
   changeSeats = (amountOfSeats) => {

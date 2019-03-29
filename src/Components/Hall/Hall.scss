@@ -15,6 +15,10 @@
     margin-left: 10px;
   }
 
+  &:not(:nth-child(3n)) {
+    margin-left: 10px;
+  }
+
   &_close {
     cursor: pointer;
     width: 13px !important;

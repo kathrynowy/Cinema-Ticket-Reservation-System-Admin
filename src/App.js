@@ -22,13 +22,14 @@ class App extends Component {
             <NestedList />
             <Route path="/cinemas" component={Cinemas} />
             <Route path="/add/cinema" component={AddCinema} />
+            <Route path="/add/new/cinema/name/:name/city/:city" component={AddCinema} />
             <Route path="/edit/cinema/:id" component={AddCinema} />
             <Route path="/movies" component={Movies} />
             <Route path="/add-movie" component={AddMovie} />
             <Route path="/movie-edit/:id" component={AddMovie} />
             <Route path="/sessions" component={Sessions} />
             <Route path="/add-session" component={AddSession} />
-            <Route path="/add/hall" component={AddHall} />
+            <Route path="/add/hall/name/:name/city/:city" component={AddHall} />
             <Route path="/add/newhall/:id" component={AddHall} />
             <Route path="/error-page" component={ErrorPage} />
           </div>
