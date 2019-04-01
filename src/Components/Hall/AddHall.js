@@ -12,10 +12,9 @@ import { addHall, addRow, clearRows, getHallAsync, addRows, clearHall } from '..
 
 class AddHall extends Component {
   state = {
-    cost: 0,
-    row: '',
     name: '',
     amountOfSeats: '',
+    cost: '',
     isEdit: false,
     rows: this.props.rows.map((row, index) => {
       console.log(row);
@@ -92,10 +91,11 @@ class AddHall extends Component {
       return row;
     })
 
-
     newRows[index].isEdit = true;
     this.setState({
-      rows: newRows
+      rows: newRows,
+      cost: +newRows[index].cost,
+      amountOfSeats: +newRows[index].amountOfSeats
     })
   }
 
@@ -124,10 +124,12 @@ class AddHall extends Component {
             <Input
               label="Amount of seats"
               handleChanges={this.changeSeats}
+              initialValue={this.state.amountOfSeats}
             />
             <Input
               label="Cost"
               handleChanges={this.changeCost}
+              initialValue={this.state.cost}
             />
           </div>
         </div>

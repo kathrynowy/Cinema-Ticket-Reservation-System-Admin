@@ -37,7 +37,8 @@ import {
   EDIT_CINEMA_FAILURE,
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
-  ADD_ROWS
+  ADD_ROWS,
+  ADD_CINEMA_AND_HALLS_SUCCESS
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -244,16 +245,22 @@ export function getSessionsAsync() {
   }
 }
 
-export function addCinemaAsync(cinema) {
+export function addCinemaAsync(cinema, halls) {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`cinemas`, cinema);
-      dispatch(addCinemaSuccess(data));
+      const { data } = await axios.post(`cinemas-halls`, { cinema, halls });
+      console.log(data);
+      dispatch(addCinemaSuccess(data.cinema));
     } catch (error) {
       dispatch(addCinemaFailure(error));
     }
   }
 }
+
+export const addCinemaWithHallsSuccess = result => ({
+  type: ADD_CINEMA_AND_HALLS_SUCCESS,
+  payload: result
+})
 
 export const addCinemaSuccess = cinema => ({
   type: ADD_CINEMA_SUCCESS,

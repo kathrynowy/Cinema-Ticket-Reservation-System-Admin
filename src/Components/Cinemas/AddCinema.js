@@ -50,15 +50,15 @@ class AddCinema extends Component {
     this.setState({ city });
   }
 
-  addCinema = () => {
+  addCinema = async () => {
     const cinema = {
       name: this.state.name || this.props.cinema.name,
       city: this.state.city || this.props.cinema.city
     };
-    this.props.match.params.id
+    await this.props.match.params.id
       ? this.props.onEditСinema(this.props.match.params.id, cinema)
-      : this.props.onAddСinema(cinema);
-    this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls);
+      : this.props.onAddСinema(cinema, this.props.halls);
+    /* this.props.onAddHalls((this.props.cinemas[this.props.cinemas.length - 1]).id, this.props.halls); */
     this.props.history.push(`/cinemas`);
     this.props.clearHalls();
   }
@@ -133,8 +133,8 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onAddСinema(cinema) {
-    dispatch(addCinemaAsync(cinema));
+  onAddСinema(cinema, halls) {
+    dispatch(addCinemaAsync(cinema, halls));
   },
   onEditСinema(id, cinema) {
     dispatch(editCinemaAsync(id, cinema));
