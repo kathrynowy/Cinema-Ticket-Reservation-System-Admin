@@ -9,13 +9,17 @@ import {
   GET_CINEMA_FAILURE,
   CLEAR_CINEMA,
   EDIT_CINEMA_SUCCESS,
-  EDIT_CINEMA_FAILURE
+  EDIT_CINEMA_FAILURE,
+  ADD_CINEMA_AND_HALLS_SUCCESS,
+  SAVE_CINEMA_INFO,
+  CLEAR_CINEMA_INFO
 } from '../actionTypes'
 
 const initialState = {
   cinemas: [],
   error: '',
-  cinema: {}
+  cinema: {},
+  newCinema: {}
 }
 
 export default function getCinemas(state = initialState, action) {
@@ -32,9 +36,19 @@ export default function getCinemas(state = initialState, action) {
       })
     }
 
+    case ADD_CINEMA_AND_HALLS_SUCCESS:
+      return Object.assign({}, state, {
+        cinemas: [...state.cinemas, action.payload],
+      });
+
     case EDIT_CINEMA_FAILURE:
       return Object.assign({}, state, {
         errors: action.payload
+      });
+
+    case SAVE_CINEMA_INFO:
+      return Object.assign({}, state, {
+        newCinema: { name: action.name, city: action.city }
       });
 
     case GET_CINEMAS_SUCCESS:
@@ -81,6 +95,11 @@ export default function getCinemas(state = initialState, action) {
     case CLEAR_CINEMA:
       return Object.assign({}, state, {
         cinema: {}
+      })
+
+    case CLEAR_CINEMA_INFO:
+      return Object.assign({}, state, {
+        newCinema: {}
       })
 
     default: return state;

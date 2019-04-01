@@ -38,7 +38,9 @@ import {
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
   ADD_ROWS,
-  ADD_CINEMA_AND_HALLS_SUCCESS
+  ADD_CINEMA_AND_HALLS_SUCCESS,
+  SAVE_CINEMA_INFO,
+  CLEAR_CINEMA_INFO
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -47,6 +49,46 @@ export const addRow = (row) => {
   return {
     type: ADD_ROW,
     payload: row
+  }
+}
+
+export const clearCinemaInfo = () => {
+  return {
+    type: CLEAR_CINEMA_INFO,
+  }
+}
+
+export const saveCinemaInfo = (name, city) => {
+  return {
+    type: SAVE_CINEMA_INFO,
+    name,
+    city
+  }
+}
+
+export const editHallAsync = (hall, id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/halls/${id}`, hall);
+      dispatch(editHallSuccess(data));
+    }
+    catch (error) {
+      dispatch(editHallFailure(error))
+    }
+  }
+}
+
+export const editHallSuccess = (hall) => {
+  return {
+    type: EDIT_MOVIE_SUCCESS,
+    payload: hall
+  }
+}
+
+export const editHallFailure = (error) => {
+  return {
+    type: EDIT_MOVIE_FAILURE,
+    payload: error.request.statusText
   }
 }
 

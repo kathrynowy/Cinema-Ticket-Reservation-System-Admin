@@ -10,7 +10,7 @@ class Hall extends Component {
   }
 
   handleClick = () => {
-    this.props.onEditHall(this.props.hall);
+    this.props.onEditHall(this.props.hall, this.props.index);
   }
 
   render() {

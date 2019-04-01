@@ -7,7 +7,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import Input from '../Input/Input';
 import './AddHall.scss';
-import { addHall, addRow, clearRows, getHallAsync, addRows, clearHall } from '../../actions/index'
+import {
+  addHall,
+  addRow,
+  clearRows,
+  getHallAsync,
+  addRows,
+  clearHall,
+  editHallAsync
+} from '../../actions/index'
 
 
 class AddHall extends Component {
@@ -16,7 +24,6 @@ class AddHall extends Component {
     amountOfSeats: '',
     cost: '',
     rows: this.props.rows.map((row, index) => {
-      console.log(row);
       return ({
         id: index,
         isEdit: false,
@@ -31,6 +38,7 @@ class AddHall extends Component {
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
     const cinemaId = this.props.match.params.cinemaId;
+    const index = this.props.match.params.index;
     if (!hallId) {
       this.props.clearHall();
       this.props.clearRows();
@@ -38,13 +46,30 @@ class AddHall extends Component {
 
     if (hallId) {
       this.props.getHall(hallId);
-      this.props.addRows(this.props.hall.hall);
+      this.props.addRows(this.props.hall.hall || []);
+    }
+
+    if (index) {
+      const i = +index;
+      this.setState({
+        name: this.props.halls[i].name,
+        rows: this.props.halls[i].hall.map((row, index) => {
+          return ({
+            id: index,
+            isEdit: false,
+            row: row.row,
+            cost: row.cost,
+            amountOfSeats: row.amountOfSeats,
+            isEdit: false
+          })
+        })
+      })
     }
   }
 
   componentUnmount() {
     this.props.clearHall();
-    this.props.clearRows()
+    this.props.clearRows();
   }
 
   addHall = () => {
@@ -52,13 +77,15 @@ class AddHall extends Component {
       name: this.state.name,
       hall: this.props.rows
     };
-    if (this.props.match.params.hallId) {
+    this.props.match.params.hallId
+      ? this.props.onEditHall(hall, this.props.match.params.hallId)
+      : this.props.onAddHall(hall)
 
+    if (this.props.match.params.cinemaId || this.props.match.params.hallId) {
+      this.props.history.push(`/edit/cinema/${this.props.match.params.cinemaId}`);
+    } else {
+      this.props.history.push(`/add/new/cinema`);
     }
-    this.props.onAddHall(hall);
-    this.props.match.params.cinemaId
-      ? this.props.history.push(`/edit/cinema/${this.props.match.params.cinemaId}`)
-      : this.props.history.push(`/add/new/cinema/name/${this.props.match.params.name}/city/${this.props.match.params.city}`);
   }
 
   changeSeats = (amountOfSeats) => {
@@ -73,9 +100,10 @@ class AddHall extends Component {
     this.setState({ name });
   }
 
+
   addRow = () => {
     const row = {
-      row: this.props.rows.length + 1 || 0,
+      row: this.state.rows.length + 1 || 0,
       amountOfSeats: +this.state.amountOfSeats,
       cost: +this.state.cost
     }
@@ -86,7 +114,7 @@ class AddHall extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rows) this.setState({
+    if (nextProps.rows.length) this.setState({
       rows: nextProps.rows.map(row => {
         return { ...row, isEdit: false }
       })
@@ -121,7 +149,7 @@ class AddHall extends Component {
         <Input
           label="Name"
           handleChanges={this.changeHall}
-          initialValue={this.props.hall.name || this.state.name}
+          value={this.props.hall.name || this.state.name}
         />
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
@@ -132,19 +160,19 @@ class AddHall extends Component {
             <Input
               label="Amount of seats"
               handleChanges={this.changeSeats}
-              initialValue={this.state.amountOfSeats}
+              value={this.state.amountOfSeats}
             />
             <Input
               label="Cost"
               handleChanges={this.changeCost}
-              initialValue={this.state.cost}
+              value={this.state.cost}
             />
           </div>
         </div>
         <div className="hall-form__info">
           <ul className="hall-form__row-list">
             {
-              this.props.rows.map((row, index) => {
+              this.state.rows.map((row, index) => {
                 return (
                   <div className="hall-form__list-item row" key={row + index}>
                     <li className="row__info">
@@ -166,7 +194,9 @@ class AddHall extends Component {
           className="hall-form__add-button"
           onClick={this.addHall}
         >
-          Add hall
+          {
+            this.props.match.params.hallId || this.props.match.params.index ? 'Save' : 'Add'
+          }
         </button>
       </div>
     )
@@ -175,13 +205,17 @@ class AddHall extends Component {
 
 const mapStateToProps = store => ({
   rows: store.halls.hall.hall || store.halls.rows || [],
-  hall: store.halls.hall
+  hall: store.halls.hall,
+  halls: store.halls.halls
 })
 
 const mapDispatchToProps = dispatch => ({
   onAddHall(hall) {
     dispatch(addHall(hall));
     dispatch(clearRows());
+  },
+  onEditHall(hall, id) {
+    dispatch(editHallAsync(hall, id));
   },
   onAddRow(row) {
     dispatch(addRow(row));

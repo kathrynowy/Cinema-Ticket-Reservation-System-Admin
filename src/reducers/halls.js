@@ -13,7 +13,9 @@ import {
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
   ADD_ROWS,
-  CLEAR_HALL
+  CLEAR_HALL,
+  EDIT_HALL_SUCCESS,
+  EDIT_HALL_FAILURE
 } from '../actionTypes'
 
 const initialState = {
@@ -76,6 +78,23 @@ export default function getHalls(state = initialState, action) {
         halls: newHalls
       });
     }
+
+    case EDIT_HALL_SUCCESS: {
+      const newHalls = state.halls.map(hall => {
+        if (hall.id === action.payload.id) {
+          hall = action.payload;
+        }
+        return hall;
+      });
+      return Object.assign({}, state, {
+        halls: newHalls
+      })
+    }
+
+    case EDIT_HALL_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
 
     case DELETE_HALL_SUCCESS:
       const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
