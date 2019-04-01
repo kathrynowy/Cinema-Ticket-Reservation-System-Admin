@@ -12,7 +12,8 @@ import {
   EDIT_CINEMA_FAILURE,
   ADD_CINEMA_AND_HALLS_SUCCESS,
   SAVE_CINEMA_INFO,
-  CLEAR_CINEMA_INFO
+  CLEAR_CINEMA_INFO,
+  CLEAR_CINEMAS
 } from '../actionTypes'
 
 const initialState = {
@@ -95,6 +96,11 @@ export default function getCinemas(state = initialState, action) {
     case CLEAR_CINEMA:
       return Object.assign({}, state, {
         cinema: {}
+      })
+
+    case CLEAR_CINEMAS:
+      return Object.assign({}, state, {
+        cinemas: []
       })
 
     case CLEAR_CINEMA_INFO:

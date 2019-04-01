@@ -38,7 +38,6 @@ class AddHall extends Component {
 
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
-    const cinemaId = this.props.match.params.cinemaId;
     const index = this.props.match.params.index;
     if (!hallId) {
       this.props.clearHall();

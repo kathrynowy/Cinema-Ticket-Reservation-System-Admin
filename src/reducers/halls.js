@@ -115,9 +115,9 @@ export default function getHalls(state = initialState, action) {
       });
 
     case DELETE_ROW: {
-      const newRows = state.hall.hall.filter((row, index) => index !== action.payload);
+      const newRows = state.rows.filter((row, index) => index !== action.payload);
       return Object.assign({}, state, {
-        hall: newRows
+        rows: newRows
       });
     }
 
