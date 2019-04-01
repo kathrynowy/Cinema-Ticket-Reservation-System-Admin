@@ -40,7 +40,9 @@ import {
   ADD_ROWS,
   ADD_CINEMA_AND_HALLS_SUCCESS,
   SAVE_CINEMA_INFO,
-  CLEAR_CINEMA_INFO
+  CLEAR_CINEMA_INFO,
+  ADD_SERVICE,
+  CLEAR_SERVICES
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -52,9 +54,22 @@ export const addRow = (row) => {
   }
 }
 
+export const addService = (service) => {
+  return {
+    type: ADD_SERVICE,
+    payload: service
+  }
+}
+
 export const clearCinemaInfo = () => {
   return {
     type: CLEAR_CINEMA_INFO,
+  }
+}
+
+export const clearServices = () => {
+  return {
+    type: CLEAR_SERVICES,
   }
 }
 

@@ -14,9 +14,14 @@ import {
   deleteHallAsync,
   editCinemaAsync,
   saveCinemaInfo,
-  clearCinemaInfo
+  clearCinemaInfo,
+  addService,
+  clearServices
 } from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
 import Input from '../Input/Input';
 import Hall from '../Hall/Hall';
 import './AddCinema.scss';
@@ -25,7 +30,17 @@ import './AddCinema.scss';
 class AddCinema extends Component {
   state = {
     name: '' || this.props.cinema.name || this.props.newCinema.name,
-    city: '' || this.props.cinema.city || this.props.newCinema.city
+    city: '' || this.props.cinema.city || this.props.newCinema.city,
+    service: '',
+    cost: '',
+    additionalServices: this.props.additionalServices.map((service, index) => {
+      return ({
+        id: index,
+        isEdit: false,
+        name: service.name,
+        cost: service.cost
+      })
+    })
   }
 
   componentDidMount() {
@@ -41,6 +56,16 @@ class AddCinema extends Component {
     this.props.clearCinemaInfo();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.cinemas.length) {
+      const cinema = nextProps.cinemas.find(cinema => cinema.id === this.props.match.params.id);
+      this.setState({
+        additionalServices: cinema.additionalServices
+      });
+    }
+  }
+
+
   componentWillUnmount() {
     this.props.clearCinema();
   }
@@ -53,16 +78,26 @@ class AddCinema extends Component {
     this.setState({ city });
   }
 
+  changeCost = (cost) => {
+    this.setState({ cost });
+  }
+
+  changeService = (service) => {
+    this.setState({ service });
+  }
+
   addCinema = async () => {
     const cinema = {
       name: this.state.name || this.props.cinema.name,
-      city: this.state.city || this.props.cinema.city
+      city: this.state.city || this.props.cinema.city,
+      additionalServices: this.props.additionalServices
     };
     await this.props.match.params.id
       ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
-      : this.props.onAddСinema(cinema, this.props.halls);
+      : this.props.onAddСinema(cinema, this.props.halls, this.props.AdditionalServices);
     this.props.history.push(`/cinemas`);
     this.props.clearHalls();
+    this.props.clearServices();
   }
 
   onDeleteHall = (hall) => {
@@ -83,9 +118,49 @@ class AddCinema extends Component {
     this.props.saveCinemaInfo(this.state.name, this.state.city);
   }
 
+  handleEditService = (index) => {
+    let newAdditionalServices = this.state.additionalServices.map(service => {
+      service.isEdit = false;
+      return service;
+    })
+
+    newAdditionalServices[index].isEdit = true;
+    this.setState({
+      additionalServices: newAdditionalServices
+    })
+  }
+
+  handleConfirmEdit = (index) => {
+    const newAdditionalServices = this.state.rows;
+    newAdditionalServices[index].isEdit = false;
+    this.setState({
+      additionalServices: newAdditionalServices
+    })
+  }
+
+  addService = () => {
+    const service = {
+      name: this.state.service,
+      cost: +this.state.cost
+    }
+    this.props.onAddService(service);
+    this.setState({
+      additionalServices: [...this.state.additionalServices, {
+        name: service.name,
+        cost: service.cost,
+        isEdit: false,
+        id: this.state.additionalServices.length
+      }],
+      service: '',
+      cost: ''
+    });
+  }
+
   render() {
     const name = this.state.name || this.props.cinema.name;
     const city = this.state.city || this.props.cinema.city;
+    const cost = this.state.cost;
+    const service = this.state.service;
     return (
       <div className="cinema">
         <Input
@@ -126,6 +201,43 @@ class AddCinema extends Component {
             })
           }
         </div>
+        <div
+          className="cinema__add-service link"
+          onClick={this.addService}
+        >
+          <span className="link__label"> Add additional service</span>
+          <AddIcon className="link__add-icon" />
+        </div>
+        <Input
+          label="Service"
+          handleChanges={this.changeService}
+          value={service}
+        />
+        <Input
+          label="Cost"
+          handleChanges={this.changeCost}
+          value={cost}
+        />
+        <div className="cinema__services services">
+          <ul className="services__row-list">
+            {
+              this.state.additionalServices.map((service, index) => {
+                return (
+                  <div className="services __list-item row" key={service + index}>
+                    <li className="row__info">
+                      {`service: ${service.name}, cost: ${service.cost}`}
+                    </li>
+                    <div className="row__icons">
+                      {!this.state.additionalServices[index].isEdit && <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditService(index)} />}
+                      {this.state.additionalServices[index].isEdit && <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />}
+                      <DeleteIcon className="row__icon" />
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </ul>
+        </div>
         <button className="cinema__add-cinema" onClick={this.addCinema}>Add</button>
       </div>
     );
@@ -136,7 +248,8 @@ const mapStateToProps = store => ({
   halls: store.halls.halls,
   cinemas: store.cinemas.cinemas,
   cinema: store.cinemas.cinema,
-  newCinema: store.cinemas.newCinema
+  newCinema: store.cinemas.newCinema,
+  additionalServices: store.services.additionalServices
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -145,6 +258,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());
+  },
+  onAddService(service) {
+    dispatch(addService(service));
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
@@ -157,10 +273,6 @@ const mapDispatchToProps = dispatch => ({
   getCinemasAsync() {
     dispatch(getCinemasAsync());
   },
-  onAddHalls(cinemaId, halls) {
-
-
-  },
   onDeleteNewHall(hall) {
     dispatch(deleteNewHall(hall));
   },
@@ -169,6 +281,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearCinema() {
     dispatch(clearCinema());
+  },
+  clearServices() {
+    dispatch(clearServices());
   },
   clearHalls() {
     dispatch(clearHalls());

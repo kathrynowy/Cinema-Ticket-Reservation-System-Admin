@@ -53,15 +53,87 @@
 
   .halls {
     overflow-y: auto;
-    margin-top: 30px;
-    height: 200px;
-    width: 400px;
-    border: 2px solid $light-orange;
+    margin: 15px 0px;
+    height: 150px;
+    width: 380px;
+    border: 1px solid $blackBorder;
     background-color: $transparent;
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     padding: 10px;
+    padding-left: 0px;
+  }
+
+  .services {
+    width: 95%;
+    background-color: $transparent;
+    color: $black;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 20px;
+      height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
+      border-radius: 30px;
+      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+    }
+
+    &::-webkit-scrollbar {
+      width: 20px;
+      height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
+      border-radius: 30px;
+      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+    }
+  }
+
+  .row {
+    width: 95%;
+    padding: 8px 2px;
+    border: 1px solid $blackBorder;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &:not(:first-child) {
+      border-top: none;
+    }
+
+    &__info {
+      display: flex;
+      text-align: start;
+    }
+
+    &__icon {
+      align-self: flex-end;
+      width: 25x !important;
+      height: 80%;
+      align-self: center;
+      cursor: pointer;
+
+      &:hover {
+        color: $light-orange;
+      }
+
+      &_confirm {
+        color: #007f00;
+
+        &:hover {
+          color: #086308;
+        }
+      }
+    }
   }
 
   .link {
@@ -78,7 +150,7 @@
       font-size: 18px;
       display: flex;
       align-content: flex-end;
-      padding: 10px 5px;
+      padding: 4px 5px;
       padding-bottom: 2px;
     }
 

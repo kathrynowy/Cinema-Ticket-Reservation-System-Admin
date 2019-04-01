@@ -46,3 +46,6 @@ export const EDIT_HALL_SUCCESS = 'EDIT_HALL_SUCCESS';
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_ROWS = 'ADD_ROWS';
 export const CLEAR_ROWS = 'CLEAR_ROWS';
+
+export const ADD_SERVICE = 'ADD_SERVICE';
+export const CLEAR_SERVICES = 'CLEAR_SERVICES';
