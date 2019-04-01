@@ -15,7 +15,6 @@ class AddHall extends Component {
     name: '',
     amountOfSeats: '',
     cost: '',
-    isEdit: false,
     rows: this.props.rows.map((row, index) => {
       console.log(row);
       return ({
@@ -23,7 +22,8 @@ class AddHall extends Component {
         isEdit: false,
         row: row.row,
         cost: row.cost,
-        amountOfSeats: row.amountOfSeats
+        amountOfSeats: row.amountOfSeats,
+        isEdit: false
       })
     })
   }
@@ -82,6 +82,14 @@ class AddHall extends Component {
     this.props.onAddRow(row);
     this.setState({
       rows: [...this.state.rows, { row: row.row, cost: row.cost, amountOfSeats: row.amountOfSeats, isEdit: false, id: row.row }]
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.rows) this.setState({
+      rows: nextProps.rows.map(row => {
+        return { ...row, isEdit: false }
+      })
     })
   }
 

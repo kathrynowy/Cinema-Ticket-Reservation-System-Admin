@@ -249,7 +249,6 @@ export function addCinemaAsync(cinema, halls) {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`cinemas-halls`, { cinema, halls });
-      console.log(data);
       dispatch(addCinemaSuccess(data.cinema));
     } catch (error) {
       dispatch(addCinemaFailure(error));
