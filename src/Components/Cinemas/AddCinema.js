@@ -60,11 +60,10 @@ class AddCinema extends Component {
     if (this.props.cinemas.length) {
       const cinema = nextProps.cinemas.find(cinema => cinema.id === this.props.match.params.id);
       this.setState({
-        additionalServices: cinema.additionalServices
+        additionalServices: [...cinema.additionalServices, ...nextProps.additionalServices]
       });
     }
   }
-
 
   componentWillUnmount() {
     this.props.clearCinema();
@@ -90,11 +89,11 @@ class AddCinema extends Component {
     const cinema = {
       name: this.state.name || this.props.cinema.name,
       city: this.state.city || this.props.cinema.city,
-      additionalServices: this.props.additionalServices
+      additionalServices: this.state.additionalServices
     };
     await this.props.match.params.id
       ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
-      : this.props.onAddСinema(cinema, this.props.halls, this.props.AdditionalServices);
+      : this.props.onAddСinema(cinema, this.props.halls);
     this.props.history.push(`/cinemas`);
     this.props.clearHalls();
     this.props.clearServices();

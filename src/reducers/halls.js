@@ -15,7 +15,9 @@ import {
   ADD_ROWS,
   CLEAR_HALL,
   EDIT_HALL_SUCCESS,
-  EDIT_HALL_FAILURE
+  EDIT_HALL_FAILURE,
+  DELETE_ROW,
+  EDIT_ROW
 } from '../actionTypes'
 
 const initialState = {
@@ -110,7 +112,22 @@ export default function getHalls(state = initialState, action) {
     case CLEAR_ROWS:
       return Object.assign({}, state, {
         rows: []
-      })
+      });
+
+    case DELETE_ROW: {
+      const newRows = state.hall.hall.filter((row, index) => index !== action.payload);
+      return Object.assign({}, state, {
+        hall: newRows
+      });
+    }
+
+    case EDIT_ROW: {
+      let newRows = state.hall.hall;
+      newRows[action.index] = action.row;
+      return Object.assign({}, state, {
+        hall: newRows
+      });
+    }
 
     case CLEAR_HALLS:
       return Object.assign({}, state, {

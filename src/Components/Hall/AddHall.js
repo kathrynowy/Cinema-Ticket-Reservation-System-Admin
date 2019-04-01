@@ -14,7 +14,9 @@ import {
   getHallAsync,
   addRows,
   clearHall,
-  editHallAsync
+  editHallAsync,
+  deleteRow,
+  editRow
 } from '../../actions/index'
 
 
@@ -29,8 +31,7 @@ class AddHall extends Component {
         isEdit: false,
         row: row.row,
         cost: row.cost,
-        amountOfSeats: row.amountOfSeats,
-        isEdit: false
+        amountOfSeats: row.amountOfSeats
       })
     })
   }
@@ -59,8 +60,7 @@ class AddHall extends Component {
             isEdit: false,
             row: row.row,
             cost: row.cost,
-            amountOfSeats: row.amountOfSeats,
-            isEdit: false
+            amountOfSeats: row.amountOfSeats
           })
         })
       })
@@ -101,7 +101,6 @@ class AddHall extends Component {
     this.setState({ name });
   }
 
-
   addRow = () => {
     const row = {
       row: this.state.rows.length + 1 || 0,
@@ -115,11 +114,21 @@ class AddHall extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rows.length) this.setState({
-      rows: nextProps.rows.map(row => {
-        return { ...row, isEdit: false }
+    if (nextProps.rows.length) {
+      this.props.addRows(nextProps.rows);
+      this.setState({
+        rows: nextProps.rows.map((row, index) => {
+          return { ...row, isEdit: false, id: index }
+        })
       })
-    })
+    } else if (nextProps.hall.hall) {
+      this.props.addRows(nextProps.hall.hall);
+      this.setState({
+        rows: nextProps.hall.hall.map((row, index) => {
+          return { ...row, isEdit: false, id: index }
+        })
+      })
+    }
   }
 
   handleEditRow = (index) => {
@@ -141,9 +150,14 @@ class AddHall extends Component {
     newRows[index].isEdit = false;
     newRows[index].amountOfSeats = this.state.amountOfSeats;
     newRows[index].cost = this.state.cost;
+    this.props.onEditRow(newRows[index]);
     this.setState({
       rows: newRows
     })
+  }
+
+  handleDelete = (index) => {
+    this.props.deleteRow(index);
   }
 
   render() {
@@ -184,7 +198,7 @@ class AddHall extends Component {
                     <div className="row__icons">
                       {!this.state.rows[index].isEdit && <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />}
                       {this.state.rows[index].isEdit && <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />}
-                      <DeleteIcon className="row__icon" />
+                      <DeleteIcon className="row__icon" onClick={() => this.handleDelete(index)} />
                     </div>
                   </div>
                 );
@@ -207,7 +221,7 @@ class AddHall extends Component {
 }
 
 const mapStateToProps = store => ({
-  rows: store.halls.hall.hall || store.halls.rows || [],
+  rows: store.halls.rows || store.halls.hall.hall || [],
   hall: store.halls.hall,
   halls: store.halls.halls
 })
@@ -219,6 +233,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onEditHall(hall, id) {
     dispatch(editHallAsync(hall, id));
+  },
+  onEditRow(index, row) {
+    dispatch(editRow(index, row));
   },
   onAddRow(row) {
     dispatch(addRow(row));
@@ -234,6 +251,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearRows() {
     dispatch(clearRows());
+  },
+  deleteRow(index) {
+    dispatch(deleteRow(index));
   }
 });
 

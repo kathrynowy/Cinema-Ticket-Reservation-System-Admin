@@ -42,7 +42,8 @@ import {
   SAVE_CINEMA_INFO,
   CLEAR_CINEMA_INFO,
   ADD_SERVICE,
-  CLEAR_SERVICES
+  CLEAR_SERVICES,
+  DELETE_ROW
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -51,6 +52,21 @@ export const addRow = (row) => {
   return {
     type: ADD_ROW,
     payload: row
+  }
+}
+
+export const deleteRow = (index) => {
+  return {
+    type: DELETE_ROW,
+    payload: index
+  }
+}
+
+export const editRow = (index, row) => {
+  return {
+    type: DELETE_ROW,
+    index,
+    row
   }
 }
 
