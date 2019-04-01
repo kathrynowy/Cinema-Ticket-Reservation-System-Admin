@@ -8,7 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import {
   getCinemasAsync,
   clearHalls,
-  deleteCinemaAsync
+  deleteCinemaAsync,
+  clearHall
 } from '../../actions/index';
 import './Cinemas.scss';
 
@@ -18,6 +19,7 @@ class Cinemas extends Component {
   componentDidMount() {
     this.props.getCinemasAsync();
     this.props.clearHalls();
+    this.props.clearHall();
   }
 
 
@@ -77,6 +79,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearHalls() {
     dispatch(clearHalls());
+  },
+  clearHall() {
+    dispatch(clearHall());
   },
   deleteCinemaAsync(id) {
     dispatch(deleteCinemaAsync(id));

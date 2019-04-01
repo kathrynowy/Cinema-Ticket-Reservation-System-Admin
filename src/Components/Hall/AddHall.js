@@ -69,6 +69,7 @@ class AddHall extends Component {
 
   componentUnmount() {
     this.props.clearHall();
+    this.props.clearHalls();
     this.props.clearRows();
   }
 
