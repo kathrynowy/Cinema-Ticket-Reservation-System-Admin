@@ -149,7 +149,7 @@ class AddHall extends Component {
     const newRows = this.state.rows;
     newRows[index].isEdit = false;
     newRows[index].amountOfSeats = this.state.amountOfSeats;
-    newRows[index].cost = this.state.cost;
+    newRows[index].cost = +this.state.cost;
     this.props.onEditRow(newRows[index]);
     this.setState({
       rows: newRows

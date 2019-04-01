@@ -43,7 +43,8 @@ import {
   CLEAR_CINEMA_INFO,
   ADD_SERVICE,
   CLEAR_SERVICES,
-  DELETE_ROW
+  DELETE_ROW,
+  EDIT_ROW
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -64,7 +65,7 @@ export const deleteRow = (index) => {
 
 export const editRow = (index, row) => {
   return {
-    type: DELETE_ROW,
+    type: EDIT_ROW,
     index,
     row
   }
