@@ -74,8 +74,8 @@ class AddHall extends Component {
 
   addHall = () => {
     const hall = {
-      name: this.state.name,
-      hall: this.props.rows
+      name: this.state.name || this.props.hall.name,
+      hall: this.state.rows || this.props.hall.rows
     };
     this.props.match.params.hallId
       ? this.props.onEditHall(hall, this.props.match.params.hallId)
@@ -138,6 +138,8 @@ class AddHall extends Component {
   handleConfirmEdit = (index) => {
     const newRows = this.state.rows;
     newRows[index].isEdit = false;
+    newRows[index].amountOfSeats = this.state.amountOfSeats;
+    newRows[index].cost = this.state.cost;
     this.setState({
       rows: newRows
     })
