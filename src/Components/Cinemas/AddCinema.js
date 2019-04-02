@@ -3,26 +3,34 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
 import {
-  addCinemaAsync,
+  addService,
+  clearServices,
+  deleteService,
+  addServices,
+  editService
+} from '../../actions/service'
+
+import {
   addHallsAsync,
-  getCinemasAsync,
   clearHalls,
   deleteNewHall,
-  getCinemaAsync,
-  clearCinema,
   getHallsAsync,
   deleteHallAsync,
+  clearRows
+} from '../../actions/hall'
+
+import {
+  addCinemaAsync,
+  getCinemasAsync,
+  getCinemaAsync,
+  clearCinema,
   editCinemaAsync,
   saveCinemaInfo,
   clearCinemaInfo,
-  addService,
-  clearServices,
-  clearRows,
-  deleteService,
-  addServices,
-  clearCinemas,
-  editService
-} from '../../actions/index';
+  clearCinemas
+} from '../../actions/cinema';
+
+
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -129,11 +137,9 @@ class AddCinema extends Component {
   }
 
   onEditHall = (hall, index) => {
-    if (hall.cinemaId) {
-      this.props.history.push(`/edit/${hall.cinemaId}/hall/${hall.id}`);
-    } else {
-      this.props.history.push(`/new/hall/edit/${index}`);
-    }
+    hall.cinemaId
+      ? this.props.history.push(`/edit/${hall.cinemaId}/hall/${hall.id}`)
+      : this.props.history.push(`/new/hall/edit/${index}`)
   }
 
   saveCinemaInfo = () => {
@@ -160,9 +166,7 @@ class AddCinema extends Component {
     newAdditionalServices[index].cost = this.state.cost;
     newAdditionalServices[index].isEdit = false;
     this.props.onEditService(newAdditionalServices[index]);
-    this.setState({
-      additionalServices: newAdditionalServices
-    })
+    this.setState({ additionalServices: newAdditionalServices });
   }
 
   addService = () => {

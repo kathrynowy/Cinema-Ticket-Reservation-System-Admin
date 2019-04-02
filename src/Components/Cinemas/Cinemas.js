@@ -6,13 +6,16 @@ import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {
-  getCinemasAsync,
   clearHalls,
-  deleteCinemaAsync,
   clearHall
-} from '../../actions/index';
-import './Cinemas.scss';
+} from '../../actions/hall';
 
+import {
+  getCinemasAsync,
+  deleteCinemaAsync,
+} from '../../actions/cinema';
+
+import './Cinemas.scss';
 
 
 class Cinemas extends Component {
@@ -21,7 +24,6 @@ class Cinemas extends Component {
     this.props.clearHalls();
     this.props.clearHall();
   }
-
 
   deleteCinemaAsync = (id) => {
     this.props.deleteCinemaAsync(id);

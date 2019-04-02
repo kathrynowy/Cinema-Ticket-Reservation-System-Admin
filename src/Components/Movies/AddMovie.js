@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import './AddMovie.scss';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea'
-import { addMovieAsync, getMovieAsync, clearMovie, editMovieAsync } from '../../actions/index'
+import {
+  addMovieAsync,
+  getMovieAsync,
+  clearMovie,
+  editMovieAsync
+} from '../../actions/movie'
 
 
 class AddMovie extends Component {
@@ -62,7 +67,7 @@ class AddMovie extends Component {
         <Input
           label="Movie"
           handleChanges={this.changeMovie}
-          initialValue={this.props.movie.name}
+          value={this.props.movie.name}
         />
         <Textarea
           label="Descripton"
@@ -72,7 +77,7 @@ class AddMovie extends Component {
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
-          initialValue={this.props.movie.img}
+          value={this.props.movie.img}
         />
         <button
           type="submit"

@@ -17,7 +17,7 @@ import {
   editHallAsync,
   deleteRow,
   editRow
-} from '../../actions/index'
+} from '../../actions/hall'
 
 
 class AddHall extends Component {

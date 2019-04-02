@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getSessionsAsync } from '../../actions/index'
+import { getSessionsAsync } from '../../actions/session'
 import AddIcon from '@material-ui/icons/Add';
 import EventIcon from '@material-ui/icons/Event';
 import DeleteIcon from '@material-ui/icons/Delete';
