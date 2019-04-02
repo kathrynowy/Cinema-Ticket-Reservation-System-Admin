@@ -27,7 +27,7 @@ class Movies extends Component {
             : this.props.movies && <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
-                <Link to="/add-movie" className="movies_link">
+                <Link to="/add/movie" className="movies_link">
                   <AddIcon className="movies__add-icon" />
                 </Link>
               </div>

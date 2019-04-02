@@ -273,7 +273,9 @@ class AddCinema extends Component {
             }
           </ul>
         </div>
-        <button className="cinema__add-cinema" onClick={this.addCinema}>Add</button>
+        <button className="cinema__add-cinema" onClick={this.addCinema}>
+          {this.props.match.params.id ? 'Save' : 'Add'}
+        </button>
       </div>
     );
   }

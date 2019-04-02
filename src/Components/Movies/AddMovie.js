@@ -27,6 +27,16 @@ class AddMovie extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.movie) {
+      this.setState({
+        description: nextProps.movie.description,
+        name: nextProps.movie.name,
+        url: nextProps.movie.img
+      })
+    }
+  }
+
   componentWillUnmount() {
     this.props.clearMovie();
   }
@@ -38,6 +48,7 @@ class AddMovie extends Component {
       description: this.state.description
     }
     this.props.onAddMovie(movie);
+    this.props.history.push(`/movies`);
   }
 
   editMovie = () => {
@@ -46,7 +57,8 @@ class AddMovie extends Component {
       img: this.state.url,
       description: this.state.description
     }
-    this.props.editMovie(movie, this.props.match.params.id)
+    this.props.editMovie(movie, this.props.match.params.id);
+    this.props.history.push(`/movies`);
   }
 
   changeMovie = (name) => {
@@ -85,8 +97,9 @@ class AddMovie extends Component {
           onClick={this.props.match.params.id
             ? this.editMovie
             : this.addMovie}
-        >
-          Add
+        > {
+            this.props.match.params.id ? 'Save' : 'Add'
+          }
         </button>
       </div>
     );
