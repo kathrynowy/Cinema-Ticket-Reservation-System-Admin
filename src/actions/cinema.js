@@ -13,7 +13,7 @@ import {
   ADD_CINEMA_AND_HALLS_SUCCESS,
   SAVE_CINEMA_INFO,
   CLEAR_CINEMA_INFO,
-  CLEAR_CINEMAS
+  CLEAR_CINEMAS,
 } from '../actionTypes.js';
 
 import axios from 'axios';
@@ -115,7 +115,7 @@ export const editCinemaFailure = error => ({
 export const deleteCinemaAsync = id => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/cinemas/${id}`);
+      const { data } = await axios.delete(`cinemas/${id}`);
       dispatch(deleteCinemaSuccess(id));
     }
     catch (error) {

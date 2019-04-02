@@ -1,6 +1,8 @@
 import {
   GET_SESSIONS_SUCCESS,
-  GET_SESSIONS_FAILURE
+  GET_SESSIONS_FAILURE,
+  GET_CINEMAS_BY_CITY_SUCCESS,
+  GET_CINEMAS_BY_CITY_FAILURE
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -30,3 +32,24 @@ export const getSessionsAsync = () => {
     }
   }
 }
+
+export const getCinemasByCity = (city) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`cinemas/city/${city}`);
+      dispatch(getCinemasByCitySuccess(data));
+    } catch (error) {
+      dispatch(getCinemasByCityFailure(error));
+    }
+  }
+}
+
+export const getCinemasByCitySuccess = cinemas => ({
+  type: GET_CINEMAS_BY_CITY_SUCCESS,
+  payload: cinemas
+});
+
+export const getCinemasByCityFailure = error => ({
+  type: GET_CINEMAS_BY_CITY_FAILURE,
+  payload: error
+});

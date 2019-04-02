@@ -45,8 +45,8 @@ class Sessions extends Component {
                       <li key={session.id} className="sessions__list-item session">
                         <EventIcon className="session__icon" />
                         <span className="session__name">
-                          {`Minsk, ${session.cinemaId.name},
-                          hall: small, ${(session.movieId.name).toLowerCase()},
+                          {`${session.cinemaId.city}, ${session.cinemaId.name},
+                          hall: ${session.hallId.name}, ${(session.movieId.name).toLowerCase()},
                           ${times}`}
                         </span>
                         <DeleteIcon className="session__icon session__icon_delete" />

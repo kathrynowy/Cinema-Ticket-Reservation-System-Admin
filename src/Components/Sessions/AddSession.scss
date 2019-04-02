@@ -2,6 +2,12 @@
 @import '../../mixins.scss';
 
 .session {
+  padding-top: 30px;
+  
+  &__label{
+    @include label();
+  }
+
   &__add {
     @include addButton();
     text-decoration: none;
