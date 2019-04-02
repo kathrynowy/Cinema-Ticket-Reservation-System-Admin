@@ -54,3 +54,4 @@ export const ADD_SERVICE = 'ADD_SERVICE';
 export const ADD_SERVICES = 'ADD_SERVICES';
 export const CLEAR_SERVICES = 'CLEAR_SERVICES';
 export const DELETE_SERVICE = 'DELETE_SERVICE';
+export const EDIT_SERVICE = 'EDIT_SERVICE';

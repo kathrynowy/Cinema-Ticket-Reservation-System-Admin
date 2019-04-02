@@ -1,4 +1,4 @@
-import { ADD_SERVICE, CLEAR_SERVICES, DELETE_SERVICE, ADD_SERVICES } from '../actionTypes.js';
+import { ADD_SERVICE, CLEAR_SERVICES, DELETE_SERVICE, ADD_SERVICES, EDIT_SERVICE } from '../actionTypes.js';
 
 const initialState = {
   additionalServices: [],
@@ -18,6 +18,13 @@ export default function additionalServices(state = initialState, action) {
       return Object.assign({}, state, {
         additionalServices: []
       });
+    case EDIT_SERVICE: {
+      let newServices = state.additionalServices;
+      newServices[action.index] = action.service;
+      return Object.assign({}, state, {
+        additionalServices: newServices
+      });
+    }
     case DELETE_SERVICE: {
       const newServices = state.additionalServices.filter((row, index) => index !== action.payload);
       return Object.assign({}, state, {

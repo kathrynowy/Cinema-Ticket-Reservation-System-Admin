@@ -20,7 +20,8 @@ import {
   clearRows,
   deleteService,
   addServices,
-  clearCinemas
+  clearCinemas,
+  editService
 } from '../../actions/index';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
@@ -32,12 +33,16 @@ import './AddCinema.scss';
 
 
 class AddCinema extends Component {
-  state = {
-    name: '' || this.props.cinema.name || this.props.newCinema.name,
-    city: '' || this.props.cinema.city || this.props.newCinema.city,
-    service: '',
-    cost: '',
-    additionalServices: []
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: '' || props.cinema.name || props.newCinema.name,
+      city: '' || props.cinema.city || props.newCinema.city,
+      service: '',
+      cost: '',
+      additionalServices: []
+    }
   }
 
   componentDidMount() {
@@ -143,13 +148,18 @@ class AddCinema extends Component {
 
     newAdditionalServices[index].isEdit = true;
     this.setState({
+      service: newAdditionalServices[index].name,
+      cost: +newAdditionalServices[index].cost,
       additionalServices: newAdditionalServices
     })
   }
 
   handleConfirmEdit = (index) => {
-    const newAdditionalServices = this.state.rows;
+    const newAdditionalServices = this.state.additionalServices;
+    newAdditionalServices[index].name = this.state.service;
+    newAdditionalServices[index].cost = this.state.cost;
     newAdditionalServices[index].isEdit = false;
+    this.props.onEditService(newAdditionalServices[index]);
     this.setState({
       additionalServices: newAdditionalServices
     })
@@ -276,6 +286,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
     dispatch(addCinemaAsync(cinema, halls));
+  },
+  onEditService(index, service) {
+    dispatch(editService(index, service));
   },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());

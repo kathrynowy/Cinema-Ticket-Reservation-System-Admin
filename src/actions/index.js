@@ -47,7 +47,8 @@ import {
   DELETE_ROW,
   EDIT_ROW,
   DELETE_SERVICE,
-  CLEAR_CINEMAS
+  CLEAR_CINEMAS,
+  EDIT_SERVICE
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -78,6 +79,14 @@ export const editRow = (index, row) => {
     type: EDIT_ROW,
     index,
     row
+  }
+}
+
+export const editService = (index, service) => {
+  return {
+    type: EDIT_SERVICE,
+    index,
+    service
   }
 }
 
