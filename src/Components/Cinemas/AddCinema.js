@@ -137,9 +137,11 @@ class AddCinema extends Component {
   }
 
   onEditHall = (hall, index) => {
-    hall.cinemaId
-      ? this.props.history.push(`/edit/${hall.cinemaId}/hall/${hall.id}`)
-      : this.props.history.push(`/new/hall/edit/${index}`)
+    if (hall.cinemaId) {
+      this.props.history.push(`/cinema/${hall.cinemaId}/hall/edit/${hall.id}`);
+    } else {
+      this.props.history.push(`/cinema/hall/edit/${index}`);
+    }
   }
 
   saveCinemaInfo = () => {
@@ -211,8 +213,8 @@ class AddCinema extends Component {
         <Link
           to={{
             pathname: this.props.match.params.id
-              ? `/add/newhall/${this.props.cinema.id || this.props.match.params.id}`
-              : `/add/hall`
+              ? `/cinema/${this.props.cinema.id || this.props.match.params.id}/hall/add`
+              : `/cinema/hall/add`
           }}
           className="cinema__link link"
           onClick={this.saveCinemaInfo}

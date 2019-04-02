@@ -31,7 +31,7 @@ class Sessions extends Component {
             : <Fragment>
               <div className="sessions__add-session">
                 <span className="sessions__label"> Add session</span>
-                <Link to="/add-session" className="movies_link">
+                <Link to="/session/add" className="movies_link">
                   <AddIcon className="sessions__add-icon" />
                 </Link>
               </div>
