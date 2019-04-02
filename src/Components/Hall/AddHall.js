@@ -48,24 +48,23 @@ class AddHall extends Component {
 
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
-    const index = this.props.match.params.index;
-    if (!hallId) {
-      this.props.clearHall();
-      this.props.clearRows();
-    }
+    const hallIndex = this.props.match.params.index;
 
     if (hallId) {
       this.props.getHall(hallId);
       this.props.addRows(this.props.hall.hall || []);
+    } else {
+      this.props.clearHall();
+      this.props.clearRows();
     }
 
-    if (index) {
-      const i = +index;
+    if (hallIndex) {
+      const i = +hallIndex;
       this.setState({
         name: this.props.halls[i].name,
-        rows: this.props.halls[i].hall.map((row, index) => {
+        rows: this.props.halls[i].hall.map((row, hallIndex) => {
           return ({
-            id: index,
+            id: hallIndex,
             isEdit: false,
             row: row.row,
             cost: row.cost,
@@ -112,7 +111,7 @@ class AddHall extends Component {
 
   addRow = () => {
     const row = {
-      row: this.state.rows.length + 1 || 0,
+      row: this.state.rows.length + 1,
       amountOfSeats: +this.state.amountOfSeats,
       cost: +this.state.cost
     }
@@ -138,10 +137,9 @@ class AddHall extends Component {
   }
 
   handleEditRow = (index) => {
-    let rows = this.state.rows.map(row => {
-      row.isEdit = false;
-      return row;
-    })
+    let rows = this.state.rows.map((row, i) =>
+      ({ ...row, isEdit: index === i })
+    );
 
     rows[index].isEdit = true;
     this.setState({
