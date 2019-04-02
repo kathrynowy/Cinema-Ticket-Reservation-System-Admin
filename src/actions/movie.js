@@ -67,7 +67,7 @@ export const editMovieFailure = (error) => {
   }
 }
 
-export function getMoviesAsync() {
+export const getMoviesAsync = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`movies`);
@@ -93,7 +93,7 @@ export const getMoviesFailure = (error) => {
 }
 
 
-export function addMovieAsync(movie) {
+export const addMovieAsync = (movie) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`movies`, movie);
@@ -114,7 +114,7 @@ export const addMovieFailure = error => ({
   payload: error
 })
 
-export function getMovieAsync(id) {
+export const getMovieAsync = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`movies/${id}`);

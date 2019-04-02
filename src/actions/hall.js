@@ -115,7 +115,7 @@ export const deleteHallFailure = (error) => {
   }
 }
 
-export function getHallsAsync(id) {
+export const getHallsAsync = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`halls/cinema/${id}`);
@@ -140,7 +140,7 @@ export const getHallsFailure = (error) => {
   }
 }
 
-export function addHallsAsync(cinemaId, halls) {
+export const addHallsAsync = (cinemaId, halls) => {
   return async (dispatch) => {
     try {
       for (let i = 0; i < halls.length; i++) {
@@ -173,7 +173,7 @@ export const addHallFailure = error => ({
   payload: error
 })
 
-export function getHallAsync(id) {
+export const getHallAsync = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`halls/${id}`);

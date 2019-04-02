@@ -20,7 +20,7 @@ export const getSessionsFailure = (error) => {
   }
 }
 
-export function getSessionsAsync() {
+export const getSessionsAsync = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`sessions`);

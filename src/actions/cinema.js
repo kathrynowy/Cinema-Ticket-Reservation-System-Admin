@@ -53,7 +53,7 @@ export const getCinemasFailure = (error) => {
   }
 }
 
-export function getCinemasAsync() {
+export const getCinemasAsync = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`cinemas`);
@@ -64,7 +64,7 @@ export function getCinemasAsync() {
   }
 }
 
-export function addCinemaAsync(cinema, halls) {
+export const addCinemaAsync = (cinema, halls) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`cinemas-halls`, { cinema, halls });
@@ -90,7 +90,7 @@ export const addCinemaFailure = error => ({
   payload: error
 })
 
-export function editCinemaAsync(id, cinema) {
+export const editCinemaAsync = (id, cinema) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/cinemas/${id}`, cinema);
@@ -124,7 +124,7 @@ export const deleteCinemaAsync = id => {
   }
 }
 
-export function getCinemaAsync(id) {
+export const getCinemaAsync = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`cinemas/${id}`);
