@@ -19,7 +19,7 @@ export default function additionalServices(state = initialState, action) {
         additionalServices: []
       });
     case EDIT_SERVICE: {
-      let newServices = state.additionalServices;
+      let newServices = state.additionalServices.slice();;
       newServices[action.index] = action.service;
       return Object.assign({}, state, {
         additionalServices: newServices

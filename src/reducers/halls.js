@@ -122,7 +122,7 @@ export default function getHalls(state = initialState, action) {
     }
 
     case EDIT_ROW: {
-      let newRows = state.rows;
+      let newRows = state.rows.slice();;
       newRows[action.index] = action.row;
       return Object.assign({}, state, {
         rows: newRows
