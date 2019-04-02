@@ -92,7 +92,7 @@ class AddHall extends Component {
       : this.props.onAddHall(hall)
 
     if (this.isCinemaExist) {
-      this.props.history.push(`/cinema/edit/${this.props.match.params.cinemaId}`);
+      this.props.history.push(`/cinema/${this.props.match.params.cinemaId}/edit`);
     } else {
       this.props.history.push(`/cinema/add`);
     }

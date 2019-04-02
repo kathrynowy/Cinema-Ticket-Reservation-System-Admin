@@ -40,7 +40,7 @@ class Movies extends Component {
                     return (
                       <div className="movies__list-item movie" key={movie.id}>
                         <MovieIcon className="movie__icon" />
-                        <Link to={{ pathname: `/movie/edit/${movie.id}` }} className="movie__item-link">
+                        <Link to={{ pathname: `/movie/${movie.id}/edit` }} className="movie__item-link">
                           <li className="movie__name">
                             {movie.name}
                           </li>
