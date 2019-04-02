@@ -1,4 +1,5 @@
 @import '../../variables.scss';
+@import '../../mixins.scss';
 
 .hall-form{
   padding-top: 20px;
@@ -23,40 +24,24 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      @include scroll();
     }
   }
 
   &__add-row-button {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-    height: 35px;
-    margin-top: 5px;
-    margin-bottom: 35px;
+    @include add_btn();
   }
 
   &__label {
-    font-size: 22px;
-    display: flex;
-    align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 8px;
+    @include label();
+    font-size: 20px;
   }
 
   &__add-icon {
-    border: 5px solid $light-orange;
-    background-color: $light-orange;
-    border-radius: 50%;
-    cursor: pointer;
+    @include icon();
 
     &:hover {
-      border: 5px solid $orange;
-      background-color: $orange;
+      @include add_icon_hover();
     }
   }
 
@@ -70,10 +55,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      @include scroll();
     }
   }
 
@@ -97,36 +79,24 @@
     }
 
     &__icon {
-      align-self: flex-end;
-      width: 25x !important;
-      height: 80%;
-      align-self: center;
-      cursor: pointer;
+      @include icon();
 
       &:hover {
         color: $light-orange;
       }
 
       &_confirm {
-        color: #007f00;
+        color: $done;
 
         &:hover {
-          color: #086308;
+          color: $doneHover;
         }
       }
     }
   }
 
   &__add-button {
-    cursor: pointer;
-    font-size: 18px;
-    outline: none;
-    margin-top: 40px;
-    width: 100px;
-    height: 35px;
-    border: 2px solid $light-orange;
-    background-color: $transparent;
-    color: $black;
+    @include add();
 
     &:hover {
       background-color: $light-orange;

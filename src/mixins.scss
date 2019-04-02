@@ -1,0 +1,61 @@
+@mixin add_btn() {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  justify-content: space-between;
+  height: 35px;
+  margin-top: 5px;
+  margin-bottom: 35px;
+}
+
+@mixin label() {
+  font-size: 20px;
+  display: flex;
+  align-content: flex-end;
+  padding: 4px 5px;
+  padding-bottom: 2px;
+}
+
+@mixin add_icon() {
+  border: 5px solid $light-orange;
+  background-color: $light-orange;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@mixin icon() {
+  align-self: flex-end;
+  width: 25x !important;
+  align-self: center;
+  cursor: pointer;
+}
+
+@mixin add_icon_hover() {
+  border: 5px solid $orange;
+  background-color: $orange;
+}
+
+@mixin scroll() {
+  background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
+  border-radius: 30px;
+  -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+  box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+}
+
+@mixin add() {
+  cursor: pointer;
+  font-size: 18px;
+  outline: none;
+  margin-top: 40px;
+  width: 100px;
+  height: 35px;
+  border: 2px solid $light-orange;
+  background-color: $transparent;
+  color: $black;
+  text-decoration: none;
+}
+
+@mixin main_icon() {
+  width: 10% !important;
+  height: 30px !important;
+}

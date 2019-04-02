@@ -28,8 +28,8 @@ class App extends Component {
             <Route path="/session/add" component={AddSession} />
             <Route path={[
               "/cinema/:cinemaId/hall/add",
-              "/cinema/:cinemaId/hall/edit/:hallId",
-              "/cinema/hall/edit/:index",
+              "/cinema/:cinemaId/hall/:hallId/edit",
+              "/cinema/hall/:index/edit",
               "/cinema/hall/add"
             ]} component={AddHall} />
             <Route path="/error-page" component={ErrorPage} />

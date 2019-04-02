@@ -89,11 +89,6 @@ class AddCinema extends Component {
           });
         }
       }
-    } else if (nextProps.additionalServices) {
-      this.props.onAddServices(nextProps.additionalServices);
-      this.setState({
-        additionalServices: nextProps.additionalServices
-      });
     }
   }
 
@@ -119,8 +114,8 @@ class AddCinema extends Component {
 
   addCinema = async () => {
     const cinema = {
-      name: this.state.name || this.props.cinema.name,
-      city: this.state.city || this.props.cinema.city,
+      name: this.state.name,
+      city: this.state.city,
       additionalServices: this.state.additionalServices
     };
     await this.props.match.params.id
@@ -137,11 +132,11 @@ class AddCinema extends Component {
       : this.props.onDeleteNewHall(hall)
   }
 
-  onEditHall = (hall, index) => {
+  redirectToEditHall = (hall, index) => {
     if (hall.cinemaId) {
-      this.props.history.push(`/cinema/${hall.cinemaId}/hall/edit/${hall.id}`);
+      this.props.history.push(`/cinema/${hall.cinemaId}/hall/${hall.id}/edit`);
     } else {
-      this.props.history.push(`/cinema/hall/edit/${index}`);
+      this.props.history.push(`/cinema/hall/${index}/edit`);
     }
   }
 
@@ -150,12 +145,10 @@ class AddCinema extends Component {
   }
 
   handleEditService = (index) => {
-    let newAdditionalServices = this.state.additionalServices.map(service => {
-      service.isEdit = false;
-      return service;
-    })
+    let newAdditionalServices = this.state.additionalServices.map((service, i) =>
+      ({ ...service, isEdit: index === i })
+    );
 
-    newAdditionalServices[index].isEdit = true;
     this.setState({
       service: newAdditionalServices[index].name,
       cost: +newAdditionalServices[index].cost,
@@ -168,6 +161,7 @@ class AddCinema extends Component {
     newAdditionalServices[index].name = this.state.service;
     newAdditionalServices[index].cost = this.state.cost;
     newAdditionalServices[index].isEdit = false;
+
     this.props.onEditService(newAdditionalServices[index]);
     this.setState({ additionalServices: newAdditionalServices });
   }
@@ -232,7 +226,7 @@ class AddCinema extends Component {
                   hall={hall}
                   key={index + hall.name}
                   onDelete={this.onDeleteHall}
-                  onEditHall={this.onEditHall}
+                  onEditHall={this.redirectToEditHall}
                   index={index}
                 />
               );

@@ -19,6 +19,10 @@ class AddMovie extends Component {
     url: this.props.movie.img || ''
   }
 
+  get isMovieExist() {
+    return !!this.props.match.params.id;
+  }
+
   componentDidMount() {
     const movieId = this.props.match.params.id;
     if (movieId) {
@@ -98,7 +102,7 @@ class AddMovie extends Component {
             ? this.editMovie
             : this.addMovie}
         > {
-            this.props.match.params.id ? 'Save' : 'Add'
+            this.isMovieExist ? 'Save' : 'Add'
           }
         </button>
       </div>

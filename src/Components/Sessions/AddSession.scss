@@ -1,19 +1,10 @@
 @import '../../variables.scss';
-
+@import '../../mixins.scss';
 
 .session {
   &__add {
-    cursor: pointer;
-    font-size: 18px;
-    outline: none;
-    margin-top: 40px;
-    width: 100px;
-    height: 35px;
-    border: 2px solid $light-orange;
-    background-color: $transparent;
-    color: $black;
+    @include add();
     text-decoration: none;
-    align-self: flex-start;
 
     &:hover {
       background-color: $light-orange;
@@ -21,4 +12,3 @@
     }
   }
 }
-  

@@ -38,6 +38,14 @@ class AddHall extends Component {
     })
   }
 
+  get isEdit() {
+    return !!this.props.match.params.hallId;
+  }
+
+  get isCinemaExist() {
+    return !!this.props.match.params.cinemaId;
+  }
+
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
     const index = this.props.match.params.index;
@@ -74,16 +82,16 @@ class AddHall extends Component {
     this.props.clearRows();
   }
 
-  addHall = () => {
+  addHall() {
     const hall = {
-      name: this.state.name || this.props.hall.name,
-      hall: this.state.rows || this.props.hall.rows
+      name: this.state.name,
+      hall: this.state.rows
     };
-    this.props.match.params.hallId
+    this.isEdit
       ? this.props.onEditHall(hall, this.props.match.params.hallId)
       : this.props.onAddHall(hall)
 
-    if (this.props.match.params.cinemaId || this.props.match.params.hallId) {
+    if (this.isCinemaExist) {
       this.props.history.push(`/cinema/edit/${this.props.match.params.cinemaId}`);
     } else {
       this.props.history.push(`/cinema/add`);
@@ -109,9 +117,6 @@ class AddHall extends Component {
       cost: +this.state.cost
     }
     this.props.onAddRow(row);
-    this.setState({
-      rows: [...this.state.rows, { row: row.row, cost: row.cost, amountOfSeats: row.amountOfSeats, isEdit: false, id: row.row }]
-    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -133,27 +138,27 @@ class AddHall extends Component {
   }
 
   handleEditRow = (index) => {
-    let newRows = this.state.rows.map(row => {
+    let rows = this.state.rows.map(row => {
       row.isEdit = false;
       return row;
     })
 
-    newRows[index].isEdit = true;
+    rows[index].isEdit = true;
     this.setState({
-      rows: newRows,
-      cost: +newRows[index].cost,
-      amountOfSeats: +newRows[index].amountOfSeats
+      rows: rows,
+      cost: +rows[index].cost,
+      amountOfSeats: +rows[index].amountOfSeats
     })
   }
 
   handleConfirmEdit = (index) => {
-    const newRows = this.state.rows;
-    newRows[index].isEdit = false;
-    newRows[index].amountOfSeats = this.state.amountOfSeats;
-    newRows[index].cost = +this.state.cost;
-    this.props.onEditRow(index, newRows[index]);
+    const rows = this.state.rows;
+    rows[index].isEdit = false;
+    rows[index].amountOfSeats = this.state.amountOfSeats;
+    rows[index].cost = +this.state.cost;
+    this.props.onEditRow(index, rows[index]);
     this.setState({
-      rows: newRows
+      rows: rows
     })
   }
 
@@ -213,7 +218,7 @@ class AddHall extends Component {
           onClick={this.addHall}
         >
           {
-            this.props.match.params.hallId || this.props.match.params.index ? 'Save' : 'Add'
+            this.isEdit ? 'Save' : 'Add'
           }
         </button>
       </div>
@@ -222,7 +227,7 @@ class AddHall extends Component {
 }
 
 const mapStateToProps = store => ({
-  rows: store.halls.rows || store.halls.hall.hall || [],
+  rows: store.halls.rows,
   hall: store.halls.hall,
   halls: store.halls.halls
 })

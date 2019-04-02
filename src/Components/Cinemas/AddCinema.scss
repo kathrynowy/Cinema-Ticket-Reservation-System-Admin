@@ -1,30 +1,11 @@
 @import '../../variables.scss';
+@import '../../mixins.scss';
 
 .cinema {
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px 15px;
-
-  &__square {
-    width: 250px;
-    height: 35px;
-    background-color: $transparent;
-    border: 2px solid $light-orange;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-  }
-
-  &__input {
-    background-color: $transparent;
-    border: none;
-    width: 200px;
-    height: 35px;
-    outline: none;
-    font-size: 18px;
-    padding-left: 15px;
-  }
 
   &__close{
     background-color: $transparent;
@@ -34,16 +15,7 @@
   }
 
   &__add-cinema {
-    cursor: pointer;
-    font-size: 18px;
-    outline: none;
-    margin-top: 40px;
-    width: 100px;
-    height: 35px;
-    border: 2px solid $light-orange;
-    background-color: $transparent;
-    color: $black;
-    text-decoration: none;
+    @include add(); 
 
     &:hover {
       background-color: $light-orange;
@@ -77,22 +49,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-    }
-
-    &::-webkit-scrollbar {
-      width: 20px;
-      height: 20px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      @include add_btn();  
     }
   }
 
@@ -116,21 +73,17 @@
     }
 
     &__icon {
-      align-self: flex-end;
-      width: 25x !important;
-      height: 80%;
-      align-self: center;
-      cursor: pointer;
+      @include icon();
 
       &:hover {
         color: $light-orange;
       }
 
       &_confirm {
-        color: #007f00;
+        color: $done;
 
         &:hover {
-          color: #086308;
+          color: $doneHover;
         }
       }
     }
@@ -139,30 +92,17 @@
   .link {
     color: inherit;
     text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-    height: 35px;
-    margin-top: 5px;
+    @include add_btn();
 
     &__label {
-      font-size: 18px;
-      display: flex;
-      align-content: flex-end;
-      padding: 4px 5px;
-      padding-bottom: 2px;
+      @include label();
     }
 
     &__add-icon {
-      border: 4px solid $light-orange;
-      background-color: $light-orange;
-      border-radius: 50%;
-      cursor: pointer;
-  
+      @include add_icon();
+
       &:hover {
-        border: 4px solid $orange;
-        background-color: $orange;
+        @include add_icon_hover();
       }
     }
   }
