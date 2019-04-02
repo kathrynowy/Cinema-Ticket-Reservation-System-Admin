@@ -2,9 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import AddIcon from '@material-ui/icons/Add';
-import HomeIcon from '@material-ui/icons/Home';
-import DeleteIcon from '@material-ui/icons/Delete';
+import {
+  Add as AddIcon,
+  Home as HomeIcon,
+  Delete as DeleteIcon
+} from '@material-ui/icons';
+
 import {
   clearHalls,
   clearHall

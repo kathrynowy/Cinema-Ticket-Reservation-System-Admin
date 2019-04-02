@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getMoviesAsync, deleteMovieAsync } from '../../actions/movie'
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MovieIcon from '@material-ui/icons/Movie';
+import { getMoviesAsync, deleteMovieAsync } from '../../actions/movie';
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Movie as MovieIcon
+} from '@material-ui/icons';
 import './Movies.scss';
 
 
