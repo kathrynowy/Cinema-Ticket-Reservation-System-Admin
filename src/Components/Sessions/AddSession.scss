@@ -3,7 +3,7 @@
 
 .session {
   &__add {
-    @include add();
+    @include addButton();
     text-decoration: none;
 
     &:hover {

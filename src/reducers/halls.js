@@ -84,7 +84,7 @@ export default function getHalls(state = initialState, action) {
     case EDIT_HALL_SUCCESS: {
       const newHalls = state.halls.map(hall => {
         if (hall.id === action.payload.id) {
-          hall = action.payload;
+          return action.payload;
         }
         return hall;
       });

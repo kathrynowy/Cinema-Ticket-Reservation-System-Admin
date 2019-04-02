@@ -29,7 +29,7 @@
   }
 
   &__add-row-button {
-    @include add_btn();
+    @include addContainer();
   }
 
   &__label {
@@ -38,10 +38,10 @@
   }
 
   &__add-icon {
-    @include icon();
+    @include addIcon();
 
     &:hover {
-      @include add_icon_hover();
+      @include addIconHover();
     }
   }
 
@@ -96,7 +96,7 @@
   }
 
   &__add-button {
-    @include add();
+    @include addButton();
 
     &:hover {
       background-color: $light-orange;

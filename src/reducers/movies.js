@@ -23,7 +23,7 @@ export default function getMovies(state = initialState, action) {
     case EDIT_MOVIE_SUCCESS: {
       const newMovies = state.movies.map(movie => {
         if (movie.id === action.payload.id) {
-          movie = action.payload;
+          return action.payload;
         }
         return movie;
       });

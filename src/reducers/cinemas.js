@@ -28,7 +28,7 @@ export default function getCinemas(state = initialState, action) {
     case EDIT_CINEMA_SUCCESS: {
       const newCinemas = state.cinemas.map(cinema => {
         if (cinema.id === action.payload.id) {
-          cinema = action.payload;
+          return action.payload;
         }
         return cinema;
       });

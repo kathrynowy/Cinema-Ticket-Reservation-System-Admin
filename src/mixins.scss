@@ -1,4 +1,4 @@
-@mixin add_btn() {
+@mixin addContainer() {
   display: flex;
   flex-direction: row;
   width: 250px;
@@ -16,7 +16,7 @@
   padding-bottom: 2px;
 }
 
-@mixin add_icon() {
+@mixin addIcon() {
   border: 5px solid $light-orange;
   background-color: $light-orange;
   border-radius: 50%;
@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-@mixin add_icon_hover() {
+@mixin addIconHover() {
   border: 5px solid $orange;
   background-color: $orange;
 }
@@ -42,7 +42,7 @@
   box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
 }
 
-@mixin add() {
+@mixin addButton() {
   cursor: pointer;
   font-size: 18px;
   outline: none;
@@ -55,7 +55,7 @@
   text-decoration: none;
 }
 
-@mixin main_icon() {
+@mixin mainIcon() {
   width: 10% !important;
   height: 30px !important;
 }

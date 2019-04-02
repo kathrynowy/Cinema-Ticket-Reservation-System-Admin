@@ -15,7 +15,7 @@
   }
 
   &__add-cinema {
-    @include add(); 
+    @include addButton(); 
 
     &:hover {
       background-color: $light-orange;
@@ -49,7 +49,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      @include add_btn();  
+      @include scroll();  
     }
   }
 
@@ -92,17 +92,17 @@
   .link {
     color: inherit;
     text-decoration: none;
-    @include add_btn();
+    @include addContainer();
 
     &__label {
       @include label();
     }
 
     &__add-icon {
-      @include add_icon();
+      @include addIcon();
 
       &:hover {
-        @include add_icon_hover();
+        @include addIconHover();
       }
     }
   }

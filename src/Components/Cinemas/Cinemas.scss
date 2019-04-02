@@ -13,14 +13,14 @@
   }
 
   &__add-cinema {
-    @include add_btn();
+    @include addContainer();
   }
 
   &__add-icon {
-    @include add_icon();
+    @include addIcon();
 
     &:hover {
-      @include add_icon_hover();
+      @include addIconHover();
     }
   }
 
@@ -69,7 +69,7 @@
     }
 
     &__icon {
-      @include main_icon();
+      @include mainIcon();
 
       &_delete {
         cursor: pointer;
