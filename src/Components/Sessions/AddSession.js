@@ -11,7 +11,10 @@ import { cities } from '../cities';
 import {
   getCinemasByCity,
   getHallsByCinemaId,
-  addTime
+  addTime,
+  deleteTime,
+  addSessionAsync,
+  clearTimes
 } from '../../actions/session'
 
 import {
@@ -19,10 +22,7 @@ import {
 } from '../../actions/movie'
 
 import {
-  Add as AddIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  Done as DoneIcon
+  Delete as DeleteIcon
 } from '@material-ui/icons';
 
 
@@ -45,6 +45,7 @@ class AddSession extends Component {
   }
 
   componentDidMount() {
+    this.props.clearTimes();
     this.props.getMovies();
   }
 
@@ -69,12 +70,20 @@ class AddSession extends Component {
     this.props.addTime(date);
   }
 
-  onChangeCost = cost => this.setState({ cost });
-
-  onAddSession = () => {
+  onAddSession = async () => {
     const session = {
-
+      times: this.props.times,
+      cinemaId: this.state.cinema.id,
+      movieId: this.state.movie.id,
+      hallId: this.state.hall.id
     }
+    debugger;
+    await this.props.addSession(session);
+    this.props.history.push("/sessions");
+  }
+
+  handleDelete = index => {
+    this.props.deleteTime(index);
   }
 
   render() {
@@ -88,7 +97,6 @@ class AddSession extends Component {
         <CustomSelect name="hall" value={this.state.hall} items={this.props.halls} onSelect={this.onSelectHall} />
         <span className="session__label"> Movie </span>
         <CustomSelect name="movie" value={this.state.movie} items={this.props.movies} onSelect={this.onSelectMovie} />
-        <Input label="Cost" handleChanges={this.onChangeCost} value={this.state.cost} />
         <div className="session__add-time-button">
           <span className="session__label"> Add time</span>
           <CustomDatePicker type="date-time" label="Date & Time" onSelect={this.onSelectDate} />
@@ -98,7 +106,7 @@ class AddSession extends Component {
             {
               this.props.times.map((time, index) => {
                 return (
-                  <div className="session__list-item date" key={2}>
+                  <div className="session__list-item date" key={time}>
                     <li className="date__info">
                       {new Date(time).toLocaleString('en', DATE_TIME_OPTIONS)}
                     </li>
@@ -110,7 +118,7 @@ class AddSession extends Component {
           </ul>
         </div>
 
-        <button type="submit" className="session__add" onClick={this.onAddSession}>Add</button>
+        <button type="button" className="session__add" onClick={this.onAddSession}>Add</button>
       </form>
     );
   }
@@ -127,6 +135,9 @@ const mapDispatchToProps = dispatch => ({
   getCinemas(city) {
     dispatch(getCinemasByCity(city));
   },
+  addSession(session) {
+    return dispatch(addSessionAsync(session));
+  },
   getMovies() {
     dispatch(getMoviesAsync());
   },
@@ -135,6 +146,12 @@ const mapDispatchToProps = dispatch => ({
   },
   addTime(date) {
     dispatch(addTime(date));
+  },
+  deleteTime(index) {
+    dispatch(deleteTime(index));
+  },
+  clearTimes() {
+    dispatch(clearTimes());
   }
 });
 

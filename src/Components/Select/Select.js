@@ -5,14 +5,9 @@ import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    color: 'white'
-  },
   formControl: {
     [theme.breakpoints.up('xs')]: {
-      minWidth: 253,
+      maxWidth: 253,
     },
 
     margin: theme.spacing.unit,
@@ -20,6 +15,8 @@ const styles = theme => ({
     marginBottom: 25,
     marginTop: 5,
     color: 'white',
+    display: 'flex',
+    justifyContent: 'flex-start'
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
@@ -55,29 +52,29 @@ class CustomSelect extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.root} autoComplete="off" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-        <FormControl className={classes.formControl}>
-          <Select
-            className={classes.select}
-            value={this.props.value}
-            onChange={this.handleChange}
-            onClick={this.handleClick}
-            inputProps={{
-              name: `${this.props.name}`,
-              id: `select-${this.props.name}`,
-            }}
-          >
-            {/* <MenuItem value="">
+
+      <FormControl className={classes.formControl}>
+        <Select
+          className={classes.select}
+          value={this.props.value}
+          onChange={this.handleChange}
+          onClick={this.handleClick}
+          inputProps={{
+            name: `${this.props.name}`,
+            id: `select-${this.props.name}`,
+          }}
+        >
+          {/* <MenuItem value="">
               <em>choose city</em>
             </MenuItem> */}
-            {
-              this.props.items.map(item => {
-                return <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
-              })
-            }
-          </Select>
-        </FormControl>
-      </form>
+          {
+            this.props.items.map(item => {
+              return <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
+            })
+          }
+        </Select>
+      </FormControl>
+
     );
   }
 }

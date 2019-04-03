@@ -40,15 +40,6 @@ const styles = {
 
 };
 
-const DATE_TIME_OPTIONS = {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-};
-
-
 class CustomDatePicker extends React.Component {
   handleClear = () => {
     this.setState({

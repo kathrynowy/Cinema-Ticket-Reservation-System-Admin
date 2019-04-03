@@ -5,11 +5,43 @@ import {
   GET_CINEMAS_BY_CITY_FAILURE,
   GET_HALLS_BY_CINEMA_SUCCESS,
   GET_HALLS_BY_CINEMA_FAILURE,
-  ADD_TIME
+  ADD_TIME,
+  DELETE_TIME,
+  ADD_SESSION_SUCCESS,
+  ADD_SESSION_FAILURE,
+  DELETE_SESSION_SUCCESS,
+  DELETE_SESSION_FAILURE,
+  CLEAR_TIMES
 } from '../actionTypes';
 
 import axios from 'axios';
 
+
+export const addSessionAsync = (session) => {
+  return async (dispatch) => {
+    try {
+      await axios.post(`sessions`, session);
+    } catch (error) {
+      dispatch(addSessionFailure(error));
+    }
+  }
+}
+
+export const clearTimes = () => {
+  return {
+    type: CLEAR_TIMES
+  }
+}
+
+export const addSessionSuccess = session => ({
+  type: ADD_SESSION_SUCCESS,
+  payload: session
+})
+
+export const addSessionFailure = error => ({
+  type: ADD_SESSION_FAILURE,
+  payload: error
+})
 
 export const getSessionsSuccess = (sessions) => {
   return {
@@ -87,5 +119,38 @@ export const addTime = date => {
   return {
     type: ADD_TIME,
     payload: date
+  }
+}
+
+export const deleteTime = index => {
+  return {
+    type: DELETE_TIME,
+    payload: index
+  }
+}
+
+export const deleteSessionAsync = id => {
+  return async (dispatch) => {
+    try {
+      await axios.delete(`/sessions/${id}`);
+      dispatch(deleteSessionSuccess(id));
+    }
+    catch (error) {
+      dispatch(deleteSessionFailure(error))
+    }
+  }
+}
+
+export const deleteSessionSuccess = (id) => {
+  return {
+    type: DELETE_SESSION_SUCCESS,
+    payload: id
+  }
+}
+
+export const deleteSessionFailure = (error) => {
+  return {
+    type: DELETE_SESSION_FAILURE,
+    payload: error.request.statusText
   }
 }

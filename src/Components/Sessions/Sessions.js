@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getSessionsAsync } from '../../actions/session';
+import { getSessionsAsync, deleteSessionAsync } from '../../actions/session';
 import {
   Add as AddIcon,
   Event as EventIcon,
@@ -19,8 +19,13 @@ const OPTIONS = {
 
 
 class Sessions extends Component {
+
   componentDidMount() {
     this.props.getSessionsAsync();
+  }
+
+  deleteSession = id => {
+    this.props.deleteSessionAsync(id);
   }
 
   render() {
@@ -46,10 +51,10 @@ class Sessions extends Component {
                         <EventIcon className="session__icon" />
                         <span className="session__name">
                           {`${session.cinemaId.city}, ${session.cinemaId.name},
-                          hall: ${session.hallId.name}, ${(session.movieId.name).toLowerCase()},
+                          hall: ${session.hallId.name}, ${(session.movieId.name)},
                           ${times}`}
                         </span>
-                        <DeleteIcon className="session__icon session__icon_delete" />
+                        <DeleteIcon className="session__icon session__icon_delete" onClick={() => this.deleteSession(session.id)} />
                       </li>
                     )
                   })
@@ -70,6 +75,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getSessionsAsync() {
     dispatch(getSessionsAsync());
+  },
+  deleteSessionAsync(id) {
+    dispatch(deleteSessionAsync(id));
   }
 });
 
