@@ -3,9 +3,22 @@
 
 .session {
   padding-top: 30px;
-  
+  width: 300px;
+
   &__label{
     @include label();
+  }
+
+  &__add-time-button {
+    @include addContainer();
+  }
+
+  &__add-icon {
+    @include addIcon();
+
+    &:hover {
+      @include addIconHover();
+    }
   }
 
   &__add {
@@ -15,6 +28,43 @@
     &:hover {
       background-color: $light-orange;
       color: $white;
+    }
+  }
+
+  &__dates {
+    height: 200px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 20px;
+      height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @include scroll();
+    }
+  }
+
+  .date {
+    width: 95%;
+    padding: 8px 3px;
+    border: 1px solid $blackBorder;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    &:not(:first-child) {
+      border-top: none;
+    }
+
+    &__icon {
+      @include icon();
+
+      &:hover {
+        color: $light-orange;
+      }
     }
   }
 }

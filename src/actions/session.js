@@ -4,7 +4,8 @@ import {
   GET_CINEMAS_BY_CITY_SUCCESS,
   GET_CINEMAS_BY_CITY_FAILURE,
   GET_HALLS_BY_CINEMA_SUCCESS,
-  GET_HALLS_BY_CINEMA_FAILURE
+  GET_HALLS_BY_CINEMA_FAILURE,
+  ADD_TIME
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -79,5 +80,12 @@ export const getHallsFailure = (error) => {
   return {
     type: GET_HALLS_BY_CINEMA_FAILURE,
     payload: error
+  }
+}
+
+export const addTime = date => {
+  return {
+    type: ADD_TIME,
+    payload: date
   }
 }

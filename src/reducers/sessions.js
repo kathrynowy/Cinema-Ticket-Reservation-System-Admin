@@ -4,13 +4,15 @@ import {
   GET_CINEMAS_BY_CITY_SUCCESS,
   GET_CINEMAS_BY_CITY_FAILURE,
   GET_HALLS_BY_CINEMA_SUCCESS,
-  GET_HALLS_BY_CINEMA_FAILURE
+  GET_HALLS_BY_CINEMA_FAILURE,
+  ADD_TIME
 } from '../actionTypes.js'
 
 const initialState = {
   sessions: [],
   cinemas: [],
   halls: [],
+  times: [],
   errors: ''
 }
 
@@ -36,7 +38,10 @@ export default function getSessions(state = initialState, action) {
       return Object.assign({}, state, {
         halls: action.payload
       });
-
+    case ADD_TIME:
+      return Object.assign({}, state, {
+        times: [...state.times, action.payload]
+      });
     case GET_HALLS_BY_CINEMA_FAILURE:
       return Object.assign({}, state, {
         errors: action.payload
