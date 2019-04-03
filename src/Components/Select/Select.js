@@ -43,14 +43,13 @@ const styles = theme => ({
 });
 
 class CustomSelect extends React.Component {
-  state = {
-    city: '',
+  handleChange = event => {
+    this.props.onSelect(event.target.value);
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    this.props.onSelectCity(event.target.value);
-  };
+  handleClick = event => {
+    console.log(event.target.value);
+  }
 
   render() {
     const { classes } = this.props;
@@ -60,19 +59,20 @@ class CustomSelect extends React.Component {
         <FormControl className={classes.formControl}>
           <Select
             className={classes.select}
-            value={this.state.city}
+            value={this.props.value}
             onChange={this.handleChange}
+            onClick={this.handleClick}
             inputProps={{
-              name: 'city',
-              id: 'select-city',
+              name: `${this.props.name}`,
+              id: `select-${this.props.name}`,
             }}
           >
             {/* <MenuItem value="">
               <em>choose city</em>
             </MenuItem> */}
             {
-              this.props.cities.map(city => {
-                return <MenuItem value={city}>{city}</MenuItem>
+              this.props.items.map(item => {
+                return <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
               })
             }
           </Select>

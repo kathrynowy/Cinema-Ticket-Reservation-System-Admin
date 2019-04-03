@@ -9,25 +9,47 @@ import CustomSelect from '../Select/Select';
 import { cities } from '../cities';
 
 import {
-  getCinemasByCity
+  getCinemasByCity,
+  getHallsByCinemaId
 } from '../../actions/session'
 
 class AddSession extends Component {
+  state = {
+    city: '',
+    cinema: '',
+    hall: ''
+  }
 
   onSelectCity = (city) => {
     this.setState({
-      city: city
+      city: city.name
     });
 
-    this.props.getCinemas(city);
+    this.props.getCinemas(city.name);
+  }
+
+  onSelectCinema = (cinema) => {
+    this.setState({
+      cinema
+    });
+
+    this.props.getHalls(cinema.id);
+  }
+
+  onSelectHall = (hall) => {
+    this.setState({
+      hall
+    });
+
   }
 
   render() {
     return (
       <form className="session">
         <span className="session__label"> City </span>
-        <CustomSelect cities={cities} onSelectCity={this.onSelectCity} />
-        <Input label="Cinema" />
+        <CustomSelect name="city" value={this.state.city} items={cities} onSelect={this.onSelectCity} />
+        <CustomSelect name="cinema" value={this.state.cinema} items={this.props.cinemas} onSelect={this.onSelectCinema} />
+        <CustomSelect name="hall" value={this.state.hall} items={this.props.halls} onSelect={this.onSelectHall} />
         <Input label="Hall" />
         <Input label="Movie" />
         <Input label="Cost" />
@@ -39,12 +61,16 @@ class AddSession extends Component {
 }
 
 const mapStateToProps = store => ({
-  cinemas: store.sessions.cinemas
+  cinemas: store.sessions.cinemas,
+  halls: store.sessions.halls
 })
 
 const mapDispatchToProps = dispatch => ({
   getCinemas(city) {
     dispatch(getCinemasByCity(city));
+  },
+  getHalls(cinemaId) {
+    dispatch(getHallsByCinemaId(cinemaId));
   }
 });
 
