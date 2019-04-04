@@ -59,17 +59,13 @@ class AddCinema extends Component {
 
   componentDidMount() {
     this.props.clearCinema();
+    this.props.clearCinemaInfo();
     const cinemaId = this.props.match.params.id;
     if (cinemaId) {
       this.props.getCinemasAsync();
       this.props.getCinema(cinemaId);
-      if (!this.props.halls.length) {
-        this.props.getHalls(cinemaId);
-      }
-    } else {
-      this.props.clearCinemas();
+      this.props.halls.length ? this.props.clearCinemas() : this.props.getHalls(cinemaId);
     }
-    this.props.clearCinemaInfo();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -175,6 +171,7 @@ class AddCinema extends Component {
       name: this.state.service,
       cost: +this.state.cost
     }
+
     this.setState({
       additionalServices: [...this.state.additionalServices, {
         name: service.name,

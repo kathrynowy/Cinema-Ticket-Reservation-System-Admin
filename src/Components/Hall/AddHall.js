@@ -45,22 +45,21 @@ class AddHall extends Component {
       this.props.getHall(hallId);
     } else {
       this.props.clearHall();
-    }
-
-    if (hallIndex) {
-      const i = +hallIndex;
-      this.setState({
-        name: this.props.halls[i].name,
-        rows: this.props.halls[i].hall.map((row, hallIndex) => {
-          return ({
-            id: hallIndex,
-            isEdit: false,
-            row: row.row,
-            cost: row.cost,
-            amountOfSeats: row.amountOfSeats
+      if (hallIndex) {
+        const i = +hallIndex;
+        this.setState({
+          name: this.props.halls[i].name,
+          rows: this.props.halls[i].hall.map((row, hallIndex) => {
+            return ({
+              id: hallIndex,
+              isEdit: false,
+              row: row.row,
+              cost: row.cost,
+              amountOfSeats: row.amountOfSeats
+            })
           })
         })
-      })
+      }
     }
   }
 

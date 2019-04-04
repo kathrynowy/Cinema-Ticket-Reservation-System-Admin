@@ -10,13 +10,13 @@ import {
 } from '@material-ui/icons';
 import './Session.scss';
 
+
 const OPTIONS = {
   month: 'long',
   day: 'numeric',
   hour: 'numeric',
   minute: 'numeric',
 };
-
 
 class Sessions extends Component {
 
