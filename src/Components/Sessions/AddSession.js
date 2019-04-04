@@ -14,6 +14,8 @@ import {
   addTime,
   deleteTime,
   addSessionAsync,
+  editSessionAsync,
+  getSessionsAsync,
   clearTimes
 } from '../../actions/session'
 
@@ -46,6 +48,7 @@ class AddSession extends Component {
 
   componentDidMount() {
     this.props.clearTimes();
+    this.props.getSessionsAsync();
     this.props.getMovies();
   }
 
@@ -71,14 +74,23 @@ class AddSession extends Component {
   }
 
   onAddSession = async () => {
-    const session = {
+    const newSession = {
       times: this.props.times,
       cinemaId: this.state.cinema.id,
       movieId: this.state.movie.id,
       hallId: this.state.hall.id
     }
-    debugger;
-    await this.props.addSession(session);
+    const existSession = this.props.sessions.find(session => {
+      return (session.cinemaId.id === newSession.cinemaId
+        && session.hallId.id === newSession.hallId
+        && session.movieId.id === newSession.movieId)
+    })
+    if (existSession) {
+      newSession.times = [...newSession.times, ...existSession.times];
+      await this.props.editSession(newSession, existSession.id);
+    } else {
+      await this.props.addSession(newSession);
+    }
     this.props.history.push("/sessions");
   }
 
@@ -118,7 +130,7 @@ class AddSession extends Component {
           </ul>
         </div>
 
-        <button type="button" className="session__add" onClick={this.onAddSession}>Add</button>
+        <button type="button" className="session__add" onClick={() => this.onAddSession()}>Add</button>
       </form>
     );
   }
@@ -127,6 +139,7 @@ class AddSession extends Component {
 const mapStateToProps = store => ({
   cinemas: store.sessions.cinemas,
   halls: store.sessions.halls,
+  sessions: store.sessions.sessions,
   times: store.sessions.times,
   movies: store.movies.movies
 })
@@ -135,8 +148,14 @@ const mapDispatchToProps = dispatch => ({
   getCinemas(city) {
     dispatch(getCinemasByCity(city));
   },
+  getSessionsAsync() {
+    dispatch(getSessionsAsync());
+  },
   addSession(session) {
     return dispatch(addSessionAsync(session));
+  },
+  editSession(session, id) {
+    return dispatch(editSessionAsync(session, id));
   },
   getMovies() {
     dispatch(getMoviesAsync());

@@ -11,7 +11,8 @@ import {
   ADD_SESSION_FAILURE,
   DELETE_SESSION_SUCCESS,
   DELETE_SESSION_FAILURE,
-  CLEAR_TIMES
+  CLEAR_TIMES,
+  EDIT_SESSION_FAILURE
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -26,6 +27,22 @@ export const addSessionAsync = (session) => {
     }
   }
 }
+
+export const editSessionAsync = (session, id) => {
+  return async (dispatch) => {
+    try {
+      await axios.put(`sessions/${id}`, session);
+    } catch (error) {
+      dispatch(editSessionFailure(error));
+    }
+  }
+}
+
+export const editSessionFailure = error => ({
+  type: EDIT_SESSION_FAILURE,
+  payload: error
+})
+
 
 export const clearTimes = () => {
   return {
