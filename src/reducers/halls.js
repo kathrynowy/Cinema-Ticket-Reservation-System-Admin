@@ -1,13 +1,7 @@
 import {
   ADD_HALL_SUCCESS,
   ADD_HALL_FAILURE,
-<<<<<<< Updated upstream
   ADD_HALL,
-=======
-  ADD_ROW,
-  ADD_HALL,
-  CLEAR_ROWS,
->>>>>>> Stashed changes
   CLEAR_HALLS,
   DELETE_NEW_HALL,
   GET_HALLS_SUCCESS,
@@ -16,18 +10,9 @@ import {
   DELETE_HALL_FAILURE,
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
-<<<<<<< Updated upstream
   CLEAR_HALL,
   EDIT_HALL_SUCCESS,
   EDIT_HALL_FAILURE,
-=======
-  ADD_ROWS,
-  CLEAR_HALL,
-  EDIT_HALL_SUCCESS,
-  EDIT_HALL_FAILURE,
-  DELETE_ROW,
-  EDIT_ROW
->>>>>>> Stashed changes
 } from '../actionTypes'
 
 const initialState = {
@@ -69,19 +54,6 @@ export default function getHalls(state = initialState, action) {
         errors: action.payload
       });
 
-<<<<<<< Updated upstream
-=======
-    case ADD_ROW:
-      return Object.assign({}, state, {
-        rows: [...state.rows, action.payload]
-      });
-
-    case ADD_ROWS:
-      return Object.assign({}, state, {
-        rows: action.payload
-      });
-
->>>>>>> Stashed changes
     case ADD_HALL:
       return Object.assign({}, state, {
         halls: [...state.halls, action.payload]
@@ -122,29 +94,6 @@ export default function getHalls(state = initialState, action) {
         errors: action.payload
       });
 
-<<<<<<< Updated upstream
-=======
-    case CLEAR_ROWS:
-      return Object.assign({}, state, {
-        rows: []
-      });
-
-    case DELETE_ROW: {
-      const newRows = state.rows.filter((row, index) => index !== action.payload);
-      return Object.assign({}, state, {
-        rows: newRows
-      });
-    }
-
-    case EDIT_ROW: {
-      let newRows = state.rows.slice();;
-      newRows[action.index] = action.row;
-      return Object.assign({}, state, {
-        rows: newRows
-      });
-    }
-
->>>>>>> Stashed changes
     case CLEAR_HALLS:
       return Object.assign({}, state, {
         halls: []

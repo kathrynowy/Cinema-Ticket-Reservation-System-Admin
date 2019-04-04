@@ -11,14 +11,6 @@ import {
   DELETE_HALL_FAILURE,
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
-<<<<<<< Updated upstream
-=======
-  ADD_ROW,
-  CLEAR_ROWS,
-  ADD_ROWS,
-  DELETE_ROW,
-  EDIT_ROW,
->>>>>>> Stashed changes
   EDIT_HALL_SUCCESS,
   EDIT_HALL_FAILURE,
 } from '../actionTypes';
@@ -26,32 +18,6 @@ import {
 import axios from 'axios';
 
 
-<<<<<<< Updated upstream
-=======
-export const addRow = (row) => {
-  return {
-    type: ADD_ROW,
-    payload: row
-  }
-}
-
-export const deleteRow = (index) => {
-  return {
-    type: DELETE_ROW,
-    payload: index
-  }
-}
-
-export const editRow = (index, row) => {
-  return {
-    type: EDIT_ROW,
-    index,
-    row
-  }
-}
-
-
->>>>>>> Stashed changes
 export const editHallAsync = (hall, id) => {
   return async (dispatch) => {
     try {
@@ -78,16 +44,6 @@ export const editHallFailure = (error) => {
   }
 }
 
-<<<<<<< Updated upstream
-=======
-export const addRows = (rows) => {
-  return {
-    type: ADD_ROWS,
-    payload: rows
-  }
-}
-
->>>>>>> Stashed changes
 export const addHall = (hall) => ({
   type: ADD_HALL,
   payload: hall
@@ -101,11 +57,7 @@ export const deleteNewHall = (hall) => ({
 export const deleteHallAsync = hall => {
   return async (dispatch) => {
     try {
-<<<<<<< Updated upstream
       await axios.delete(`/halls/${hall.id}`);
-=======
-      const { data } = await axios.delete(`/halls/${hall.id}`);
->>>>>>> Stashed changes
       dispatch(deleteHallSuccess(hall));
     }
     catch (error) {
@@ -131,11 +83,7 @@ export const deleteHallFailure = (error) => {
 export const getHallsAsync = (id) => {
   return async (dispatch) => {
     try {
-<<<<<<< Updated upstream
       const { data } = await axios.get(`cinema/${id}/halls`);
-=======
-      const { data } = await axios.get(`halls/cinema/${id}`);
->>>>>>> Stashed changes
       dispatch(getHallsSuccess(data));
     } catch (error) {
       dispatch(getHallsFailure(error));
@@ -211,13 +159,6 @@ export const getHallFailure = error => ({
   payload: error
 });
 
-<<<<<<< Updated upstream
-=======
-export const clearRows = () => ({
-  type: CLEAR_ROWS
-});
-
->>>>>>> Stashed changes
 export const clearHalls = () => ({
   type: CLEAR_HALLS
 });
@@ -225,4 +166,3 @@ export const clearHalls = () => ({
 export const clearHall = () => ({
   type: CLEAR_HALL
 });
-

@@ -13,11 +13,7 @@ import {
   ADD_CINEMA_AND_HALLS_SUCCESS,
   SAVE_CINEMA_INFO,
   CLEAR_CINEMA_INFO,
-<<<<<<< Updated upstream
-  CLEAR_CINEMAS,
-=======
   CLEAR_CINEMAS
->>>>>>> Stashed changes
 } from '../actionTypes.js';
 
 import axios from 'axios';
@@ -71,11 +67,7 @@ export const getCinemasAsync = () => {
 export const addCinemaAsync = (cinema, halls) => {
   return async (dispatch) => {
     try {
-<<<<<<< Updated upstream
       const { data } = await axios.post(`cinemas`, { cinema, halls });
-=======
-      const { data } = await axios.post(`cinemas-halls`, { cinema, halls });
->>>>>>> Stashed changes
       dispatch(addCinemaSuccess(data.cinema));
     } catch (error) {
       dispatch(addCinemaFailure(error));
@@ -123,11 +115,7 @@ export const editCinemaFailure = error => ({
 export const deleteCinemaAsync = id => {
   return async (dispatch) => {
     try {
-<<<<<<< Updated upstream
       const { data } = await axios.delete(`cinemas/${id}`);
-=======
-      const { data } = await axios.delete(`/cinemas/${id}`);
->>>>>>> Stashed changes
       dispatch(deleteCinemaSuccess(id));
     }
     catch (error) {
