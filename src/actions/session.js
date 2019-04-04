@@ -88,7 +88,7 @@ export const getSessionsAsync = () => {
 export const getCinemasByCity = (city) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`cinemas/city/${city}`);
+      const { data } = await axios.get(`cinemas?city=${city}`);
       dispatch(getCinemasByCitySuccess(data));
     } catch (error) {
       dispatch(getCinemasByCityFailure(error));
