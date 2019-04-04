@@ -66,6 +66,10 @@
 
     &__icon {
       @include mainIcon();
+
+      &_delete {
+        cursor: pointer;
+      }
     }
 
     &__name {

@@ -10,7 +10,9 @@ import {
   ADD_SESSION_FAILURE,
   DELETE_SESSION_SUCCESS,
   DELETE_SESSION_FAILURE,
-  CLEAR_TIMES
+  CLEAR_TIMES,
+  EDIT_SESSION_SUCCESS,
+  EDIT_SESSION_FAILURE
 } from '../actionTypes.js'
 
 const initialState = {
@@ -41,7 +43,21 @@ export default function getSessions(state = initialState, action) {
       return Object.assign({}, state, {
         errors: action.payload
       });
-
+    case EDIT_SESSION_SUCCESS: {
+      const newSessions = state.sessions.map(session => {
+        if (session.id === action.payload.id) {
+          return action.payload;
+        }
+        return session;
+      });
+      return Object.assign({}, state, {
+        sessions: newSessions
+      })
+    }
+    case EDIT_SESSION_FAILURE:
+      return Object.assign({}, state, {
+        errors: action.payload
+      });
     case GET_CINEMAS_BY_CITY_SUCCESS:
       return Object.assign({}, state, {
         cinemas: action.payload

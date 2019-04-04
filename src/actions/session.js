@@ -12,7 +12,8 @@ import {
   DELETE_SESSION_SUCCESS,
   DELETE_SESSION_FAILURE,
   CLEAR_TIMES,
-  EDIT_SESSION_FAILURE
+  EDIT_SESSION_FAILURE,
+  EDIT_SESSION_SUCCESS
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -31,10 +32,18 @@ export const addSessionAsync = (session) => {
 export const editSessionAsync = (session, id) => {
   return async (dispatch) => {
     try {
-      await axios.put(`sessions/${id}`, session);
+      const { data } = await axios.put(`sessions/${id}`, session);
+      dispatch(editSessionSuccess(data));
     } catch (error) {
       dispatch(editSessionFailure(error));
     }
+  }
+}
+
+export const editSessionSuccess = (session) => {
+  return {
+    type: EDIT_SESSION_SUCCESS,
+    payload: session
   }
 }
 
@@ -110,7 +119,7 @@ export const getCinemasByCityFailure = error => ({
 export const getHallsByCinemaId = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`halls/cinema/${id}`);
+      const { data } = await axios.get(`cinema/${id}/halls`);
       dispatch(getHallsSuccess(data));
     } catch (error) {
       dispatch(getHallsFailure(error));
@@ -146,7 +155,7 @@ export const deleteTime = index => {
   }
 }
 
-export const deleteSessionAsync = id => {
+export const deleteSessionAsync = (id) => {
   return async (dispatch) => {
     try {
       await axios.delete(`/sessions/${id}`);
