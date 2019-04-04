@@ -155,11 +155,16 @@ export const deleteTime = index => {
   }
 }
 
-export const deleteSessionAsync = (id) => {
+export const deleteSessionAsync = (session, id, currentTime) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`/sessions/${id}`);
-      dispatch(deleteSessionSuccess(id));
+      const { data } = await axios.delete(`/sessions/${id}`, {
+        data: {
+          session,
+          currentTime
+        }
+      });
+      dispatch(deleteSessionSuccess(data, id));
     }
     catch (error) {
       dispatch(deleteSessionFailure(error))
@@ -167,10 +172,17 @@ export const deleteSessionAsync = (id) => {
   }
 }
 
-export const deleteSessionSuccess = (id) => {
-  return {
-    type: DELETE_SESSION_SUCCESS,
-    payload: id
+export const deleteSessionSuccess = (data, id) => {
+  if (data.message) {
+    return {
+      type: DELETE_SESSION_SUCCESS,
+      payload: id
+    }
+  } else {
+    return {
+      type: EDIT_SESSION_SUCCESS,
+      payload: data
+    }
   }
 }
 

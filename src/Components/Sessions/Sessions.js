@@ -25,21 +25,8 @@ class Sessions extends Component {
   }
 
   deleteSession = (id, currentTime) => {
-    const session = this.props.sessions.find(session => session.id === id)
-    if (session.times.length > 1) {
-      const newTimes = session.times.filter(time => time !== currentTime);
-      session.times = newTimes;
-      const newSession = {
-        movieId: session.movieId.id,
-        cinemaId: session.cinemaId.id,
-        hallId: session.hallId.id,
-        id: session.id,
-        times: newTimes
-      }
-      this.props.editSession(newSession, id)
-    } else {
-      this.props.deleteSessionAsync(id);
-    }
+    const session = this.props.sessions.find(session => session.id === id);
+    this.props.deleteSessionAsync(session, id, currentTime);
   }
 
   render() {
@@ -93,8 +80,8 @@ const mapDispatchToProps = dispatch => ({
   getSessionsAsync() {
     dispatch(getSessionsAsync());
   },
-  deleteSessionAsync(id) {
-    dispatch(deleteSessionAsync(id));
+  deleteSessionAsync(session, id, currentTime) {
+    dispatch(deleteSessionAsync(session, id, currentTime));
   },
   editSession(session, id) {
     dispatch(editSessionAsync(session, id))
