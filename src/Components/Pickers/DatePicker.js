@@ -5,10 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { DateTimePicker } from 'material-ui-pickers';
 
 import {
-  Add as AddIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  Done as DoneIcon
+  Add as AddIcon
 } from '@material-ui/icons';
 
 

@@ -55,12 +55,6 @@ export const EDIT_HALL_SUCCESS = 'EDIT_HALL_SUCCESS';
 export const GET_HALLS_BY_CINEMA_SUCCESS = 'GET_HALLS_BY_CINEMA_SUCCESS';
 export const GET_HALLS_BY_CINEMA_FAILURE = 'GET_HALLS_BY_CINEMA_FAILURE';
 
-export const ADD_ROW = 'ADD_ROW';
-export const ADD_ROWS = 'ADD_ROWS';
-export const CLEAR_ROWS = 'CLEAR_ROWS';
-export const DELETE_ROW = 'DELETE_ROW';
-export const EDIT_ROW = 'EDIT_ROW';
-
 export const ADD_SERVICE = 'ADD_SERVICE';
 export const ADD_SERVICES = 'ADD_SERVICES';
 export const CLEAR_SERVICES = 'CLEAR_SERVICES';

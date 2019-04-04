@@ -15,8 +15,7 @@ import {
   clearHalls,
   deleteNewHall,
   getHallsAsync,
-  deleteHallAsync,
-  clearRows
+  deleteHallAsync
 } from '../../actions/hall'
 
 import {
@@ -54,36 +53,38 @@ class AddCinema extends Component {
     }
   }
 
+  get isCinemaExist() {
+    return !!this.props.match.params.id;
+  }
+
   componentDidMount() {
-    this.props.clearServices();
     this.props.clearCinema();
     const cinemaId = this.props.match.params.id;
     if (cinemaId) {
       this.props.getCinemasAsync();
-      this.props.clearCinema();
       this.props.getCinema(cinemaId);
       if (!this.props.halls.length) {
         this.props.getHalls(cinemaId);
       }
-    }
-    if (!cinemaId) {
+    } else {
       this.props.clearCinemas();
     }
     this.props.clearCinemaInfo();
-    this.props.clearRows();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id) {
       if (this.props.cinemas.length) {
         const cinema = nextProps.cinemas.find(cinema => cinema.id === this.props.match.params.id);
+        this.setState({
+          name: cinema.name,
+          city: cinema.city
+        })
         if (nextProps.additionalServices.length) {
-          this.props.onAddServices(nextProps.additionalServices);
           this.setState({
             additionalServices: nextProps.additionalServices
           });
         } else {
-          this.props.onAddServices(cinema.additionalServices);
           this.setState({
             additionalServices: cinema.additionalServices
           });
@@ -116,18 +117,22 @@ class AddCinema extends Component {
     const cinema = {
       name: this.state.name,
       city: this.state.city,
-      additionalServices: this.state.additionalServices
+      additionalServices: this.state.additionalServices.map(service => {
+        return {
+          name: service.name,
+          cost: +service.cost
+        }
+      })
     };
-    await this.props.match.params.id
+    await this.isCinemaExist
       ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
       : this.props.onAddСinema(cinema, this.props.halls);
     this.props.history.push(`/cinemas`);
     this.props.clearHalls();
-    this.props.clearServices();
   }
 
   onDeleteHall = (hall) => {
-    this.props.match.params.id
+    this.isCinemaExist
       ? this.props.onDeleteHallAsync(hall)
       : this.props.onDeleteNewHall(hall)
   }
@@ -157,12 +162,11 @@ class AddCinema extends Component {
   }
 
   handleConfirmEdit = (index) => {
-    const newAdditionalServices = this.state.additionalServices;
+    const newAdditionalServices = [...this.state.additionalServices];
     newAdditionalServices[index].name = this.state.service;
     newAdditionalServices[index].cost = this.state.cost;
     newAdditionalServices[index].isEdit = false;
 
-    this.props.onEditService(newAdditionalServices[index]);
     this.setState({ additionalServices: newAdditionalServices });
   }
 
@@ -171,13 +175,11 @@ class AddCinema extends Component {
       name: this.state.service,
       cost: +this.state.cost
     }
-    this.props.onAddService(service);
     this.setState({
       additionalServices: [...this.state.additionalServices, {
         name: service.name,
         cost: service.cost,
         isEdit: false,
-        id: this.state.additionalServices.length
       }],
       service: '',
       cost: ''
@@ -185,7 +187,10 @@ class AddCinema extends Component {
   }
 
   handleDelete = (index) => {
-    this.props.deleteService(index);
+    const newServices = this.state.additionalServices.filter((service, i) => i !== index);
+    this.setState({
+      additionalServices: newServices
+    })
   }
 
   render() {
@@ -207,7 +212,7 @@ class AddCinema extends Component {
         />
         <Link
           to={{
-            pathname: this.props.match.params.id
+            pathname: this.isCinemaExist
               ? `/cinema/${this.props.cinema.id || this.props.match.params.id}/hall/add`
               : `/cinema/hall/add`
           }}
@@ -270,7 +275,7 @@ class AddCinema extends Component {
             }
           </ul>
         </div>
-        <button className="cinema__add-cinema" onClick={this.addCinema}>
+        <button className="cinema__add-cinema" onClick={() => this.addCinema()}>
           {this.props.match.params.id ? 'Save' : 'Add'}
         </button>
       </div>
@@ -336,9 +341,6 @@ const mapDispatchToProps = dispatch => ({
   },
   getHalls(id) {
     dispatch(getHallsAsync(id));
-  },
-  clearRows() {
-    dispatch(clearRows());
   },
   deleteService(index) {
     dispatch(deleteService(index));

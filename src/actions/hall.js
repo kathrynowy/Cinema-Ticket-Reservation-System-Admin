@@ -11,39 +11,11 @@ import {
   DELETE_HALL_FAILURE,
   GET_HALL_SUCCESS,
   GET_HALL_FAILURE,
-  ADD_ROW,
-  CLEAR_ROWS,
-  ADD_ROWS,
-  DELETE_ROW,
-  EDIT_ROW,
   EDIT_HALL_SUCCESS,
   EDIT_HALL_FAILURE,
 } from '../actionTypes';
 
 import axios from 'axios';
-
-
-export const addRow = (row) => {
-  return {
-    type: ADD_ROW,
-    payload: row
-  }
-}
-
-export const deleteRow = (index) => {
-  return {
-    type: DELETE_ROW,
-    payload: index
-  }
-}
-
-export const editRow = (index, row) => {
-  return {
-    type: EDIT_ROW,
-    index,
-    row
-  }
-}
 
 
 export const editHallAsync = (hall, id) => {
@@ -72,13 +44,6 @@ export const editHallFailure = (error) => {
   }
 }
 
-export const addRows = (rows) => {
-  return {
-    type: ADD_ROWS,
-    payload: rows
-  }
-}
-
 export const addHall = (hall) => ({
   type: ADD_HALL,
   payload: hall
@@ -92,7 +57,7 @@ export const deleteNewHall = (hall) => ({
 export const deleteHallAsync = hall => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/halls/${hall.id}`);
+      await axios.delete(`/halls/${hall.id}`);
       dispatch(deleteHallSuccess(hall));
     }
     catch (error) {
@@ -118,7 +83,7 @@ export const deleteHallFailure = (error) => {
 export const getHallsAsync = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`halls/cinema/${id}`);
+      const { data } = await axios.get(`cinema/${id}/halls`);
       dispatch(getHallsSuccess(data));
     } catch (error) {
       dispatch(getHallsFailure(error));
@@ -192,10 +157,6 @@ export const getHallSuccess = hall => ({
 export const getHallFailure = error => ({
   type: GET_HALL_FAILURE,
   payload: error
-});
-
-export const clearRows = () => ({
-  type: CLEAR_ROWS
 });
 
 export const clearHalls = () => ({
