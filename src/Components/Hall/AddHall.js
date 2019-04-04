@@ -39,14 +39,13 @@ class AddHall extends Component {
 
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
-    const hallIndex = this.props.match.params.index;
+    const i = +this.props.match.params.index;
 
     if (hallId) {
       this.props.getHall(hallId);
     } else {
       this.props.clearHall();
-      if (hallIndex) {
-        const i = +hallIndex;
+      if (i) {
         this.setState({
           name: this.props.halls[i].name,
           rows: this.props.halls[i].hall.map((row, hallIndex) => {
@@ -125,7 +124,6 @@ class AddHall extends Component {
       ({ ...row, isEdit: index === i })
     );
 
-    rows[index].isEdit = true;
     this.setState({
       rows: rows,
       cost: +rows[index].cost,
@@ -186,8 +184,11 @@ class AddHall extends Component {
                       {`№${row.row} seats: ${row.amountOfSeats} cost: ${row.cost}`}
                     </li>
                     <div className="row__icons">
-                      {!this.state.rows[index].isEdit && <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />}
-                      {this.state.rows[index].isEdit && <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />}
+                      {
+                        this.state.rows[index].isEdit
+                          ? <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />
+                          : <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />
+                      }
                       <DeleteIcon className="row__icon" onClick={() => this.handleDelete(index)} />
                     </div>
                   </div>

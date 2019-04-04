@@ -72,19 +72,11 @@ class AddCinema extends Component {
     if (this.props.match.params.id) {
       if (this.props.cinemas.length) {
         const cinema = nextProps.cinemas.find(cinema => cinema.id === this.props.match.params.id);
-        this.setState({
+        cinema && this.setState({
           name: cinema.name,
-          city: cinema.city
+          city: cinema.city,
+          additionalServices: cinema.additionalServices
         })
-        if (nextProps.additionalServices.length) {
-          this.setState({
-            additionalServices: nextProps.additionalServices
-          });
-        } else {
-          this.setState({
-            additionalServices: cinema.additionalServices
-          });
-        }
       }
     }
   }
@@ -102,7 +94,7 @@ class AddCinema extends Component {
   }
 
   changeCost = (cost) => {
-    this.setState({ cost });
+    this.setState({ cost: +cost });
   }
 
   changeService = (service) => {
@@ -113,16 +105,13 @@ class AddCinema extends Component {
     const cinema = {
       name: this.state.name,
       city: this.state.city,
-      additionalServices: this.state.additionalServices.map(service => {
-        return {
-          name: service.name,
-          cost: +service.cost
-        }
-      })
+      additionalServices: this.state.additionalServices.map(({ name, cost }) => ({ name, cost }))
     };
+
     await this.isCinemaExist
       ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
       : this.props.onAddСinema(cinema, this.props.halls);
+
     this.props.history.push(`/cinemas`);
     this.props.clearHalls();
   }
@@ -191,21 +180,17 @@ class AddCinema extends Component {
   }
 
   render() {
-    const name = this.state.name || this.props.cinema.name;
-    const city = this.state.city || this.props.cinema.city;
-    const cost = this.state.cost;
-    const service = this.state.service;
     return (
       <div className="cinema">
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
-          value={name}
+          value={this.state.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
-          value={city}
+          value={this.state.city}
         />
         <Link
           to={{
@@ -245,12 +230,12 @@ class AddCinema extends Component {
         <Input
           label="Service"
           handleChanges={this.changeService}
-          value={service}
+          value={this.state.service}
         />
         <Input
           label="Cost"
           handleChanges={this.changeCost}
-          value={cost}
+          value={this.state.cost}
         />
         <div className="cinema__services services">
           <ul className="services__row-list">

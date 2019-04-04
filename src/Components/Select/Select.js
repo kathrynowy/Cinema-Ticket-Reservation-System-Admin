@@ -52,7 +52,6 @@ class CustomSelect extends React.Component {
     const { classes } = this.props;
 
     return (
-
       <FormControl className={classes.formControl}>
         <Select
           className={classes.select}
@@ -64,9 +63,6 @@ class CustomSelect extends React.Component {
             id: `select-${this.props.name}`,
           }}
         >
-          {/* <MenuItem value="">
-              <em>choose city</em>
-            </MenuItem> */}
           {
             this.props.items.map(item => {
               return <MenuItem value={item} key={item.name}>{item.name}</MenuItem>
@@ -74,7 +70,6 @@ class CustomSelect extends React.Component {
           }
         </Select>
       </FormControl>
-
     );
   }
 }
