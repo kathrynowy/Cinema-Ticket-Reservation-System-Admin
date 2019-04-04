@@ -295,17 +295,8 @@ const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
     dispatch(addCinemaAsync(cinema, halls));
   },
-  onEditService(index, service) {
-    dispatch(editService(index, service));
-  },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());
-  },
-  onAddService(service) {
-    dispatch(addService(service));
-  },
-  onAddServices(services) {
-    dispatch(addServices(services));
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
@@ -330,9 +321,6 @@ const mapDispatchToProps = dispatch => ({
   clearCinemas() {
     dispatch(clearCinemas());
   },
-  clearServices() {
-    dispatch(clearServices());
-  },
   clearHalls() {
     dispatch(clearHalls());
   },
@@ -342,9 +330,6 @@ const mapDispatchToProps = dispatch => ({
   getHalls(id) {
     dispatch(getHallsAsync(id));
   },
-  deleteService(index) {
-    dispatch(deleteService(index));
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCinema);
