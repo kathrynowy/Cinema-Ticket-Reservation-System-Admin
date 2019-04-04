@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getMoviesAsync, deleteMovieAsync } from '../../actions/index'
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import MovieIcon from '@material-ui/icons/Movie';
+import { getMoviesAsync, deleteMovieAsync } from '../../actions/movie';
+import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Movie as MovieIcon
+} from '@material-ui/icons';
 import './Movies.scss';
 
 
@@ -27,7 +29,7 @@ class Movies extends Component {
             : this.props.movies && <Fragment>
               <div className="movies__add-movie">
                 <span className="movies__label"> Add movie</span>
-                <Link to="/add-movie" className="movies_link">
+                <Link to="/movie/add" className="movies_link">
                   <AddIcon className="movies__add-icon" />
                 </Link>
               </div>
@@ -36,10 +38,10 @@ class Movies extends Component {
                 {
                   this.props.movies.map((movie) => {
                     return (
-                      <div className="movies__list-item movie">
+                      <div className="movies__list-item movie" key={movie.id}>
                         <MovieIcon className="movie__icon" />
-                        <Link to={{ pathname: `/movie-edit/${movie.id}` }} className="movie__item-link">
-                          <li className="movie__name" key={movie.id}>
+                        <Link to={{ pathname: `/movie/${movie.id}/edit` }} className="movie__item-link">
+                          <li className="movie__name">
                             {movie.name}
                           </li>
                         </Link>

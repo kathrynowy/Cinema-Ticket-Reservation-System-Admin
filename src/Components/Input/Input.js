@@ -5,23 +5,11 @@ import './Input.scss';
 
 
 class Input extends Component {
-  state = {
-    dirty: false,
-    value: ''
-  }
-
   handleClear = () => {
-    this.setState({
-      dirty: true,
-      value: ''
-    });
+    this.props.handleChanges('');
   }
 
   handleChange = (event) => {
-    this.setState({
-      dirty: true,
-      value: event.target.value
-    });
     this.props.handleChanges(event.target.value);
   }
 
@@ -35,7 +23,7 @@ class Input extends Component {
               name={this.props.label}
               className="input__input"
               onChange={(event) => this.handleChange(event)}
-              value={this.state.dirty ? this.state.value : this.props.initialValue}
+              value={this.props.value}
             />
             <button
               className={`input__clear`}

@@ -1,46 +1,21 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
-.cinema {
-  width: 100%;
+.hall-form{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
-  padding: 20px 15px;
+  flex: 1 1 auto;
 
-  &__close{
+  &__info {
+    width: 300px;
     background-color: $transparent;
-    outline: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  &__add-cinema {
-    @include addButton(); 
-
-    &:hover {
-      background-color: $light-orange;
-      color: $white;
-    }
-  }
-
-  .halls {
-    overflow-y: auto;
-    margin: 15px 0px;
-    height: 150px;
-    width: 380px;
-    border: 1px solid $blackBorder;
-    background-color: $transparent;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    padding: 10px;
-    padding-left: 0px;
-  }
-
-  .services {
-    width: 95%;
-    background-color: $transparent;
+    height: 200px;
     color: $black;
+    font-size: 18px;
+    padding-top: 5px;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -49,7 +24,38 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      @include scroll();  
+      @include scroll();
+    }
+  }
+
+  &__add-row-button {
+    @include addContainer();
+  }
+
+  &__label {
+    @include label();
+    font-size: 20px;
+  }
+
+  &__add-icon {
+    @include addIcon();
+
+    &:hover {
+      @include addIconHover();
+    }
+  }
+
+  &__row-list {
+    overflow-y: auto;
+    background-color: $transparent;
+
+    &::-webkit-scrollbar {
+      width: 20px;
+      height: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @include scroll();
     }
   }
 
@@ -89,21 +95,12 @@
     }
   }
 
-  .link {
-    color: inherit;
-    text-decoration: none;
-    @include addContainer();
+  &__add-button {
+    @include addButton();
 
-    &__label {
-      @include label();
-    }
-
-    &__add-icon {
-      @include addIcon();
-
-      &:hover {
-        @include addIconHover();
-      }
+    &:hover {
+      background-color: $light-orange;
+      color: $white;
     }
   }
 }

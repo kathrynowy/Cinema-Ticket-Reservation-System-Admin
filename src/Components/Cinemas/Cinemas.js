@@ -2,19 +2,31 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import AddIcon from '@material-ui/icons/Add';
-import HomeIcon from '@material-ui/icons/Home';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { getCinemasAsync, deleteCinemaAsync } from '../../actions/index'
-import './Cinemas.scss';
+import {
+  Add as AddIcon,
+  Home as HomeIcon,
+  Delete as DeleteIcon
+} from '@material-ui/icons';
 
+import {
+  clearHalls,
+  clearHall
+} from '../../actions/hall';
+
+import {
+  getCinemasAsync,
+  deleteCinemaAsync,
+} from '../../actions/cinema';
+
+import './Cinemas.scss';
 
 
 class Cinemas extends Component {
   componentDidMount() {
     this.props.getCinemasAsync();
+    this.props.clearHalls();
+    this.props.clearHall();
   }
-
 
   deleteCinemaAsync = (id) => {
     this.props.deleteCinemaAsync(id);
@@ -29,7 +41,7 @@ class Cinemas extends Component {
             : <Fragment >
               <div className="cinemas__add-cinema">
                 <span className="cinemas__label"> Add cinema</span>
-                <Link to="/add-cinema" className="cinemas_link">
+                <Link to="/cinema/add" className="cinemas_link">
                   <AddIcon className="cinemas__add-icon" />
                 </Link>
               </div>
@@ -40,9 +52,11 @@ class Cinemas extends Component {
                     return (
                       <div className="cinemas__list-item cinema" key={cinema.id}>
                         <HomeIcon className="cinema__icon" />
-                        <li className="cinema__name">
-                          {cinema.name}
-                        </li>
+                        <Link to={{ pathname: `/cinema/${cinema.id}/edit` }} className="cinema__item-link">
+                          <li className="cinema__name">
+                            {cinema.name}
+                          </li>
+                        </Link>
                         <DeleteIcon
                           className="cinema__icon cinema__icon_delete"
                           onClick={() => this.deleteCinemaAsync(cinema.id)}
@@ -67,6 +81,12 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getCinemasAsync() {
     dispatch(getCinemasAsync());
+  },
+  clearHalls() {
+    dispatch(clearHalls());
+  },
+  clearHall() {
+    dispatch(clearHall());
   },
   deleteCinemaAsync(id) {
     dispatch(deleteCinemaAsync(id));

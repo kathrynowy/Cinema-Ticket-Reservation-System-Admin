@@ -1,97 +1,40 @@
 @import '../../variables.scss';
 
-.hall{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: 10px;
+.hall {
+  width: 110px;
+  height: 30px;
+  font-size: 18px;
+  padding-top: 5px;
   display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
+  align-content: center;
+  justify-content: center;
+  border: 1px solid $blackBorder;
+  position: relative;
+  cursor: pointer;
 
-  &__info {
-    width: 300px;
-    background-color: $transparent;
-    color: $black;
-    font-size: 18px;
-    padding-top: 5px;
+  &:not(:first-child) {
+    margin-left: 10px;
   }
 
-  &__add-row-button {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-    height: 35px;
-    margin-top: 5px;
-    margin-bottom: 35px;
+  &:not(:nth-child(3n)) {
+    margin-left: 10px;
   }
 
-  &__label {
-    font-size: 22px;
-    display: flex;
-    align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 8px;
-  }
-
-  &__add-icon {
-    border: 5px solid $light-orange;
-    background-color: $light-orange;
-    border-radius: 50%;
+  &_close {
     cursor: pointer;
-
-    &:hover {
-      border: 5px solid $orange;
-      background-color: $orange;
-    }
-  }
-
-  &__row-list {
-    overflow-y: auto;
-    height: 250px;
-    background-color: $transparent;
-
-    &::-webkit-scrollbar {
-      width: 20px;
-      height: 20px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-    }
-  }
-
-  .row {
-    width: 95%;
-    padding: 8px 2px;
-    border: 1px solid $blackBorder;
-    font-size: 18px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    &:not(:first-child) {
-      border-top: none;
-    }
-  }
-
-  &__add-button {
-    cursor: pointer;
-    font-size: 18px;
-    outline: none;
-    margin-top: 40px;
-    width: 100px;
-    height: 35px;
-    border: 2px solid $light-orange;
-    background-color: $transparent;
-    color: $black;
+    width: 13px !important;
+    height: 13px !important;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px solid $light-orange;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    z-index: 100;
 
     &:hover {
       background-color: $light-orange;
-      color: $white;
+      color: white;
     }
   }
 }

@@ -1,24 +1,19 @@
 import {
-  GET_CINEMAS_SUCCESS,
-  GET_CINEMAS_FAILURE,
   GET_MOVIES_SUCCESS,
   GET_MOVIES_FAILURE,
   GET_MOVIE_SUCCESS,
   GET_MOVIE_FAILURE,
-  GET_SESSIONS_SUCCESS,
-  GET_SESSIONS_FAILURE,
   ADD_MOVIE_SUCCESS,
   ADD_MOVIE_FAILURE,
-  DELETE_CINEMA_SUCCESS,
-  DELETE_CINEMA_FAILURE,
   CLEAR_MOVIE,
   EDIT_MOVIE_SUCCESS,
   EDIT_MOVIE_FAILURE,
   DELETE_MOVIE_FAILURE,
-  DELETE_MOVIE_SUCCESS
+  DELETE_MOVIE_SUCCESS,
 } from '../actionTypes';
 
 import axios from 'axios';
+
 
 export const deleteMovieAsync = id => {
   return async (dispatch) => {
@@ -72,32 +67,7 @@ export const editMovieFailure = (error) => {
   }
 }
 
-export const getCinemasSuccess = (cinemas) => {
-  return {
-    type: GET_CINEMAS_SUCCESS,
-    payload: cinemas
-  }
-}
-
-export const getCinemasFailure = (error) => {
-  return {
-    type: GET_CINEMAS_FAILURE,
-    payload: error.request.statusText
-  }
-}
-
-export function getCinemasAsync() {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`cinemas`);
-      dispatch(getCinemasSuccess(data));
-    } catch (error) {
-      dispatch(getCinemasFailure(error));
-    }
-  }
-}
-
-export function getMoviesAsync() {
+export const getMoviesAsync = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`movies`);
@@ -122,36 +92,12 @@ export const getMoviesFailure = (error) => {
   }
 }
 
-export const getSessionsSuccess = (sessions) => {
-  return {
-    type: GET_SESSIONS_SUCCESS,
-    payload: sessions
-  }
-}
 
-export const getSessionsFailure = (error) => {
-  return {
-    type: GET_SESSIONS_FAILURE,
-    payload: error
-  }
-}
-
-export function getSessionsAsync() {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.get(`sessions`);
-      dispatch(getSessionsSuccess(data));
-    } catch (error) {
-      dispatch(getSessionsFailure(error));
-    }
-  }
-}
-
-export function addMovieAsync(movie) {
+export const addMovieAsync = (movie) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`movies`, movie);
-      dispatch(addMovieSuccess(data.movie));
+      dispatch(addMovieSuccess(data));
     } catch (error) {
       dispatch(addMovieFailure(error));
     }
@@ -168,19 +114,7 @@ export const addMovieFailure = error => ({
   payload: error
 })
 
-export const deleteCinemaAsync = id => {
-  return async (dispatch) => {
-    try {
-      const { data } = await axios.delete(`/cinemas/${id}`);
-      dispatch(deleteCinemaSuccess(id));
-    }
-    catch (error) {
-      dispatch(deleteCinemaFailure(error))
-    }
-  }
-}
-
-export function getMovieAsync(id) {
+export const getMovieAsync = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`movies/${id}`);
@@ -191,28 +125,14 @@ export function getMovieAsync(id) {
   }
 }
 
-export const deleteCinemaSuccess = (id) => {
-  return {
-    type: DELETE_CINEMA_SUCCESS,
-    payload: id
-  }
-}
-
-export const deleteCinemaFailure = (error) => {
-  return {
-    type: DELETE_CINEMA_FAILURE,
-    payload: error.request.statusText
-  }
-}
-
 export const getMovieSuccess = movie => ({
   type: GET_MOVIE_SUCCESS,
   payload: movie
 });
 
-export const getMovieFailure = movie => ({
+export const getMovieFailure = error => ({
   type: GET_MOVIE_FAILURE,
-  payload: movie
+  payload: error
 });
 
 export const clearMovie = () => ({

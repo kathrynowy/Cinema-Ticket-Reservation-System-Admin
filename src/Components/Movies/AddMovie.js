@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import './AddMovie.scss';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea'
-import { addMovieAsync, getMovieAsync, clearMovie, editMovieAsync } from '../../actions/index'
+import {
+  addMovieAsync,
+  getMovieAsync,
+  clearMovie,
+  editMovieAsync
+} from '../../actions/movie'
 
 
 class AddMovie extends Component {
@@ -14,11 +19,25 @@ class AddMovie extends Component {
     url: this.props.movie.img || ''
   }
 
+  get isMovieExist() {
+    return !!this.props.match.params.id;
+  }
+
   componentDidMount() {
     const movieId = this.props.match.params.id;
     if (movieId) {
       this.props.clearMovie();
       this.props.getMovie(movieId);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.movie) {
+      this.setState({
+        description: nextProps.movie.description,
+        name: nextProps.movie.name,
+        url: nextProps.movie.img
+      })
     }
   }
 
@@ -33,6 +52,7 @@ class AddMovie extends Component {
       description: this.state.description
     }
     this.props.onAddMovie(movie);
+    this.props.history.push(`/movies`);
   }
 
   editMovie = () => {
@@ -41,7 +61,8 @@ class AddMovie extends Component {
       img: this.state.url,
       description: this.state.description
     }
-    this.props.editMovie(movie, this.props.match.params.id)
+    this.props.editMovie(movie, this.props.match.params.id);
+    this.props.history.push(`/movies`);
   }
 
   changeMovie = (name) => {
@@ -62,9 +83,9 @@ class AddMovie extends Component {
         <Input
           label="Movie"
           handleChanges={this.changeMovie}
-          initialValue={this.props.movie.name}
+          value={this.props.movie.name}
         />
-       <Textarea
+        <Textarea
           label="Descripton"
           initialValue={this.props.movie.description}
           onChange={this.changeDescription}
@@ -72,7 +93,7 @@ class AddMovie extends Component {
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
-          initialValue={this.props.movie.img}
+          value={this.props.movie.img}
         />
         <button
           type="submit"
@@ -80,8 +101,9 @@ class AddMovie extends Component {
           onClick={this.props.match.params.id
             ? this.editMovie
             : this.addMovie}
-        >
-          Add
+        > {
+            this.isMovieExist ? 'Save' : 'Add'
+          }
         </button>
       </div>
     );

@@ -1,4 +1,5 @@
 @import '../../variables.scss';
+@import '../../mixins.scss';
 
 .movies {
   width: 100%;
@@ -13,33 +14,19 @@
   }
 
   &__add-movie {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-    height: 35px;
-    margin-top: 5px;
-    margin-bottom: 35px;
+    @include addContainer();
   }
 
   &__add-icon {
-    border: 5px solid $light-orange;
-    background-color: $light-orange;
-    border-radius: 50%;
-    cursor: pointer;
+    @include addIcon();
 
     &:hover {
-      border: 5px solid $orange;
-      background-color: $orange;
+      @include addIconHover();
     }
   }
 
   &__label {
-    font-size: 22px;
-    display: flex;
-    align-content: flex-end;
-    padding: 10px 5px;
-    padding-bottom: 8px;
+    @include label();
   }
 
   &__list {
@@ -55,15 +42,11 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background: -webkit-gradient(linear,left top,left bottom,from($yellowScroll),to($pinkScroll));
-      border-radius: 30px;
-      -webkit-box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
-      box-shadow: inset 2px 2px 2px $greyScroll, inset -2px -2px 2px $blackScroll;
+      @include scroll();
     }
   }
 
   .movie {
-    justify-content: space-between;
     color: inherit;
     text-decoration: none;
     width: 95%;
@@ -77,28 +60,19 @@
     &:not(:first-child) {
       border-top: none;
     }
-  
-    &__icon {
-      width: 10% !important;
-      height: 30px !important;
-    }
 
-    &__delete-icon {
-      align-self: flex-end;
+    &__delete {
+      cursor: pointer;
     }
   
     &__item-link {
       text-decoration: none;
       color: inherit;
+      width: 80%;
     }
-  }
 
-  &__movie-icon, &__delete-icon {
-    width: 10% !important;
-    height: 30px !important;
-  }
-
-  &__movie-info {
-    width: 80%;
+    &__icon {
+      @include mainIcon();
+    }
   }
 }

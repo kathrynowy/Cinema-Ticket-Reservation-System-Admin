@@ -9,7 +9,7 @@ import Movies from './Components/Movies/Movies';
 import AddMovie from './Components/Movies/AddMovie';
 import AddSession from './Components/Sessions/AddSession';
 import Sessions from './Components/Sessions/Sessions';
-import Hall from './Components/Hall/Hall';
+import AddHall from './Components/Hall/AddHall';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 
@@ -21,13 +21,17 @@ class App extends Component {
           <div className="container">
             <NestedList />
             <Route path="/cinemas" component={Cinemas} />
-            <Route path="/add-cinema" component={AddCinema} />
+            <Route path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
             <Route path="/movies" component={Movies} />
-            <Route path="/add-movie" component={AddMovie} />
-            <Route path="/movie-edit/:id" component={AddMovie} />
+            <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />
             <Route path="/sessions" component={Sessions} />
-            <Route path="/add-session" component={AddSession} />
-            <Route path="/add-hall" component={Hall} />
+            <Route path="/session/add" component={AddSession} />
+            <Route path={[
+              "/cinema/:cinemaId/hall/add",
+              "/cinema/:cinemaId/hall/:hallId/edit",
+              "/cinema/hall/:index/edit",
+              "/cinema/hall/add"
+            ]} component={AddHall} />
             <Route path="/error-page" component={ErrorPage} />
           </div>
         </Router>
