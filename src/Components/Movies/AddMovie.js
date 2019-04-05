@@ -111,7 +111,6 @@ class AddMovie extends Component {
       })
   }
 
-
   render() {
     return (
       <form className="movie" onSubmit={(e) => this.handleSubmit(e)}>
