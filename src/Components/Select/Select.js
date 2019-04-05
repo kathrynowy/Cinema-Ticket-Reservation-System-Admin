@@ -12,7 +12,6 @@ const styles = theme => ({
 
     margin: theme.spacing.unit,
     margin: 0,
-    marginBottom: 25,
     marginTop: 5,
     color: 'white',
     display: 'flex',
