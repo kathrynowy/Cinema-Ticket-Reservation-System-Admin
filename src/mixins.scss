@@ -23,6 +23,16 @@
   cursor: pointer;
 }
 
+@mixin errorLabel() {
+  display: flex;
+  align-self: flex-start;
+  color: red;
+  font-size: 14px;
+  margin-top: 3px;
+  margin-bottom: 20px;
+}
+
+
 @mixin icon() {
   align-self: flex-end;
   width: 25x !important;

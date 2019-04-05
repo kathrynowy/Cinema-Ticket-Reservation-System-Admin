@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { validateAll } from 'indicative';
 import './AddMovie.scss';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea'
@@ -77,35 +78,72 @@ class AddMovie extends Component {
     this.setState({ description });
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      errors: {}
+    })
+    console.log(this.state);
+    const data = this.state;
+    const rules = {
+      name: 'required|string',
+      url: 'required|url',
+      description: 'required|string'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.',
+      'url.url': 'The url is invalid.'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        console.log('success');
+        this.props.match.params.id
+          ? this.editMovie()
+          : this.addMovie()
+      })
+      .catch(errors => {
+        console.log(errors);
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
+
   render() {
     return (
-      <div className="movie">
+      <form className="movie" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
           label="Movie"
           handleChanges={this.changeMovie}
           value={this.props.movie.name}
         />
+        <span className="movie_error">{this.state.errors ? this.state.errors.name : ''}</span>
         <Textarea
           label="Descripton"
           initialValue={this.props.movie.description}
           onChange={this.changeDescription}
         />
+        <span className="movie_error">{this.state.errors ? this.state.errors.description : ''}</span>
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
           value={this.props.movie.img}
         />
+        <span className="movie_error">{this.state.errors ? this.state.errors.url : ''}</span>
         <button
           type="submit"
           className="movie__add-movie"
-          onClick={this.props.match.params.id
-            ? this.editMovie
-            : this.addMovie}
+        /* onClick={this.props.match.params.id
+          ? this.editMovie
+          : this.addMovie} */
         > {
             this.isMovieExist ? 'Save' : 'Add'
           }
         </button>
-      </div>
+      </form>
     );
   }
 }
