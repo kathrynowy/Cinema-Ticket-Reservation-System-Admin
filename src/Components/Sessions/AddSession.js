@@ -26,7 +26,6 @@ import {
   Delete as DeleteIcon
 } from '@material-ui/icons';
 
-
 const DATE_TIME_OPTIONS = {
   year: 'numeric',
   month: 'long',
@@ -150,6 +149,7 @@ class AddSession extends Component {
           <CustomDatePicker type="date-time" label="Date & Time" onSelect={this.onSelectDate} />
         </div>
         <span className="session_error">{this.state.errors ? this.state.errors.times : ''}</span>
+
         <div className="session__dates">
           <ul className="session__date-list">
             {
@@ -166,7 +166,6 @@ class AddSession extends Component {
             }
           </ul>
         </div>
-
         <button type="submit" className="session__add" >Add</button>
       </form>
     );

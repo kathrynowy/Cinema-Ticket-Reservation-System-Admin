@@ -51,7 +51,6 @@ class AddCinema extends Component {
   }
 
   componentDidMount() {
-    this.props.clearCinema();
     this.props.clearCinemaInfo();
     const cinemaId = this.props.match.params.id;
     if (cinemaId) {
@@ -75,7 +74,7 @@ class AddCinema extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearCinema();
+    this.props.clearCinemaInfo();
   }
 
   changeCinema = (name) => {
@@ -106,7 +105,6 @@ class AddCinema extends Component {
       : this.props.onAddСinema(cinema, this.props.halls);
 
     this.props.history.push(`/cinemas`);
-    this.props.clearHalls();
   }
 
   onDeleteHall = (hall) => {
@@ -235,10 +233,6 @@ class AddCinema extends Component {
   }
 
   render() {
-    const name = this.state.name || this.props.cinema.name;
-    const city = this.state.city || this.props.cinema.city;
-    const cost = this.state.cost;
-    const service = this.state.service;
     return (
       <form className="cinema" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
@@ -341,9 +335,11 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
     dispatch(addCinemaAsync(cinema, halls));
+    dispatch(clearHalls());
   },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());
+    dispatch(clearCinema());
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
@@ -362,21 +358,15 @@ const mapDispatchToProps = dispatch => ({
   onDeleteHallAsync(hall) {
     dispatch(deleteHallAsync(hall));
   },
-  clearCinema() {
-    dispatch(clearCinema());
-  },
   clearCinemas() {
     dispatch(clearCinemas());
-  },
-  clearHalls() {
-    dispatch(clearHalls());
   },
   getCinema(id) {
     dispatch(getCinemaAsync(id));
   },
   getHalls(id) {
     dispatch(getHallsAsync(id));
-  },
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCinema);

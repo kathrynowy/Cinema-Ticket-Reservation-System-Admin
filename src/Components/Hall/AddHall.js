@@ -18,7 +18,6 @@ import {
 import { validateAll } from 'indicative';
 
 
-
 class AddHall extends Component {
   constructor(props) {
     super(props);
@@ -138,6 +137,7 @@ class AddHall extends Component {
     rows[index].isEdit = false;
     rows[index].amountOfSeats = this.state.amountOfSeats;
     rows[index].cost = +this.state.cost;
+    
     this.setState({
       rows: rows
     })
@@ -267,7 +267,6 @@ class AddHall extends Component {
         <button
           type="submit"
           className="hall-form__add-button"
-        /* onClick={() => this.addHall()} */
         >
           {this.isEdit ? 'Save' : 'Add'}
         </button>
