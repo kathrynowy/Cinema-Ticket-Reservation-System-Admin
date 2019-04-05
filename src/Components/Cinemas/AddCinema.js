@@ -58,7 +58,6 @@ class AddCinema extends Component {
   }
 
   componentDidMount() {
-    this.props.clearCinema();
     this.props.clearCinemaInfo();
     const cinemaId = this.props.match.params.id;
     if (cinemaId) {
@@ -82,7 +81,7 @@ class AddCinema extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearCinema();
+    this.props.clearCinemaInfo();
   }
 
   changeCinema = (name) => {
@@ -113,7 +112,6 @@ class AddCinema extends Component {
       : this.props.onAddСinema(cinema, this.props.halls);
 
     this.props.history.push(`/cinemas`);
-    this.props.clearHalls();
   }
 
   onDeleteHall = (hall) => {
@@ -276,9 +274,11 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
     dispatch(addCinemaAsync(cinema, halls));
+    dispatch(clearHalls());
   },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());
+    dispatch(clearCinema());
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
@@ -297,14 +297,8 @@ const mapDispatchToProps = dispatch => ({
   onDeleteHallAsync(hall) {
     dispatch(deleteHallAsync(hall));
   },
-  clearCinema() {
-    dispatch(clearCinema());
-  },
   clearCinemas() {
     dispatch(clearCinemas());
-  },
-  clearHalls() {
-    dispatch(clearHalls());
   },
   getCinema(id) {
     dispatch(getCinemaAsync(id));
