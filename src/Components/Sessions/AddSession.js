@@ -101,9 +101,8 @@ class AddSession extends Component {
     this.setState({
       errors: {}
     })
-    console.log(this.state);
+    
     const data = { ...this.state, times: this.props.times };
-    console.log(data);
     const rules = {
       city: 'required',
       cinema: 'required',
@@ -118,11 +117,9 @@ class AddSession extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.onAddSession();
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
