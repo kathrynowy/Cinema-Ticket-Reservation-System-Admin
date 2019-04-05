@@ -83,7 +83,6 @@ class AddMovie extends Component {
     this.setState({
       errors: {}
     })
-    console.log(this.state);
     const data = this.state;
     const rules = {
       name: 'required|string',
@@ -98,13 +97,11 @@ class AddMovie extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.props.match.params.id
           ? this.editMovie()
           : this.addMovie()
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
