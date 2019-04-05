@@ -136,6 +136,7 @@ class AddHall extends Component {
     rows[index].isEdit = false;
     rows[index].amountOfSeats = this.state.amountOfSeats;
     rows[index].cost = +this.state.cost;
+    
     this.setState({
       rows: rows
     })

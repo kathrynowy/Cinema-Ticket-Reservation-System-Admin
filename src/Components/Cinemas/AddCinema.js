@@ -158,7 +158,7 @@ class AddCinema extends Component {
       name: this.state.service,
       cost: +this.state.cost
     }
-
+    
     this.setState({
       additionalServices: [...this.state.additionalServices, {
         name: service.name,
@@ -305,7 +305,7 @@ const mapDispatchToProps = dispatch => ({
   },
   getHalls(id) {
     dispatch(getHallsAsync(id));
-  },
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddCinema);
