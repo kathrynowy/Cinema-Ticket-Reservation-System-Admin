@@ -170,11 +170,9 @@ class AddHall extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.addRow();
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
@@ -186,9 +184,7 @@ class AddHall extends Component {
     this.setState({
       errors: {}
     })
-    console.log(this.state);
     const data = { ...this.state };
-    console.log(data);
     const rules = {
       name: 'required|string',
       rows: 'required|array'
@@ -200,11 +196,9 @@ class AddHall extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.addHall();
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
