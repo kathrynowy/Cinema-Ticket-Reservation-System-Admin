@@ -67,7 +67,7 @@ export const getCinemasAsync = () => {
 export const addCinemaAsync = (cinema, halls) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(`cinemas-halls`, { cinema, halls });
+      const { data } = await axios.post(`cinemas`, { cinema, halls });
       dispatch(addCinemaSuccess(data.cinema));
     } catch (error) {
       dispatch(addCinemaFailure(error));
@@ -115,7 +115,7 @@ export const editCinemaFailure = error => ({
 export const deleteCinemaAsync = id => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/cinemas/${id}`);
+      const { data } = await axios.delete(`cinemas/${id}`);
       dispatch(deleteCinemaSuccess(id));
     }
     catch (error) {

@@ -16,7 +16,7 @@ class Movies extends Component {
     this.props.getMoviesAsync();
   }
 
-  deleteMovie = (id) => {
+  deleteMovie = id => {
     this.props.deleteMovie(id);
   }
 

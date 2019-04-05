@@ -11,31 +11,22 @@ import Input from '../Input/Input';
 import './AddHall.scss';
 import {
   addHall,
-  addRow,
-  clearRows,
   getHallAsync,
-  addRows,
   clearHall,
-  editHallAsync,
-  deleteRow,
-  editRow
+  editHallAsync
 } from '../../actions/hall'
 
 
 class AddHall extends Component {
-  state = {
-    name: '',
-    amountOfSeats: '',
-    cost: '',
-    rows: this.props.rows.map((row, index) => {
-      return ({
-        id: index,
-        isEdit: false,
-        row: row.row,
-        cost: row.cost,
-        amountOfSeats: row.amountOfSeats
-      })
-    })
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: '',
+      amountOfSeats: '',
+      cost: '',
+      rows: []
+    }
   }
 
   get isEdit() {
@@ -48,37 +39,32 @@ class AddHall extends Component {
 
   componentDidMount() {
     const hallId = this.props.match.params.hallId;
-    const hallIndex = this.props.match.params.index;
+    const i = +this.props.match.params.index;
 
     if (hallId) {
       this.props.getHall(hallId);
-      this.props.addRows(this.props.hall.hall || []);
     } else {
       this.props.clearHall();
-      this.props.clearRows();
-    }
-
-    if (hallIndex) {
-      const i = +hallIndex;
-      this.setState({
-        name: this.props.halls[i].name,
-        rows: this.props.halls[i].hall.map((row, hallIndex) => {
-          return ({
-            id: hallIndex,
-            isEdit: false,
-            row: row.row,
-            cost: row.cost,
-            amountOfSeats: row.amountOfSeats
+      if (i) {
+        this.setState({
+          name: this.props.halls[i].name,
+          rows: this.props.halls[i].hall.map((row, hallIndex) => {
+            return ({
+              id: hallIndex,
+              isEdit: false,
+              row: row.row,
+              cost: row.cost,
+              amountOfSeats: row.amountOfSeats
+            })
           })
         })
-      })
+      }
     }
   }
 
   componentUnmount() {
     this.props.clearHall();
     this.props.clearHalls();
-    this.props.clearRows();
   }
 
   addHall() {
@@ -113,22 +99,19 @@ class AddHall extends Component {
     const row = {
       row: this.state.rows.length + 1,
       amountOfSeats: +this.state.amountOfSeats,
-      cost: +this.state.cost
+      cost: +this.state.cost,
+      isEdit: false,
+      id: this.state.rows.length
     }
-    this.props.onAddRow(row);
+    this.setState({
+      rows: [...this.state.rows, row]
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.rows.length) {
-      this.props.addRows(nextProps.rows);
+    if (nextProps.hall.hall) {
       this.setState({
-        rows: nextProps.rows.map((row, index) => {
-          return { ...row, isEdit: false, id: index }
-        })
-      })
-    } else if (nextProps.hall.hall) {
-      this.props.addRows(nextProps.hall.hall);
-      this.setState({
+        name: nextProps.hall.name,
         rows: nextProps.hall.hall.map((row, index) => {
           return { ...row, isEdit: false, id: index }
         })
@@ -141,7 +124,6 @@ class AddHall extends Component {
       ({ ...row, isEdit: index === i })
     );
 
-    rows[index].isEdit = true;
     this.setState({
       rows: rows,
       cost: +rows[index].cost,
@@ -154,14 +136,17 @@ class AddHall extends Component {
     rows[index].isEdit = false;
     rows[index].amountOfSeats = this.state.amountOfSeats;
     rows[index].cost = +this.state.cost;
-    this.props.onEditRow(index, rows[index]);
+    
     this.setState({
       rows: rows
     })
   }
 
   handleDelete = (index) => {
-    this.props.deleteRow(index);
+    const newRows = this.state.rows.filter((row, i) => i !== index);
+    this.setState({
+      rows: newRows
+    })
   }
 
   render() {
@@ -170,7 +155,7 @@ class AddHall extends Component {
         <Input
           label="Name"
           handleChanges={this.changeHall}
-          value={this.props.hall.name || this.state.name}
+          value={this.state.name}
         />
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
@@ -200,8 +185,11 @@ class AddHall extends Component {
                       {`№${row.row} seats: ${row.amountOfSeats} cost: ${row.cost}`}
                     </li>
                     <div className="row__icons">
-                      {!this.state.rows[index].isEdit && <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />}
-                      {this.state.rows[index].isEdit && <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />}
+                      {
+                        this.state.rows[index].isEdit
+                          ? <DoneIcon className="row__icon row__icon_confirm" onClick={() => this.handleConfirmEdit(index)} />
+                          : <EditIcon className="row__icon row__icon_edit" onClick={() => this.handleEditRow(index)} />
+                      }
                       <DeleteIcon className="row__icon" onClick={() => this.handleDelete(index)} />
                     </div>
                   </div>
@@ -213,11 +201,9 @@ class AddHall extends Component {
         <button
           type="button"
           className="hall-form__add-button"
-          onClick={this.addHall}
+          onClick={() => this.addHall()}
         >
-          {
-            this.isEdit ? 'Save' : 'Add'
-          }
+          {this.isEdit ? 'Save' : 'Add'}
         </button>
       </div>
     )
@@ -233,31 +219,15 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddHall(hall) {
     dispatch(addHall(hall));
-    dispatch(clearRows());
   },
   onEditHall(hall, id) {
     dispatch(editHallAsync(hall, id));
   },
-  onEditRow(index, row) {
-    dispatch(editRow(index, row));
-  },
-  onAddRow(row) {
-    dispatch(addRow(row));
-  },
   getHall(id) {
     dispatch(getHallAsync(id));
   },
-  addRows(rows) {
-    dispatch(addRows(rows));
-  },
   clearHall() {
     dispatch(clearHall());
-  },
-  clearRows() {
-    dispatch(clearRows());
-  },
-  deleteRow(index) {
-    dispatch(deleteRow(index));
   }
 });
 

@@ -2,13 +2,14 @@ import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getSessionsAsync } from '../../actions/session';
+import { getSessionsAsync, deleteSessionAsync, editSessionAsync } from '../../actions/session';
 import {
   Add as AddIcon,
   Event as EventIcon,
   Delete as DeleteIcon
 } from '@material-ui/icons';
 import './Session.scss';
+
 
 const OPTIONS = {
   month: 'long',
@@ -17,14 +18,18 @@ const OPTIONS = {
   minute: 'numeric',
 };
 
-
 class Sessions extends Component {
+
   componentDidMount() {
     this.props.getSessionsAsync();
   }
 
-  render() {
+  deleteSession = (id, currentTime) => {
+    const session = this.props.sessions.find(session => session.id === id);
+    this.props.deleteSessionAsync(session, id, currentTime);
+  }
 
+  render() {
     return (
       <div className="sessions">
         {
@@ -42,15 +47,19 @@ class Sessions extends Component {
                   this.props.sessions.map(session => {
                     const times = session.times.map(time => new Date(+time).toLocaleString('en', OPTIONS));
                     return (
-                      <li key={session.id} className="sessions__list-item session">
-                        <EventIcon className="session__icon" />
-                        <span className="session__name">
-                          {`Minsk, ${session.cinemaId.name},
-                          hall: small, ${(session.movieId.name).toLowerCase()},
-                          ${times}`}
-                        </span>
-                        <DeleteIcon className="session__icon session__icon_delete" />
-                      </li>
+                      times.map((time, index) =>
+                        <li key={session.id + time} className="sessions__list-item session">
+                          <EventIcon className="session__icon" />
+                          <span className="session__name">
+                            {
+                              `${session.cinemaId.city}, ${session.cinemaId.name},
+                              hall: ${session.hallId.name}, ${session.movieId.name},
+                              ${time}`
+                            }
+                          </span>
+                          <DeleteIcon className="session__icon session__icon_delete" onClick={() => this.deleteSession(session.id, session.times[index])} />
+                        </li>
+                      )
                     )
                   })
                 }
@@ -70,6 +79,12 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getSessionsAsync() {
     dispatch(getSessionsAsync());
+  },
+  deleteSessionAsync(session, id, currentTime) {
+    dispatch(deleteSessionAsync(session, id, currentTime));
+  },
+  editSession(session, id) {
+    dispatch(editSessionAsync(session, id))
   }
 });
 

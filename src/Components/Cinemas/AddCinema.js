@@ -15,8 +15,7 @@ import {
   clearHalls,
   deleteNewHall,
   getHallsAsync,
-  deleteHallAsync,
-  clearRows
+  deleteHallAsync
 } from '../../actions/hall'
 
 import {
@@ -54,46 +53,35 @@ class AddCinema extends Component {
     }
   }
 
+  get isCinemaExist() {
+    return !!this.props.match.params.id;
+  }
+
   componentDidMount() {
-    this.props.clearServices();
-    this.props.clearCinema();
+    this.props.clearCinemaInfo();
     const cinemaId = this.props.match.params.id;
     if (cinemaId) {
       this.props.getCinemasAsync();
-      this.props.clearCinema();
       this.props.getCinema(cinemaId);
-      if (!this.props.halls.length) {
-        this.props.getHalls(cinemaId);
-      }
+      this.props.halls.length ? this.props.clearCinemas() : this.props.getHalls(cinemaId);
     }
-    if (!cinemaId) {
-      this.props.clearCinemas();
-    }
-    this.props.clearCinemaInfo();
-    this.props.clearRows();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.id) {
       if (this.props.cinemas.length) {
         const cinema = nextProps.cinemas.find(cinema => cinema.id === this.props.match.params.id);
-        if (nextProps.additionalServices.length) {
-          this.props.onAddServices(nextProps.additionalServices);
-          this.setState({
-            additionalServices: nextProps.additionalServices
-          });
-        } else {
-          this.props.onAddServices(cinema.additionalServices);
-          this.setState({
-            additionalServices: cinema.additionalServices
-          });
-        }
+        cinema && this.setState({
+          name: cinema.name,
+          city: cinema.city,
+          additionalServices: cinema.additionalServices
+        })
       }
     }
   }
 
   componentWillUnmount() {
-    this.props.clearCinema();
+    this.props.clearCinemaInfo();
   }
 
   changeCinema = (name) => {
@@ -105,7 +93,7 @@ class AddCinema extends Component {
   }
 
   changeCost = (cost) => {
-    this.setState({ cost });
+    this.setState({ cost: +cost });
   }
 
   changeService = (service) => {
@@ -116,18 +104,18 @@ class AddCinema extends Component {
     const cinema = {
       name: this.state.name,
       city: this.state.city,
-      additionalServices: this.state.additionalServices
+      additionalServices: this.state.additionalServices.map(({ name, cost }) => ({ name, cost }))
     };
-    await this.props.match.params.id
+
+    await this.isCinemaExist
       ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
       : this.props.onAddСinema(cinema, this.props.halls);
+
     this.props.history.push(`/cinemas`);
-    this.props.clearHalls();
-    this.props.clearServices();
   }
 
   onDeleteHall = (hall) => {
-    this.props.match.params.id
+    this.isCinemaExist
       ? this.props.onDeleteHallAsync(hall)
       : this.props.onDeleteNewHall(hall)
   }
@@ -157,12 +145,11 @@ class AddCinema extends Component {
   }
 
   handleConfirmEdit = (index) => {
-    const newAdditionalServices = this.state.additionalServices;
+    const newAdditionalServices = [...this.state.additionalServices];
     newAdditionalServices[index].name = this.state.service;
     newAdditionalServices[index].cost = this.state.cost;
     newAdditionalServices[index].isEdit = false;
 
-    this.props.onEditService(newAdditionalServices[index]);
     this.setState({ additionalServices: newAdditionalServices });
   }
 
@@ -171,13 +158,12 @@ class AddCinema extends Component {
       name: this.state.service,
       cost: +this.state.cost
     }
-    this.props.onAddService(service);
+    
     this.setState({
       additionalServices: [...this.state.additionalServices, {
         name: service.name,
         cost: service.cost,
         isEdit: false,
-        id: this.state.additionalServices.length
       }],
       service: '',
       cost: ''
@@ -185,29 +171,28 @@ class AddCinema extends Component {
   }
 
   handleDelete = (index) => {
-    this.props.deleteService(index);
+    const newServices = this.state.additionalServices.filter((service, i) => i !== index);
+    this.setState({
+      additionalServices: newServices
+    })
   }
 
   render() {
-    const name = this.state.name || this.props.cinema.name;
-    const city = this.state.city || this.props.cinema.city;
-    const cost = this.state.cost;
-    const service = this.state.service;
     return (
       <div className="cinema">
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
-          value={name}
+          value={this.state.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
-          value={city}
+          value={this.state.city}
         />
         <Link
           to={{
-            pathname: this.props.match.params.id
+            pathname: this.isCinemaExist
               ? `/cinema/${this.props.cinema.id || this.props.match.params.id}/hall/add`
               : `/cinema/hall/add`
           }}
@@ -243,12 +228,12 @@ class AddCinema extends Component {
         <Input
           label="Service"
           handleChanges={this.changeService}
-          value={service}
+          value={this.state.service}
         />
         <Input
           label="Cost"
           handleChanges={this.changeCost}
-          value={cost}
+          value={this.state.cost}
         />
         <div className="cinema__services services">
           <ul className="services__row-list">
@@ -270,7 +255,7 @@ class AddCinema extends Component {
             }
           </ul>
         </div>
-        <button className="cinema__add-cinema" onClick={this.addCinema}>
+        <button className="cinema__add-cinema" onClick={() => this.addCinema()}>
           {this.props.match.params.id ? 'Save' : 'Add'}
         </button>
       </div>
@@ -289,18 +274,11 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
     dispatch(addCinemaAsync(cinema, halls));
-  },
-  onEditService(index, service) {
-    dispatch(editService(index, service));
+    dispatch(clearHalls());
   },
   clearCinemaInfo() {
     dispatch(clearCinemaInfo());
-  },
-  onAddService(service) {
-    dispatch(addService(service));
-  },
-  onAddServices(services) {
-    dispatch(addServices(services));
+    dispatch(clearCinema());
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
@@ -319,29 +297,14 @@ const mapDispatchToProps = dispatch => ({
   onDeleteHallAsync(hall) {
     dispatch(deleteHallAsync(hall));
   },
-  clearCinema() {
-    dispatch(clearCinema());
-  },
   clearCinemas() {
     dispatch(clearCinemas());
-  },
-  clearServices() {
-    dispatch(clearServices());
-  },
-  clearHalls() {
-    dispatch(clearHalls());
   },
   getCinema(id) {
     dispatch(getCinemaAsync(id));
   },
   getHalls(id) {
     dispatch(getHallsAsync(id));
-  },
-  clearRows() {
-    dispatch(clearRows());
-  },
-  deleteService(index) {
-    dispatch(deleteService(index));
   }
 });
 
