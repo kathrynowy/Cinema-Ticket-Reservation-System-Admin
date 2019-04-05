@@ -169,7 +169,6 @@ class AddCinema extends Component {
     }
 
     const data = { service: service.name, cost: service.cost };
-    console.log(data);
     const rules = {
       service: 'required|string',
       cost: 'required|number|range:1,1000000'
@@ -182,11 +181,9 @@ class AddCinema extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.addService(service);
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
@@ -205,9 +202,7 @@ class AddCinema extends Component {
     this.setState({
       errors: {}
     })
-    console.log(this.state);
     const data = { ...this.state, halls: this.props.halls };
-    console.log(data);
     const rules = {
       city: 'required|string',
       name: 'required|string',
@@ -221,11 +216,9 @@ class AddCinema extends Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        console.log('success');
         this.addCinema();
       })
       .catch(errors => {
-        console.log(errors);
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
         this.setState({ errors: formattesErrors })
