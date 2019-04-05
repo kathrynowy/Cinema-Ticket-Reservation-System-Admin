@@ -135,9 +135,6 @@ class AddMovie extends Component {
         <button
           type="submit"
           className="movie__add-movie"
-        /* onClick={this.props.match.params.id
-          ? this.editMovie
-          : this.addMovie} */
         > {
             this.isMovieExist ? 'Save' : 'Add'
           }

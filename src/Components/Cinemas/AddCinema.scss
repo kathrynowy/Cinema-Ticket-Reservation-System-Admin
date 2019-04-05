@@ -10,7 +10,7 @@
   &_error {
     @include errorLabel();
   }
-
+  
   &__close{
     background-color: $transparent;
     outline: none;

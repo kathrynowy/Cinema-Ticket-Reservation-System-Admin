@@ -235,6 +235,10 @@ class AddCinema extends Component {
   }
 
   render() {
+    const name = this.state.name || this.props.cinema.name;
+    const city = this.state.city || this.props.cinema.city;
+    const cost = this.state.cost;
+    const service = this.state.service;
     return (
       <form className="cinema" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
