@@ -131,21 +131,21 @@ class AddSession extends Component {
       <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
         <CustomSelect
-          errorName={this.state.errors ? this.state.errors.city : ''}
+          errorName={this.state.errors && this.state.errors.city}
           name="city" value={this.state.city}
           items={cities}
           onSelect={this.onSelectCity}
         />
         <span className="session__label"> Cinema </span>
         <CustomSelect
-          errorName={this.state.errors ? this.state.errors.cinema : ''}
+          errorName={this.state.errors && this.state.errors.cinema}
           name="cinema" value={this.state.cinema}
           items={this.props.cinemas}
           onSelect={this.onSelectCinema}
         />
         <span className="session__label"> Hall </span>
         <CustomSelect
-          errorName={this.state.errors ? this.state.errors.hall : ''}
+          errorName={this.state.errors && this.state.errors.hall}
           name="hall"
           value={this.state.hall}
           items={this.props.halls}
@@ -153,7 +153,7 @@ class AddSession extends Component {
         />
         <span className="session__label"> Movie </span>
         <CustomSelect
-          errorName={this.state.errors ? this.state.errors.movie : ''}
+          errorName={this.state.errors && this.state.errors.movie}
           name="movie"
           value={this.state.movie}
           items={this.props.movies}
@@ -162,12 +162,12 @@ class AddSession extends Component {
         <div className="session__add-time-button">
           <span className="session__label"> Add time</span>
           <CustomDatePicker
-            errorName={this.state.errors ? this.state.errors.times : ''}
             type="date-time"
             label="Date & Time"
             onSelect={this.onSelectDate}
           />
         </div>
+        <span className="session_error">{this.state.errors && this.state.errors.times}</span>
         <div className="session__dates">
           <ul className="session__date-list">
             {

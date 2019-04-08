@@ -232,13 +232,13 @@ class AddCinema extends Component {
           label="Cinema"
           handleChanges={this.changeCinema}
           value={this.state.name}
-          errorName={this.state.errors ? this.state.errors.name : ''}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
           value={this.state.city}
-          errorName={this.state.errors ? this.state.errors.city : ''}
+          errorName={this.state.errors && this.state.errors.city}
         />
         <Link
           to={{
@@ -252,7 +252,7 @@ class AddCinema extends Component {
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
-        <span className="cinema_error">{this.state.errors ? this.state.errors.halls : ''}</span>
+        <span className="cinema_error">{this.state.errors && this.state.errors.halls}</span>
         <div className="cinema__halls halls">
           {
             this.props.halls.map((hall, index) => {
@@ -276,18 +276,18 @@ class AddCinema extends Component {
           <span className="link__label"> Add additional service</span>
           <AddIcon className="link__add-icon" />
         </div>
-        <span className="cinema_error">{this.state.errors ? this.state.errors.additionalServices : ''}</span>
+        <span className="cinema_error">{this.state.errors && this.state.errors.additionalServices}</span>
         <Input
           label="Service"
           handleChanges={this.changeService}
           value={this.state.service}
-          errorName={this.state.errors ? this.state.errors.service : ''}
+          errorName={this.state.errors && this.state.errors.service}
         />
         <Input
           label="Cost"
           handleChanges={this.changeCost}
           value={this.state.cost}
-          errorName={this.state.errors ? this.state.errors.cost : ''}
+          errorName={this.state.errors && this.state.errors.cost}
         />
         <div className="cinema__services services">
           <ul className="services__row-list">

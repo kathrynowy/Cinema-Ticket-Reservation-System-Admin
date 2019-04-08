@@ -115,19 +115,19 @@ class AddMovie extends Component {
           label="Movie"
           handleChanges={this.changeMovie}
           value={this.props.movie.name}
-          errorName={this.state.errors ? this.state.errors.name : ''}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <Textarea
           label="Descripton"
           initialValue={this.props.movie.description}
           onChange={this.changeDescription}
-          errorName={this.state.errors ? this.state.errors.description : ''}
+          errorName={this.state.errors && this.state.errors.description}
         />
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
           value={this.props.movie.img}
-          errorName={this.state.errors ? this.state.errors.url : ''}
+          errorName={this.state.errors && this.state.errors.url}
         />
         <button
           type="submit"

@@ -212,26 +212,26 @@ class AddHall extends Component {
           label="Name"
           handleChanges={this.changeHall}
           value={this.state.name}
-          errorName={this.state.errors ? this.state.errors.name : ''}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
             <span className="hall-form__label"> Add row</span>
             <AddIcon className="hall-form__add-icon" onClick={() => this.handleValidateRow()} />
           </div>
-          <span className="hall-form_error">{this.state.errors ? this.state.errors.rows : ''}</span>
+          <span className="hall-form_error">{this.state.errors && this.state.errors.rows}</span>
           <div className="hall-form__add-row-info">
             <Input
               label="Amount of seats"
               handleChanges={this.changeSeats}
               value={this.state.amountOfSeats}
-              errorName={this.state.errors ? this.state.errors.amount : ''}
+              errorName={this.state.errors && this.state.errors.amount}
             />
             <Input
               label="Cost"
               handleChanges={this.changeCost}
               value={this.state.cost}
-              errorName={this.state.errors ? this.state.errors.cost : ''}
+              errorName={this.state.errors && this.state.errors.cost}
             />
           </div>
         </div>
