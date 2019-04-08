@@ -34,6 +34,7 @@ class Input extends Component {
             </button>
           </div>
         </label>
+        <span className="input__error">{this.props.errorName}</span>
       </div>
     );
   }

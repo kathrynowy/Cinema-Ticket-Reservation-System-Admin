@@ -232,14 +232,14 @@ class AddCinema extends Component {
           label="Cinema"
           handleChanges={this.changeCinema}
           value={this.state.name}
+          errorName={this.state.errors ? this.state.errors.name : ''}
         />
-        <span className="cinema_error">{this.state.errors ? this.state.errors.name : ''}</span>
         <Input
           label="City"
           handleChanges={this.changeCity}
           value={this.state.city}
+          errorName={this.state.errors ? this.state.errors.city : ''}
         />
-        <span className="cinema_error">{this.state.errors ? this.state.errors.city : ''}</span>
         <Link
           to={{
             pathname: this.isCinemaExist
@@ -281,14 +281,14 @@ class AddCinema extends Component {
           label="Service"
           handleChanges={this.changeService}
           value={this.state.service}
+          errorName={this.state.errors ? this.state.errors.service : ''}
         />
-        <span className="cinema_error">{this.state.errors ? this.state.errors.service : ''}</span>
         <Input
           label="Cost"
           handleChanges={this.changeCost}
           value={this.state.cost}
+          errorName={this.state.errors ? this.state.errors.cost : ''}
         />
-        <span className="cinema_error">{this.state.errors ? this.state.errors.cost : ''}</span>
         <div className="cinema__services services">
           <ul className="services__row-list">
             {

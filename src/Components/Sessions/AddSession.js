@@ -101,7 +101,7 @@ class AddSession extends Component {
     this.setState({
       errors: {}
     })
-    
+
     const data = { ...this.state, times: this.props.times };
     const rules = {
       city: 'required',
@@ -130,23 +130,44 @@ class AddSession extends Component {
     return (
       <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
-        <CustomSelect name="city" value={this.state.city} items={cities} onSelect={this.onSelectCity} />
-        <span className="session_error">{this.state.errors ? this.state.errors.city : ''}</span>
+        <CustomSelect
+          errorName={this.state.errors ? this.state.errors.city : ''}
+          name="city" value={this.state.city}
+          items={cities}
+          onSelect={this.onSelectCity}
+        />
         <span className="session__label"> Cinema </span>
-        <CustomSelect name="cinema" value={this.state.cinema} items={this.props.cinemas} onSelect={this.onSelectCinema} />
-        <span className="session_error">{this.state.errors ? this.state.errors.cinema : ''}</span>
+        <CustomSelect
+          errorName={this.state.errors ? this.state.errors.cinema : ''}
+          name="cinema" value={this.state.cinema}
+          items={this.props.cinemas}
+          onSelect={this.onSelectCinema}
+        />
         <span className="session__label"> Hall </span>
-        <CustomSelect name="hall" value={this.state.hall} items={this.props.halls} onSelect={this.onSelectHall} />
-        <span className="session_error">{this.state.errors ? this.state.errors.hall : ''}</span>
+        <CustomSelect
+          errorName={this.state.errors ? this.state.errors.hall : ''}
+          name="hall"
+          value={this.state.hall}
+          items={this.props.halls}
+          onSelect={this.onSelectHall}
+        />
         <span className="session__label"> Movie </span>
-        <CustomSelect name="movie" value={this.state.movie} items={this.props.movies} onSelect={this.onSelectMovie} />
-        <span className="session_error">{this.state.errors ? this.state.errors.movie : ''}</span>
+        <CustomSelect
+          errorName={this.state.errors ? this.state.errors.movie : ''}
+          name="movie"
+          value={this.state.movie}
+          items={this.props.movies}
+          onSelect={this.onSelectMovie}
+        />
         <div className="session__add-time-button">
           <span className="session__label"> Add time</span>
-          <CustomDatePicker type="date-time" label="Date & Time" onSelect={this.onSelectDate} />
+          <CustomDatePicker
+            errorName={this.state.errors ? this.state.errors.times : ''}
+            type="date-time"
+            label="Date & Time"
+            onSelect={this.onSelectDate}
+          />
         </div>
-        <span className="session_error">{this.state.errors ? this.state.errors.times : ''}</span>
-
         <div className="session__dates">
           <ul className="session__date-list">
             {

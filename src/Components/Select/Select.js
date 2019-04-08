@@ -35,6 +35,14 @@ const styles = theme => ({
     color: 'white',
     fontSize: '20px',
     textAlign: 'center'
+  },
+  errorName: {
+    display: 'flex',
+    alignSelf: 'flex-start',
+    color: 'red',
+    fontSize: 14,
+    marginTop: 4,
+    marginBottom: 20,
   }
 });
 
@@ -68,6 +76,7 @@ class CustomSelect extends React.Component {
             })
           }
         </Select>
+        <span className={classes.errorName}>{this.props.errorName}</span>
       </FormControl>
     );
   }

@@ -28,6 +28,7 @@ class Textarea extends Component {
           onChange={(event) => this.handleChange(event)}
           value={this.state.value || this.props.initialValue}
         />
+        <span className="textarea-container__error">{this.props.errorName}</span>
       </label>
     )
   }

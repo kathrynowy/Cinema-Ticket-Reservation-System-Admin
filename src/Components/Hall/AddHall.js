@@ -137,7 +137,7 @@ class AddHall extends Component {
     rows[index].isEdit = false;
     rows[index].amountOfSeats = this.state.amountOfSeats;
     rows[index].cost = +this.state.cost;
-    
+
     this.setState({
       rows: rows
     })
@@ -212,8 +212,8 @@ class AddHall extends Component {
           label="Name"
           handleChanges={this.changeHall}
           value={this.state.name}
+          errorName={this.state.errors ? this.state.errors.name : ''}
         />
-        <span className="hall-form_error">{this.state.errors ? this.state.errors.name : ''}</span>
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
             <span className="hall-form__label"> Add row</span>
@@ -225,14 +225,14 @@ class AddHall extends Component {
               label="Amount of seats"
               handleChanges={this.changeSeats}
               value={this.state.amountOfSeats}
+              errorName={this.state.errors ? this.state.errors.amount : ''}
             />
-            <span className="hall-form_error">{this.state.errors ? this.state.errors.amount : ''}</span>
             <Input
               label="Cost"
               handleChanges={this.changeCost}
               value={this.state.cost}
+              errorName={this.state.errors ? this.state.errors.cost : ''}
             />
-            <span className="hall-form_error">{this.state.errors ? this.state.errors.cost : ''}</span>
           </div>
         </div>
         <div className="hall-form__info">
