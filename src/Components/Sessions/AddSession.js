@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './AddSession.scss';
-
-import Input from '../Input/Input';
+import { validateAll } from 'indicative';
 import CustomDatePicker from '../Pickers/DatePicker';
 import CustomSelect from '../Select/Select';
 import { cities } from '../cities';
@@ -26,7 +25,6 @@ import {
 import {
   Delete as DeleteIcon
 } from '@material-ui/icons';
-
 
 const DATE_TIME_OPTIONS = {
   year: 'numeric',
@@ -98,21 +96,78 @@ class AddSession extends Component {
     this.props.deleteTime(index);
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      errors: {}
+    })
+
+    const data = { ...this.state, times: this.props.times };
+    const rules = {
+      city: 'required',
+      cinema: 'required',
+      movie: 'required',
+      hall: 'required',
+      times: 'required'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.onAddSession();
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
   render() {
     return (
-      <form className="session">
+      <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
-        <CustomSelect name="city" value={this.state.city} items={cities} onSelect={this.onSelectCity} />
+        <CustomSelect
+          errorName={this.state.errors && this.state.errors.city}
+          name="city" value={this.state.city}
+          items={cities}
+          onSelect={this.onSelectCity}
+        />
         <span className="session__label"> Cinema </span>
-        <CustomSelect name="cinema" value={this.state.cinema} items={this.props.cinemas} onSelect={this.onSelectCinema} />
+        <CustomSelect
+          errorName={this.state.errors && this.state.errors.cinema}
+          name="cinema" value={this.state.cinema}
+          items={this.props.cinemas}
+          onSelect={this.onSelectCinema}
+        />
         <span className="session__label"> Hall </span>
-        <CustomSelect name="hall" value={this.state.hall} items={this.props.halls} onSelect={this.onSelectHall} />
+        <CustomSelect
+          errorName={this.state.errors && this.state.errors.hall}
+          name="hall"
+          value={this.state.hall}
+          items={this.props.halls}
+          onSelect={this.onSelectHall}
+        />
         <span className="session__label"> Movie </span>
-        <CustomSelect name="movie" value={this.state.movie} items={this.props.movies} onSelect={this.onSelectMovie} />
+        <CustomSelect
+          errorName={this.state.errors && this.state.errors.movie}
+          name="movie"
+          value={this.state.movie}
+          items={this.props.movies}
+          onSelect={this.onSelectMovie}
+        />
         <div className="session__add-time-button">
           <span className="session__label"> Add time</span>
-          <CustomDatePicker type="date-time" label="Date & Time" onSelect={this.onSelectDate} />
+          <CustomDatePicker
+            type="date-time"
+            label="Date & Time"
+            onSelect={this.onSelectDate}
+          />
         </div>
+        <span className="session_error">{this.state.errors && this.state.errors.times}</span>
         <div className="session__dates">
           <ul className="session__date-list">
             {
@@ -129,8 +184,7 @@ class AddSession extends Component {
             }
           </ul>
         </div>
-
-        <button type="button" className="session__add" onClick={() => this.onAddSession()}>Add</button>
+        <button type="submit" className="session__add" >Add</button>
       </form>
     );
   }

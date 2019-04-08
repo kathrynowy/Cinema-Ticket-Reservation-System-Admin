@@ -5,12 +5,18 @@
   padding-top: 30px;
   width: 300px;
 
+  &_error {
+    @include errorLabel();
+  }
+
   &__label{
     @include label();
   }
 
   &__add-time-button {
     @include addContainer();
+
+    margin-bottom: 0px;
   }
 
   &__add-icon {

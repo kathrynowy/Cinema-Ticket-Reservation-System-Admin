@@ -14,7 +14,8 @@ import {
   getHallAsync,
   clearHall,
   editHallAsync
-} from '../../actions/hall'
+} from '../../actions/hall';
+import { validateAll } from 'indicative';
 
 
 class AddHall extends Component {
@@ -136,7 +137,7 @@ class AddHall extends Component {
     rows[index].isEdit = false;
     rows[index].amountOfSeats = this.state.amountOfSeats;
     rows[index].cost = +this.state.cost;
-    
+
     this.setState({
       rows: rows
     })
@@ -149,29 +150,88 @@ class AddHall extends Component {
     })
   }
 
+  handleValidateRow() {
+    this.setState({
+      errors: {}
+    })
+
+    const data = { amount: this.state.amountOfSeats, cost: +this.state.cost };
+
+    const rules = {
+      amount: 'required|number|range:1,1000000',
+      cost: 'required|number|range:1,1000000'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.',
+      'cost.range': 'Cost must be more than 0',
+      'amount.range': 'Amount of seats must be more than 0'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.addRow();
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      errors: {}
+    })
+    const data = { ...this.state };
+    const rules = {
+      name: 'required|string',
+      rows: 'required|array'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.addHall();
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
   render() {
     return (
-      <div className="hall-form">
+      <form className="hall-form" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
           label="Name"
           handleChanges={this.changeHall}
           value={this.state.name}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <div className="hall-form__add-row">
           <div className="hall-form__add-row-button">
             <span className="hall-form__label"> Add row</span>
-            <AddIcon className="hall-form__add-icon" onClick={this.addRow} />
+            <AddIcon className="hall-form__add-icon" onClick={() => this.handleValidateRow()} />
           </div>
+          <span className="hall-form_error">{this.state.errors && this.state.errors.rows}</span>
           <div className="hall-form__add-row-info">
             <Input
               label="Amount of seats"
               handleChanges={this.changeSeats}
               value={this.state.amountOfSeats}
+              errorName={this.state.errors && this.state.errors.amount}
             />
             <Input
               label="Cost"
               handleChanges={this.changeCost}
               value={this.state.cost}
+              errorName={this.state.errors && this.state.errors.cost}
             />
           </div>
         </div>
@@ -199,13 +259,12 @@ class AddHall extends Component {
           </ul>
         </div>
         <button
-          type="button"
+          type="submit"
           className="hall-form__add-button"
-          onClick={() => this.addHall()}
         >
           {this.isEdit ? 'Save' : 'Add'}
         </button>
-      </div>
+      </form>
     )
   }
 }

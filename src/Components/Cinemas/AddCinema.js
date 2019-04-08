@@ -3,14 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 
 import {
-  addService,
-  clearServices,
-  deleteService,
-  addServices,
-  editService
-} from '../../actions/service'
-
-import {
   addHallsAsync,
   clearHalls,
   deleteNewHall,
@@ -38,6 +30,7 @@ import {
 import Input from '../Input/Input';
 import Hall from '../Hall/Hall';
 import './AddCinema.scss';
+import { validateAll } from 'indicative';
 
 
 class AddCinema extends Component {
@@ -74,7 +67,7 @@ class AddCinema extends Component {
         cinema && this.setState({
           name: cinema.name,
           city: cinema.city,
-          additionalServices: cinema.additionalServices
+          additionalServices: cinema.additionalServices || []
         })
       }
     }
@@ -153,12 +146,7 @@ class AddCinema extends Component {
     this.setState({ additionalServices: newAdditionalServices });
   }
 
-  addService = () => {
-    const service = {
-      name: this.state.service,
-      cost: +this.state.cost
-    }
-    
+  addService = (service) => {
     this.setState({
       additionalServices: [...this.state.additionalServices, {
         name: service.name,
@@ -170,6 +158,38 @@ class AddCinema extends Component {
     });
   }
 
+  handleValidateService() {
+    this.setState({
+      errors: {}
+    })
+
+    const service = {
+      name: this.state.service,
+      cost: +this.state.cost
+    }
+
+    const data = { service: service.name, cost: service.cost };
+    const rules = {
+      service: 'required|string',
+      cost: 'required|number|range:1,1000000'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.',
+      'cost.range': 'Cost must be more than 0'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.addService(service);
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
   handleDelete = (index) => {
     const newServices = this.state.additionalServices.filter((service, i) => i !== index);
     this.setState({
@@ -177,18 +197,48 @@ class AddCinema extends Component {
     })
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      errors: {}
+    })
+    const data = { ...this.state, halls: this.props.halls };
+    const rules = {
+      city: 'required|string',
+      name: 'required|string',
+      halls: 'required',
+      additionalServices: 'required'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.addCinema();
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
   render() {
     return (
-      <div className="cinema">
+      <form className="cinema" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
           label="Cinema"
           handleChanges={this.changeCinema}
           value={this.state.name}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <Input
           label="City"
           handleChanges={this.changeCity}
           value={this.state.city}
+          errorName={this.state.errors && this.state.errors.city}
         />
         <Link
           to={{
@@ -202,6 +252,7 @@ class AddCinema extends Component {
           <span className="link__label"> Add hall</span>
           <AddIcon className="link__add-icon" />
         </Link>
+        <span className="cinema_error">{this.state.errors && this.state.errors.halls}</span>
         <div className="cinema__halls halls">
           {
             this.props.halls.map((hall, index) => {
@@ -220,20 +271,23 @@ class AddCinema extends Component {
         </div>
         <div
           className="cinema__add-service link"
-          onClick={this.addService}
+          onClick={() => this.handleValidateService()}
         >
           <span className="link__label"> Add additional service</span>
           <AddIcon className="link__add-icon" />
         </div>
+        <span className="cinema_error">{this.state.errors && this.state.errors.additionalServices}</span>
         <Input
           label="Service"
           handleChanges={this.changeService}
           value={this.state.service}
+          errorName={this.state.errors && this.state.errors.service}
         />
         <Input
           label="Cost"
           handleChanges={this.changeCost}
           value={this.state.cost}
+          errorName={this.state.errors && this.state.errors.cost}
         />
         <div className="cinema__services services">
           <ul className="services__row-list">
@@ -255,10 +309,10 @@ class AddCinema extends Component {
             }
           </ul>
         </div>
-        <button className="cinema__add-cinema" onClick={() => this.addCinema()}>
+        <button type="submit" className="cinema__add-cinema">
           {this.props.match.params.id ? 'Save' : 'Add'}
         </button>
-      </div>
+      </form>
     );
   }
 }

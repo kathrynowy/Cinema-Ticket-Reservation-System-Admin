@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { validateAll } from 'indicative';
 import './AddMovie.scss';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea'
@@ -77,35 +78,65 @@ class AddMovie extends Component {
     this.setState({ description });
   }
 
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      errors: {}
+    })
+    const data = this.state;
+    const rules = {
+      name: 'required|string',
+      url: 'required|url',
+      description: 'required|string'
+    }
+
+    const messages = {
+      required: 'This {{ field }} is required.',
+      'url.url': 'The url is invalid.'
+    }
+
+    validateAll(data, rules, messages)
+      .then(() => {
+        this.props.match.params.id
+          ? this.editMovie()
+          : this.addMovie()
+      })
+      .catch(errors => {
+        const formattesErrors = {};
+        errors.forEach(error => formattesErrors[error.field] = error.message)
+        this.setState({ errors: formattesErrors })
+      })
+  }
+
   render() {
     return (
-      <div className="movie">
+      <form className="movie" onSubmit={(e) => this.handleSubmit(e)}>
         <Input
           label="Movie"
           handleChanges={this.changeMovie}
           value={this.props.movie.name}
+          errorName={this.state.errors && this.state.errors.name}
         />
         <Textarea
           label="Descripton"
           initialValue={this.props.movie.description}
           onChange={this.changeDescription}
+          errorName={this.state.errors && this.state.errors.description}
         />
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
           value={this.props.movie.img}
+          errorName={this.state.errors && this.state.errors.url}
         />
         <button
           type="submit"
           className="movie__add-movie"
-          onClick={this.props.match.params.id
-            ? this.editMovie
-            : this.addMovie}
         > {
             this.isMovieExist ? 'Save' : 'Add'
           }
         </button>
-      </div>
+      </form>
     );
   }
 }

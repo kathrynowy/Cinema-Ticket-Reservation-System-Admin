@@ -1,9 +1,14 @@
 @import '../../variables.scss';
+@import '../../mixins.scss';
 
 .input{
   &__label{
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  &__error {
+    @include errorLabel();
   }
   
   &__container {
@@ -13,7 +18,6 @@
     border: 2px solid $light-orange;
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
     margin-top: 5px;
   }
   

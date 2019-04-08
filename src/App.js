@@ -20,7 +20,7 @@ class App extends Component {
         <Router >
           <div className="container">
             <NestedList />
-            <Route path="/cinemas" component={Cinemas} />
+            <Route exact path={["/cinemas", "/"]} component={Cinemas} />
             <Route path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
             <Route path="/movies" component={Movies} />
             <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />

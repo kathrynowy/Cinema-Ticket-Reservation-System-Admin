@@ -21,6 +21,10 @@
     }
   }
 
+  &_error {
+    @include errorLabel();
+  }
+
   &__square {
     width: 250px;
     height: 35px;
