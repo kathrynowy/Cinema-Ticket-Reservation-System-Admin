@@ -23,10 +23,33 @@ html, body {
   background: linear-gradient(15deg,rgb(233, 177, 201),rgb(236, 219, 188) 66%,rgb(203, 231, 247));
 }
 
+
+@media only screen and (max-width: 420px) {
+  .App {
+    padding: 10px 15px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  .App {
+    padding: 20px 60px;
+  }
+}
+
+
+
+
 .container {
   display: flex;
+  max-width: 1000px; 
   flex: 1 1 auto;
   justify-content: flex-start;
   border-left: 1px solid rgb(235, 205, 205);
   background-color: rgb(255, 255, 255);
+}
+
+@media only screen and (max-width: 650px) {
+  .container {
+   flex-direction: column;
+  }
 }

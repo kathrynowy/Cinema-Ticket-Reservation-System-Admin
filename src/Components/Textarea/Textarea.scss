@@ -25,3 +25,9 @@
     resize: none;
   }
 }
+
+@media only screen and (max-width: 850px) {
+  .textarea-container__textarea {
+    width: 90%;
+  }
+}

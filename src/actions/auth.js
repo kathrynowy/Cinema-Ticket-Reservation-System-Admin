@@ -54,15 +54,19 @@ export const signIn = userData => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`login`, { ...userData });
-      let token = data.token;
 
-      token
-        ? localStorage.setItem('token', token)
-        : console.log('token not found');
+      if (data.isAdmin) {
+        let token = data.token;
 
-      history.push('/cinemas');
-      dispatch(signInSuccess());
-      /* dispatch(showSnackbar("You have successfully logged in!")); */
+        token
+          ? localStorage.setItem('token', token)
+          : console.log('token not found');
+
+        history.push('/cinemas');
+        dispatch(signInSuccess());
+      } else {
+        alert('Please, enter correct data');
+      }
     } catch (error) {
       console.log(error);
       /* dispatch(showSnackbar("Please, try again!")); */

@@ -50,9 +50,7 @@ class App extends Component {
               ]} component={AddHall} />
               <Route path="/error-page" component={ErrorPage} />
             </div>)
-            : (<div>
-              <Route component={SignIn} />
-            </div>)
+            : <Route component={SignIn} />
         }
         </Router>
       </div>
