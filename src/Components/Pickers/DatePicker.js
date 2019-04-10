@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { DateTimePicker } from 'material-ui-pickers';
 
-import { Add as AddIcon } from '@material-ui/icons';
+import {
+  Add as AddIcon
+} from '@material-ui/icons';
 
 
 const styles = {

@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -9,11 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import ExitIcon from '@material-ui/icons/ExitToApp';
 import MovieIcon from '@material-ui/icons/Movie';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { Link } from "react-router-dom";
-import { logOut } from '../../actions/auth'
 
 const styles = theme => ({
   root: {
@@ -37,10 +33,6 @@ function HomeIcon(props) {
 }
 
 class NestedList extends React.Component {
-  logOut = () => {
-    this.props.logOut();
-  }
-
   render() {
     const { classes } = this.props;
     return (
@@ -75,14 +67,6 @@ class NestedList extends React.Component {
             <ListItemText inset primary="Sessions" />
           </ListItem>
         </Link>
-
-
-        <ListItem button onClick={this.logOut}>
-          <ListItemIcon>
-            <ExitIcon className={classes.icon} />
-          </ListItemIcon>
-          <ListItemText inset primary="Log out" />
-        </ListItem>
       </List>
     );
   }
@@ -92,10 +76,4 @@ NestedList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  logOut() {
-    return dispatch(logOut());
-  }
-});
-
-export default withStyles(styles)(connect(null, mapDispatchToProps)(NestedList));
+export default withStyles(styles)(NestedList);

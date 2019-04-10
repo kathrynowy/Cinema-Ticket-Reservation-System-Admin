@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import createBrowseHistory from "history/createBrowserHistory";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import './App.scss';
 import NestedList from './Components/Panel/Panel.js';
@@ -13,61 +11,33 @@ import AddSession from './Components/Sessions/AddSession';
 import Sessions from './Components/Sessions/Sessions';
 import AddHall from './Components/Hall/AddHall';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
-import SignIn from './Components/SignIn/SignIn';
-import { checkAuth } from './actions/auth'
-
-
-export const history = createBrowseHistory();
 
 
 class App extends Component {
-  checkAuth = () => {
-    return localStorage.getItem('token');
-  }
-
-  componentDidMount() {
-    this.props.checkAuth();
-  }
-
   render() {
     return (
       <div className="App">
-        <Router > {
-          this.props.isAdminLoggedIn
-            ? (<div className="container">
-              <NestedList />
-              <Route exact path={["/cinemas", "/"]} component={Cinemas} />
-              <Route path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
-              <Route path="/movies" component={Movies} />
-              <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />
-              <Route path="/sessions" component={Sessions} />
-              <Route path="/session/add" component={AddSession} />
-              <Route path={[
-                "/cinema/:cinemaId/hall/add",
-                "/cinema/:cinemaId/hall/:hallId/edit",
-                "/cinema/hall/:index/edit",
-                "/cinema/hall/add"
-              ]} component={AddHall} />
-              <Route path="/error-page" component={ErrorPage} />
-            </div>)
-            : (<div>
-              <Route component={SignIn} />
-            </div>)
-        }
+        <Router >
+          <div className="container">
+            <NestedList />
+            <Route exact path={["/cinemas", "/"]} component={Cinemas} />
+            <Route path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
+            <Route path="/movies" component={Movies} />
+            <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />
+            <Route path="/sessions" component={Sessions} />
+            <Route path="/session/add" component={AddSession} />
+            <Route path={[
+              "/cinema/:cinemaId/hall/add",
+              "/cinema/:cinemaId/hall/:hallId/edit",
+              "/cinema/hall/:index/edit",
+              "/cinema/hall/add"
+            ]} component={AddHall} />
+            <Route path="/error-page" component={ErrorPage} />
+          </div>
         </Router>
       </div>
     );
   }
 }
 
-const mapStateToProps = store => ({
-  isAdminLoggedIn: store.auth.isAdminLoggedIn
-})
-
-const mapDispatchToProps = dispatch => ({
-  checkAuth() {
-    return dispatch(checkAuth());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
