@@ -159,10 +159,7 @@ export const deleteSessionAsync = (session, id, currentTime) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.delete(`/sessions/${id}`, {
-        data: {
-          session,
-          currentTime
-        }
+        data: { session, currentTime }
       });
       dispatch(deleteSessionSuccess(data, id));
     }

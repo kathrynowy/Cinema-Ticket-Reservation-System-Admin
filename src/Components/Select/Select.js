@@ -51,10 +51,6 @@ class CustomSelect extends React.Component {
     this.props.onSelect(event.target.value);
   };
 
-  handleClick = event => {
-    console.log(event.target.value);
-  }
-
   render() {
     const { classes } = this.props;
 

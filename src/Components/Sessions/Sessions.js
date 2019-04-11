@@ -20,8 +20,8 @@ const OPTIONS = {
 
 class Sessions extends Component {
 
-  componentDidMount() {
-    this.props.getSessionsAsync();
+  async componentDidMount() {
+    await this.props.getSessionsAsync();
   }
 
   deleteSession = (id, currentTime) => {
@@ -35,7 +35,7 @@ class Sessions extends Component {
         {
           this.props.errors
             ? this.props.history.push('/error-page')
-            : <Fragment>
+            : this.props.sessions && <Fragment>
               <div className="sessions__add-session">
                 <span className="sessions__label"> Add session</span>
                 <Link to="/session/add" className="movies_link">
@@ -78,7 +78,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   getSessionsAsync() {
-    dispatch(getSessionsAsync());
+    return dispatch(getSessionsAsync());
   },
   deleteSessionAsync(session, id, currentTime) {
     dispatch(deleteSessionAsync(session, id, currentTime));

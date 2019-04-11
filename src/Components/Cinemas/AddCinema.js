@@ -108,7 +108,7 @@ class AddCinema extends Component {
   }
 
   onDeleteHall = (hall) => {
-    this.isCinemaExist
+    hall.cinemaId
       ? this.props.onDeleteHallAsync(hall)
       : this.props.onDeleteNewHall(hall)
   }

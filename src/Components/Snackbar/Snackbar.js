@@ -49,7 +49,7 @@ class CustomSnackbar extends Component {
           }}
           className={classes.warning}
           open={this.state.isOpen}
-          autoHideDuration={6000}
+          autoHideDuration={4000}
           onClose={this.handleClose}
           ContentProps={{
             'aria-describedby': 'message-id',

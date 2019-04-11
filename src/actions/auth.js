@@ -65,8 +65,8 @@ export const signIn = userData => {
           : console.log('token not found');
 
         history.push('/cinemas');
-        dispatch(showSnackbar("Sign in successfully!"));
         dispatch(signInSuccess());
+        dispatch(showSnackbar("Sign in successfully!"));
       } else {
         alert('Please, enter correct data');
       }

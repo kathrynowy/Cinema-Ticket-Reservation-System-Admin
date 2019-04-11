@@ -14,10 +14,14 @@ import {
 
 
 class AddMovie extends Component {
-  state = {
-    description: this.props.movie.description || '',
-    name: this.props.movie.name || '',
-    url: this.props.movie.img || ''
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      description: this.props.movie.description || '',
+      name: this.props.movie.name || '',
+      url: this.props.movie.img || ''
+    }
   }
 
   get isMovieExist() {

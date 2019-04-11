@@ -5,13 +5,12 @@ import "./Hall.scss";
 
 
 class Hall extends Component {
-  deleteHall = () => {
+  deleteHall = (e) => {
+    e.stopPropagation();
     this.props.onDelete(this.props.hall);
   }
 
-  handleClick = () => {
-    this.props.onEditHall(this.props.hall, this.props.index);
-  }
+  handleClick = () => this.props.onEditHall(this.props.hall, this.props.index);
 
   render() {
     return (
