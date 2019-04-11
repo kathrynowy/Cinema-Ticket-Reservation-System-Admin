@@ -37,12 +37,12 @@ class App extends Component {
             ? (<div className="container">
               <NestedList />
               <Route exact path={["/cinemas", "/"]} component={Cinemas} />
-              <Route path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
+              <Route exact path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
               <Route path="/movies" component={Movies} />
               <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />
               <Route path="/sessions" component={Sessions} />
               <Route path="/session/add" component={AddSession} />
-              <Route path={[
+              <Route exact path={[
                 "/cinema/:cinemaId/hall/add",
                 "/cinema/:cinemaId/hall/:hallId/edit",
                 "/cinema/hall/:index/edit",
