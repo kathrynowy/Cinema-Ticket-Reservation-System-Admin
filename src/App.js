@@ -14,6 +14,7 @@ import Sessions from './Components/Sessions/Sessions';
 import AddHall from './Components/Hall/AddHall';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 import SignIn from './Components/SignIn/SignIn';
+import CustomSnackbar from './Components/Snackbar/Snackbar'
 import { checkAuth } from './actions/auth'
 
 
@@ -33,6 +34,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router > {
+
           this.props.isAdminLoggedIn
             ? (<div className="container">
               <NestedList />
@@ -52,6 +54,7 @@ class App extends Component {
             </div>)
             : <Route component={SignIn} />
         }
+          <CustomSnackbar isSnackbarOpen={this.props.isSnackbarOpen} message={this.props.message} />
         </Router>
       </div>
     );
@@ -59,7 +62,9 @@ class App extends Component {
 }
 
 const mapStateToProps = store => ({
-  isAdminLoggedIn: store.auth.isAdminLoggedIn
+  isAdminLoggedIn: store.auth.isAdminLoggedIn,
+  isSnackbarOpen: store.snackbar.isSnackbarOpen,
+  message: store.snackbar.message
 })
 
 const mapDispatchToProps = dispatch => ({

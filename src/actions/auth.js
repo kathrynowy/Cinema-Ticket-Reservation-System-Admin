@@ -5,6 +5,7 @@ import {
 } from '../actionTypes';
 import axios from 'axios';
 import { history } from '../App';
+import { showSnackbar } from './snackbar'
 
 axios.defaults.baseURL = 'http://localhost:8080/';
 
@@ -37,6 +38,7 @@ export const logOut = () => {
       await axios.get(`logout`);
       localStorage.removeItem('token');
       history.push('/');
+      dispatch(showSnackbar("Log out successfully!"));
       dispatch(logOutSuccess());
     } catch (error) {
       console.log(error);
@@ -63,13 +65,13 @@ export const signIn = userData => {
           : console.log('token not found');
 
         history.push('/cinemas');
+        dispatch(showSnackbar("Sign in successfully!"));
         dispatch(signInSuccess());
       } else {
         alert('Please, enter correct data');
       }
     } catch (error) {
-      console.log(error);
-      /* dispatch(showSnackbar("Please, try again!")); */
+      dispatch(showSnackbar("Please, enter correct data!"));
     }
   }
 }

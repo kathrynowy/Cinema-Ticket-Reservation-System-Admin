@@ -6,6 +6,7 @@ import sessions from './sessions';
 import halls from './halls';
 import services from './services';
 import auth from './auth';
+import snackbar from './snackbar';
 
 const rootReducer = combineReducers({
   cinemas,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   sessions,
   halls,
   services,
-  auth
+  auth,
+  snackbar
 });
 
 export default rootReducer;
