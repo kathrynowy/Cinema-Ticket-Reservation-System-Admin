@@ -73,10 +73,6 @@ class AddCinema extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.clearCinemaInfo();
-  }
-
   changeCinema = (name) => {
     this.setState({ name });
   }

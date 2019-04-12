@@ -18,9 +18,9 @@ class AddMovie extends Component {
     super(props);
 
     this.state = {
-      description: this.props.movie.description || '',
-      name: this.props.movie.name || '',
-      url: this.props.movie.img || ''
+      description: props.movie.description || '',
+      name: props.movie.name || '',
+      url: props.movie.img || ''
     }
   }
 
@@ -28,11 +28,11 @@ class AddMovie extends Component {
     return !!this.props.match.params.id;
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const movieId = this.props.match.params.id;
     if (movieId) {
       this.props.clearMovie();
-      this.props.getMovie(movieId);
+      await this.props.getMovie(movieId);
     }
   }
 
@@ -118,19 +118,19 @@ class AddMovie extends Component {
         <Input
           label="Movie"
           handleChanges={this.changeMovie}
-          value={this.props.movie.name}
+          value={this.state.name}
           errorName={this.state.errors && this.state.errors.name}
         />
         <Textarea
           label="Descripton"
-          initialValue={this.props.movie.description}
+          initialValue={this.state.description}
           onChange={this.changeDescription}
           errorName={this.state.errors && this.state.errors.description}
         />
         <Input
           label="Image url"
           handleChanges={this.changeUrl}
-          value={this.props.movie.img}
+          value={this.state.url}
           errorName={this.state.errors && this.state.errors.url}
         />
         <button
@@ -157,7 +157,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(clearMovie());
   },
   getMovie(id) {
-    dispatch(getMovieAsync(id));
+    return dispatch(getMovieAsync(id));
   },
   editMovie(movie, id) {
     dispatch(editMovieAsync(movie, id))

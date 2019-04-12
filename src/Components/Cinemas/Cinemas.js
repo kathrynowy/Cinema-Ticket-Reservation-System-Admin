@@ -16,6 +16,8 @@ import {
 import {
   getCinemasAsync,
   deleteCinemaAsync,
+  clearCinemaInfo,
+  clearCinema
 } from '../../actions/cinema';
 
 import './Cinemas.scss';
@@ -42,7 +44,7 @@ class Cinemas extends Component {
               <div className="cinemas__add-cinema">
                 <span className="cinemas__label"> Add cinema</span>
                 <Link to="/cinema/add" className="cinemas_link">
-                  <AddIcon className="cinemas__add-icon" />
+                  <AddIcon className="cinemas__add-icon" onClick={this.props.clearCinemaInfo} />
                 </Link>
               </div>
 
@@ -90,6 +92,10 @@ const mapDispatchToProps = dispatch => ({
   },
   deleteCinemaAsync(id) {
     dispatch(deleteCinemaAsync(id));
+  },
+  clearCinemaInfo() {
+    dispatch(clearCinemaInfo());
+    dispatch(clearCinema());
   }
 });
 

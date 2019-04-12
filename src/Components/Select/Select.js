@@ -68,7 +68,7 @@ class CustomSelect extends React.Component {
         >
           {
             this.props.items.map(item => {
-              return <MenuItem value={item} key={item.name}>{item.name || item}</MenuItem>
+              return <MenuItem value={item} key={Math.random()}>{item.name || item}</MenuItem>
             })
           }
         </Select>

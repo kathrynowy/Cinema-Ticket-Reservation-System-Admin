@@ -13,6 +13,7 @@ import {
   GET_HALL_FAILURE,
   EDIT_HALL_SUCCESS,
   EDIT_HALL_FAILURE,
+  EDIT_NEW_HALL
 } from '../actionTypes';
 
 import axios from 'axios';
@@ -52,6 +53,12 @@ export const addHall = (hall) => ({
 export const deleteNewHall = (hall) => ({
   type: DELETE_NEW_HALL,
   payload: hall
+})
+
+export const editNewHall = (hall, index) => ({
+  type: EDIT_NEW_HALL,
+  payload: hall,
+  index
 })
 
 export const deleteHallAsync = hall => {

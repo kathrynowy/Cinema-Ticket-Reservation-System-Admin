@@ -48,7 +48,7 @@ class Sessions extends Component {
                     const times = session.times.map(time => new Date(+time).toLocaleString('en', OPTIONS));
                     return (
                       times.map((time, index) =>
-                        <li key={session.id + time} className="sessions__list-item session">
+                        <li key={session.id + times[index]} className="sessions__list-item session">
                           <EventIcon className="session__icon" />
                           <span className="session__name">
                             {

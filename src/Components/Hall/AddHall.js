@@ -13,7 +13,8 @@ import {
   addHall,
   getHallAsync,
   clearHall,
-  editHallAsync
+  editHallAsync,
+  editNewHall
 } from '../../actions/hall';
 import { validateAll } from 'indicative';
 
@@ -73,12 +74,18 @@ class AddHall extends Component {
       name: this.state.name,
       hall: this.state.rows
     };
-    this.isEdit
-      ? this.props.onEditHall(hall, this.props.match.params.hallId)
-      : this.props.onAddHall(hall)
 
-    if (this.isCinemaExist) {
-      this.props.history.push(`/cinema/${this.props.match.params.cinemaId}/edit`);
+    if (this.props.match.params.index) {
+      this.props.editNewHall(hall, +(this.props.match.params.index))
+    } else if (this.isEdit) {
+      this.props.onEditHall(hall, this.props.match.params.hallId)
+    } else {
+      this.props.onAddHall(hall)
+    }
+
+
+    if (this.isCinemaExist || this.props.cinema.name) {
+      this.props.history.push(`/cinema/${this.props.match.params.cinemaId || this.props.cinema.id}/edit`);
     } else {
       this.props.history.push(`/cinema/add`);
     }
@@ -272,7 +279,8 @@ class AddHall extends Component {
 const mapStateToProps = store => ({
   rows: store.halls.rows,
   hall: store.halls.hall,
-  halls: store.halls.halls
+  halls: store.halls.halls,
+  cinema: store.cinemas.cinema
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -287,6 +295,9 @@ const mapDispatchToProps = dispatch => ({
   },
   clearHall() {
     dispatch(clearHall());
+  },
+  editNewHall() {
+    dispatch(editNewHall());
   }
 });
 
