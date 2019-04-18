@@ -15,6 +15,7 @@ import AddHall from './Components/Hall/AddHall';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
 import SignIn from './Components/SignIn/SignIn';
 import CustomSnackbar from './Components/Snackbar/Snackbar'
+import DragDropHall from './Components/DragDropHall/DragDropHall'
 import { checkAuth } from './actions/auth'
 
 
@@ -38,7 +39,8 @@ class App extends Component {
           this.props.isAdminLoggedIn
             ? (<div className="container">
               <NestedList />
-              <Route exact path={["/cinemas", "/"]} component={Cinemas} />
+              <Route path="/" component={DragDropHall} />
+              <Route exact path={["/cinemas"]} component={Cinemas} />
               <Route exact path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
               <Route path="/movies" component={Movies} />
               <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />
