@@ -3,11 +3,10 @@ import {
   CHECK_AUTH_SUCCESS,
   LOGOUT_SUCCESS
 } from '../actionTypes';
-import axios from 'axios';
+
+import axios from '../configs/axios';
 import { history } from '../App';
 import { showSnackbar } from './snackbar'
-
-axios.defaults.baseURL = 'http://localhost:8080/';
 
 
 export const checkAuth = () => {

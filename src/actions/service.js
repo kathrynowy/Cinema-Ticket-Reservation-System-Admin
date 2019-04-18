@@ -6,8 +6,6 @@ import {
   EDIT_SERVICE
 } from '../actionTypes';
 
-import axios from 'axios';
-
 
 export const deleteService = (index) => {
   return {

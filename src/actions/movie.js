@@ -12,7 +12,7 @@ import {
   DELETE_MOVIE_SUCCESS,
 } from '../actionTypes';
 
-import axios from 'axios';
+import axios from '../configs/axios';
 
 
 export const deleteMovieAsync = id => {
