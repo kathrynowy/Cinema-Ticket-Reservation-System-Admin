@@ -76,7 +76,7 @@ class Cinemas extends Component {
 }
 
 const mapStateToProps = store => ({
-  cinemas: store.cinemas.cinemas,
+  cinemas: store.cinemas.allCinemas,
   errors: store.cinemas.errors
 })
 

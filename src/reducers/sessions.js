@@ -16,7 +16,7 @@ import {
 } from '../actionTypes.js'
 
 const initialState = {
-  sessions: [],
+  allSessions: [],
   cinemas: [],
   halls: [],
   times: [],
@@ -27,16 +27,16 @@ export default function getSessions(state = initialState, action) {
   switch (action.type) {
     case GET_SESSIONS_SUCCESS:
       return Object.assign({}, state, {
-        sessions: action.payload
+        allSessions: action.payload
       });
     case GET_SESSIONS_FAILURE:
       return Object.assign({}, state, {
         errors: action.payload
       });
     case DELETE_SESSION_SUCCESS: {
-      const newSessions = state.sessions.filter(session => session.id !== action.payload);
+      const newSessions = state.allSessions.filter(session => session.id !== action.payload);
       return Object.assign({}, state, {
-        sessions: newSessions
+        allSessions: newSessions
       });
     }
     case DELETE_SESSION_FAILURE:
@@ -44,14 +44,14 @@ export default function getSessions(state = initialState, action) {
         errors: action.payload
       });
     case EDIT_SESSION_SUCCESS: {
-      const newSessions = state.sessions.map(session => {
+      const newSessions = state.allSessions.map(session => {
         if (session.id === action.payload.id) {
           return action.payload;
         }
         return session;
       });
       return Object.assign({}, state, {
-        sessions: newSessions
+        allSessions: newSessions
       })
     }
     case EDIT_SESSION_FAILURE:

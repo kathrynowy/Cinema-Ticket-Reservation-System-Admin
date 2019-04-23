@@ -314,11 +314,11 @@ class AddCinema extends Component {
 }
 
 const mapStateToProps = store => ({
-  halls: store.halls.halls,
-  cinemas: store.cinemas.cinemas,
+  halls: store.halls.allHalls,
+  cinemas: store.cinemas.allCinemas,
   cinema: store.cinemas.cinema,
   newCinema: store.cinemas.newCinema,
-  additionalServices: store.services.additionalServices
+  additionalServices: store.services.allAdditionalServices
 })
 
 const mapDispatchToProps = dispatch => ({

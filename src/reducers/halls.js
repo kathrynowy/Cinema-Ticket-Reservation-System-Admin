@@ -17,7 +17,7 @@ import {
 } from '../actionTypes'
 
 const initialState = {
-  halls: [],
+  allHalls: [],
   rows: [],
   hall: {},
   errors: ''
@@ -27,7 +27,7 @@ export default function getHalls(state = initialState, action) {
   switch (action.type) {
     case ADD_HALL_SUCCESS:
       return Object.assign({}, state, {
-        halls: [...state.halls, action.payload]
+        allHalls: [...state.allHalls, action.payload]
       });
 
     case ADD_HALL_FAILURE:
@@ -37,7 +37,7 @@ export default function getHalls(state = initialState, action) {
 
     case GET_HALLS_SUCCESS:
       return Object.assign({}, state, {
-        halls: action.payload
+        allHalls: action.payload
       });
 
     case GET_HALLS_FAILURE:
@@ -57,37 +57,37 @@ export default function getHalls(state = initialState, action) {
 
     case ADD_HALL:
       return Object.assign({}, state, {
-        halls: [...state.halls, action.payload]
+        allHalls: [...state.allHalls, action.payload]
       });
 
     case DELETE_NEW_HALL: {
-      const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
+      const newHalls = state.allHalls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
       return Object.assign({}, state, {
-        halls: newHalls
+        allHalls: newHalls
       });
     }
 
     case EDIT_HALL_SUCCESS: {
-      const newHalls = state.halls.map(hall => {
+      const newHalls = state.allHalls.map(hall => {
         if (hall.id === action.payload.id) {
           return action.payload;
         }
         return hall;
       });
       return Object.assign({}, state, {
-        halls: newHalls
+        allHalls: newHalls
       })
     }
 
     case EDIT_NEW_HALL: {
-      const newHalls = state.halls.map((hall, index) => {
+      const newHalls = state.allHalls.map((hall, index) => {
         if (index === action.index) {
           return action.payload;
         }
         return hall;
       });
       return Object.assign({}, state, {
-        halls: newHalls
+        allHalls: newHalls
       })
     }
 
@@ -97,9 +97,9 @@ export default function getHalls(state = initialState, action) {
       });
 
     case DELETE_HALL_SUCCESS:
-      const newHalls = state.halls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
+      const newHalls = state.allHalls.filter(hall => hall.name !== action.payload.name && hall.hall !== action.payload.hall)
       return Object.assign({}, state, {
-        halls: newHalls
+        allHalls: newHalls
       });
 
     case DELETE_HALL_FAILURE:
@@ -109,7 +109,7 @@ export default function getHalls(state = initialState, action) {
 
     case CLEAR_HALLS:
       return Object.assign({}, state, {
-        halls: []
+        allHalls: []
       })
 
     case CLEAR_HALL:

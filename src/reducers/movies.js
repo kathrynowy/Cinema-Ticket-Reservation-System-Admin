@@ -13,7 +13,7 @@ import {
 } from '../actionTypes.js';
 
 const initialState = {
-  movies: [],
+  allMovies: [],
   movie: {},
   errors: ''
 }
@@ -21,14 +21,14 @@ const initialState = {
 export default function getMovies(state = initialState, action) {
   switch (action.type) {
     case EDIT_MOVIE_SUCCESS: {
-      const newMovies = state.movies.map(movie => {
+      const newMovies = state.allMovies.map(movie => {
         if (movie.id === action.payload.id) {
           return action.payload;
         }
         return movie;
       });
       return Object.assign({}, state, {
-        movies: newMovies
+        allMovies: newMovies
       })
     }
 
@@ -43,9 +43,9 @@ export default function getMovies(state = initialState, action) {
       })
 
     case DELETE_MOVIE_SUCCESS: {
-      const newMovies = state.movies.filter(movie => movie.id !== action.payload);
+      const newMovies = state.allMovies.filter(movie => movie.id !== action.payload);
       return Object.assign({}, state, {
-        movies: newMovies
+        allMovies: newMovies
       });
     }
 
@@ -56,7 +56,7 @@ export default function getMovies(state = initialState, action) {
 
     case GET_MOVIES_SUCCESS:
       return Object.assign({}, state, {
-        movies: action.payload
+        allMovies: action.payload
       });
 
     case GET_MOVIES_FAILURE:
@@ -76,7 +76,7 @@ export default function getMovies(state = initialState, action) {
 
     case ADD_MOVIE_SUCCESS:
       return Object.assign({}, state, {
-        movies: [...state.movies, action.payload]
+        allMovies: [...state.allMovies, action.payload]
       });
 
     case ADD_MOVIE_FAILURE:

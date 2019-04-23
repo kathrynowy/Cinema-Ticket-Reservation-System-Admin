@@ -191,11 +191,11 @@ class AddSession extends Component {
 }
 
 const mapStateToProps = store => ({
-  cinemas: store.sessions.cinemas,
+  cinemas: store.sessions.allCinemas,
   halls: store.sessions.halls,
-  sessions: store.sessions.sessions,
+  sessions: store.sessions.allSessions,
   times: store.sessions.times,
-  movies: store.movies.movies
+  movies: store.movies.allMovies
 })
 
 const mapDispatchToProps = dispatch => ({

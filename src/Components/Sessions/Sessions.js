@@ -72,7 +72,7 @@ class Sessions extends Component {
 }
 
 const mapStateToProps = store => ({
-  sessions: store.sessions.sessions,
+  sessions: store.sessions.allSessions,
   errors: store.sessions.errors
 })
 
