@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { validateAll } from 'indicative';
 import './AddMovie.scss';
+import TimePicker from '../Pickers/TimePicker'
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea'
 import {
@@ -20,8 +21,18 @@ class AddMovie extends Component {
     this.state = {
       description: props.movie.description || '',
       name: props.movie.name || '',
-      url: props.movie.img || ''
+      url: props.movie.img || '',
+      hours: 0,
+      minutes: 0,
     }
+  }
+
+  getHours(milliseconds) {
+    return Math.floor(milliseconds / 1000 / 3600);
+  }
+
+  getMinutes(milliseconds, hours) {
+    return (milliseconds / 1000 / 60) - hours * 60;
   }
 
   get isMovieExist() {
@@ -41,7 +52,9 @@ class AddMovie extends Component {
       this.setState({
         description: nextProps.movie.description,
         name: nextProps.movie.name,
-        url: nextProps.movie.img
+        url: nextProps.movie.img,
+        hours: this.getHours(nextProps.movie.runningTime),
+        minutes: this.getMinutes(nextProps.movie.runningTime, this.getHours(nextProps.movie.runningTime)),
       })
     }
   }
@@ -54,7 +67,8 @@ class AddMovie extends Component {
     const movie = {
       name: this.state.name,
       img: this.state.url,
-      description: this.state.description
+      description: this.state.description,
+      runningTime: this.state.hours * 1000 * 3600 + this.state.minutes * 1000 * 60
     }
     this.props.onAddMovie(movie);
     this.props.history.push(`/movies`);
@@ -64,7 +78,8 @@ class AddMovie extends Component {
     const movie = {
       name: this.state.name,
       img: this.state.url,
-      description: this.state.description
+      description: this.state.description,
+      runningTime: this.state.hours * 1000 * 3600 + this.state.minutes * 1000 * 60
     }
     this.props.editMovie(movie, this.props.match.params.id);
     this.props.history.push(`/movies`);
@@ -80,6 +95,14 @@ class AddMovie extends Component {
 
   changeDescription = (description) => {
     this.setState({ description });
+  }
+
+  changeMinutes = (minutes) => {
+    this.setState({ minutes });
+  }
+
+  changeHours = (hours) => {
+    this.setState({ hours });
   }
 
   handleSubmit = event => {
@@ -133,12 +156,19 @@ class AddMovie extends Component {
           value={this.state.url}
           errorName={this.state.errors && this.state.errors.url}
         />
+
+        <TimePicker
+          changeHours={this.changeHours}
+          changeMinutes={this.changeMinutes}
+          hours={this.state.hours}
+          minutes={this.state.minutes}
+        />
+
         <button
           type="submit"
           className="movie__add-movie"
-        > {
-            this.isMovieExist ? 'Save' : 'Add'
-          }
+        >
+          {this.isMovieExist ? 'Save' : 'Add'}
         </button>
       </form>
     );

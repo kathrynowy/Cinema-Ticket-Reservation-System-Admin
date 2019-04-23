@@ -16,7 +16,8 @@ import {
   editSessionAsync,
   getSessionsAsync,
   clearTimes
-} from '../../actions/session'
+} from '../../actions/session';
+import { showSnackbar } from '../../actions/snackbar';
 
 import {
   getMoviesAsync
@@ -68,7 +69,23 @@ class AddSession extends Component {
 
   onSelectDate = date => {
     this.setState({ date });
-    this.props.addTime(date);
+    let isTimeAvailable = true;
+    if (date < new Date().getTime()) {
+      isTimeAvailable = false;
+    } else {
+      for (let i = 0; i < this.props.times.length; i++) {
+        const currentTime = this.props.times[i];
+        const afterCurrentTime = currentTime < date && currentTime + this.state.movie.runningTime < date;
+        const beforeCurrentTime = currentTime > date && currentTime > this.state.movie.runningTime + date;
+
+        if (!(afterCurrentTime || beforeCurrentTime)) {
+          isTimeAvailable = false;
+        }
+      }
+    }
+    isTimeAvailable
+      ? this.props.addTime(date)
+      : this.props.showSnackbar("it's wrong time")
   }
 
   onAddSession = async () => {
@@ -127,6 +144,7 @@ class AddSession extends Component {
   }
 
   render() {
+    const isDisabled = !this.state.movie;
     return (
       <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
@@ -159,12 +177,12 @@ class AddSession extends Component {
           items={this.props.movies}
           onSelect={this.onSelectMovie}
         />
-        <div className="session__add-time-button">
+        <div className={"session__add-time-button" + (isDisabled ? " session__add-time-button_disabled" : " ")}>
           <span className="session__label"> Add time</span>
           <CustomDatePicker
             type="date-time"
             label="Date & Time"
-            onSelect={this.onSelectDate}
+            onSelect={(date) => this.onSelectDate(date)}
           />
         </div>
         <span className="session_error">{this.state.errors && this.state.errors.times}</span>
@@ -201,6 +219,9 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   getCinemas(city) {
     dispatch(getCinemasByCity(city));
+  },
+  showSnackbar(message) {
+    dispatch(showSnackbar(message));
   },
   getSessionsAsync() {
     dispatch(getSessionsAsync());

@@ -32,7 +32,6 @@ const styles = {
     borderRadius: '50%',
     cursor: 'pointer',
   }
-
 };
 
 class CustomDatePicker extends React.Component {
