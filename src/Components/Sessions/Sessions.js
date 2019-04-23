@@ -50,13 +50,24 @@ class Sessions extends Component {
                       times.map((time, index) =>
                         <li key={session.id + times[index]} className="sessions__list-item session">
                           <EventIcon className="session__icon" />
-                          <span className="session__name">
-                            {
-                              `${session.cinemaId.city}, ${session.cinemaId.name},
-                              hall: ${session.hallId.name}, ${session.movieId.name},
-                              ${time}`
-                            }
-                          </span>
+                          <div className="session__name session-info">
+
+
+                            <span className="session-info__movie">{session.movieId.name}</span>
+
+                            <div className="session-info__info">
+                              <div className="session-info__place">
+                                <span className="session-info__city">{session.cinemaId.city},</span>
+                                <span className="ticket__cinema">{session.cinemaId.name}</span>
+                              </div>
+
+                              <div className="session-info__hall-info">
+                                <span>hall: {session.hallId.name}</span>
+                              </div>
+
+                              <span className="session-info__time">{time}</span>
+                            </div>
+                          </div>
                           <DeleteIcon className="session__icon session__icon_delete" onClick={() => this.deleteSession(session.id, session.times[index])} />
                         </li>
                       )

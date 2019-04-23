@@ -37,6 +37,7 @@
   width: 25x !important;
   align-self: center;
   cursor: pointer;
+  color: $grayIcon;
 }
 
 @mixin addIconHover() {
@@ -67,4 +68,5 @@
 @mixin mainIcon() {
   width: 10% !important;
   height: 30px !important;
+  color: $grayIcon;
 }
