@@ -68,24 +68,51 @@ class AddSession extends Component {
   onSelectMovie = movie => this.setState({ movie });
 
   onSelectDate = date => {
+    const newSession = {
+      times: this.props.times,
+      cinemaId: this.state.cinema.id,
+      movieId: this.state.movie.id,
+      hallId: this.state.hall.id
+    }
+
+    const existSession = this.isSessionExist(this.props.sessions, newSession);
+
     this.setState({ date });
     let isTimeAvailable = true;
+
     if (date < new Date().getTime()) {
       isTimeAvailable = false;
+    } else if (existSession) {
+      const times = [...existSession.times, ...this.props.times || []];
+      isTimeAvailable = this.checkAvailable(times, date, this.state.movie.runningTime);
     } else {
-      for (let i = 0; i < this.props.times.length; i++) {
-        const currentTime = this.props.times[i];
-        const afterCurrentTime = currentTime < date && currentTime + this.state.movie.runningTime < date;
-        const beforeCurrentTime = currentTime > date && currentTime > this.state.movie.runningTime + date;
-
-        if (!(afterCurrentTime || beforeCurrentTime)) {
-          isTimeAvailable = false;
-        }
-      }
+      isTimeAvailable = this.checkAvailable(this.props.times, date, this.state.movie.runningTime);
     }
+
     isTimeAvailable
       ? this.props.addTime(date)
       : this.props.showSnackbar("it's wrong time")
+  }
+
+  isSessionExist(sessions, newSession) {
+    return this.props.sessions.find(session => {
+      return (session.cinemaId.id === newSession.cinemaId
+        && session.hallId.id === newSession.hallId
+        && session.movieId.id === newSession.movieId)
+    })
+  }
+
+  checkAvailable(times, date, runningTime) {
+    for (let i = 0; i < times.length; i++) {
+      const currentTime = times[i];
+      const afterCurrentTime = currentTime < date && currentTime + runningTime < date;
+      const beforeCurrentTime = currentTime > date && currentTime > runningTime + date;
+
+      if (!(afterCurrentTime || beforeCurrentTime)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   onAddSession = async () => {
@@ -144,7 +171,7 @@ class AddSession extends Component {
   }
 
   render() {
-    const isDisabled = !this.state.movie;
+    const isDisabled = !(this.state.movie && this.state.city && this.state.cinema && this.state.hall);
     return (
       <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
