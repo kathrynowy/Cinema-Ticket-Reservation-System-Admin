@@ -16,7 +16,7 @@ import {
   CLEAR_CINEMAS
 } from '../actionTypes.js';
 
-import axios from '../configs/axios';
+import axios from 'axios';
 
 
 export const clearCinemaInfo = () => {

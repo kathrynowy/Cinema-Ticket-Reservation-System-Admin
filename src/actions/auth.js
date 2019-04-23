@@ -4,7 +4,7 @@ import {
   LOGOUT_SUCCESS
 } from '../actionTypes';
 
-import axios from '../configs/axios';
+import axios from 'axios';
 import { history } from '../App';
 import { showSnackbar } from './snackbar'
 
