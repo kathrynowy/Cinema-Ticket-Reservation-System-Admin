@@ -18,6 +18,10 @@ const OPTIONS = {
   minute: 'numeric',
 };
 
+const MILLISECONDS_IN_HOUR = 1000 * 3600;
+const MILLISECONDS_IN_MINUTE = 1000 * 60;
+const MINUTES_IN_HOUR = 60;
+
 class Sessions extends Component {
   async componentDidMount() {
     await this.props.getSessionsAsync();
@@ -29,11 +33,11 @@ class Sessions extends Component {
   }
 
   getHours(milliseconds) {
-    return Math.floor(milliseconds / 1000 / 3600);
+    return Math.floor(milliseconds / MILLISECONDS_IN_HOUR);
   }
 
   getMinutes(milliseconds, hours) {
-    return (milliseconds / 1000 / 60) - hours * 60;
+    return (milliseconds / MILLISECONDS_IN_MINUTE) - hours * MINUTES_IN_HOUR;
   }
 
   render() {
@@ -58,7 +62,6 @@ class Sessions extends Component {
                         <li key={session.id + times[index]} className="sessions__list-item session">
                           <EventIcon className="session__icon" />
                           <div className="session__name session-info">
-
                             <span className="session-info__movie">
                               {`${session.movieId.name}, ${this.getHours(session.movieId.runningTime)}h ${this.getMinutes(session.movieId.runningTime, this.getHours(session.movieId.runningTime))}m`}
                             </span>

@@ -14,7 +14,7 @@ html, body {
   flex-direction: column;
 }
 
-.App {
+.app {
   text-align: center;
   padding: 5% 20%;
   display: flex;
@@ -24,13 +24,13 @@ html, body {
 }
 
 @media only screen and (max-width: 1200px) {
-  .App {
+  .app {
     padding: 20px 120px;
   }
 }
 
 @media only screen and (max-width: 1000px) {
-  .App {
+  .app {
     padding: 20px 60px;
   }
 }
@@ -39,13 +39,13 @@ html, body {
   .container {
    flex-direction: column;
   }
-  .App {
+  .app {
     padding: 10px 40px;
   }
 }
 
 @media only screen and (max-width: 420px) {
-  .App {
+  .app {
     padding: 5px 10px;
   }
 }
