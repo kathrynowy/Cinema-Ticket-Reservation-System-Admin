@@ -17,7 +17,7 @@ import {
 } from '../actionTypes'
 
 const initialState = {
-  cinemas: [],
+  allCinemas: [],
   error: '',
   cinema: {},
   newCinema: {}
@@ -26,20 +26,20 @@ const initialState = {
 export default function getCinemas(state = initialState, action) {
   switch (action.type) {
     case EDIT_CINEMA_SUCCESS: {
-      const newCinemas = state.cinemas.map(cinema => {
+      const newCinemas = state.allCinemas.map(cinema => {
         if (cinema.id === action.payload.id) {
           return action.payload;
         }
         return cinema;
       });
       return Object.assign({}, state, {
-        cinemas: newCinemas
+        allCinemas: newCinemas
       })
     }
 
     case ADD_CINEMA_AND_HALLS_SUCCESS:
       return Object.assign({}, state, {
-        cinemas: [...state.cinemas, action.payload],
+        allCinemas: [...state.allCinemas, action.payload],
       });
 
     case EDIT_CINEMA_FAILURE:
@@ -54,7 +54,7 @@ export default function getCinemas(state = initialState, action) {
 
     case GET_CINEMAS_SUCCESS:
       return Object.assign({}, state, {
-        cinemas: action.payload
+        allCinemas: action.payload
       });
 
     case GET_CINEMAS_FAILURE:
@@ -63,9 +63,9 @@ export default function getCinemas(state = initialState, action) {
       });
 
     case DELETE_CINEMA_SUCCESS:
-      const newCinemas = state.cinemas.filter(cinema => cinema.id !== action.payload);
+      const newCinemas = state.allCinemas.filter(cinema => cinema.id !== action.payload);
       return Object.assign({}, state, {
-        cinemas: newCinemas
+        allCinemas: newCinemas
       });
 
     case DELETE_CINEMA_FAILURE:
@@ -75,7 +75,7 @@ export default function getCinemas(state = initialState, action) {
 
     case ADD_CINEMA_SUCCESS:
       return Object.assign({}, state, {
-        cinemas: [...state.cinemas, action.payload]
+        allCinemas: [...state.allCinemas, action.payload]
       });
 
     case ADD_CINEMA_FAILURE:
@@ -100,7 +100,7 @@ export default function getCinemas(state = initialState, action) {
 
     case CLEAR_CINEMAS:
       return Object.assign({}, state, {
-        cinemas: []
+        allCinemas: []
       })
 
     case CLEAR_CINEMA_INFO:

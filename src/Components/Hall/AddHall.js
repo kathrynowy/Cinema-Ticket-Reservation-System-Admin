@@ -279,7 +279,7 @@ class AddHall extends Component {
 const mapStateToProps = store => ({
   rows: store.halls.rows,
   hall: store.halls.hall,
-  halls: store.halls.halls,
+  halls: store.halls.allHalls,
   cinema: store.cinemas.cinema
 })
 
