@@ -15,8 +15,6 @@ import rootReducer from "./reducers/index";
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 axios.defaults.baseURL = axiosBaseUrl;
 
-axios.defaults.baseURL = 'http://localhost:8080/';
-
 ReactDOM.render(
   <Provider store={store}>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -25,4 +23,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
