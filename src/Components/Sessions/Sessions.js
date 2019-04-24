@@ -19,7 +19,6 @@ const OPTIONS = {
 };
 
 class Sessions extends Component {
-
   async componentDidMount() {
     await this.props.getSessionsAsync();
   }
@@ -27,6 +26,14 @@ class Sessions extends Component {
   deleteSession = (id, currentTime) => {
     const session = this.props.sessions.find(session => session.id === id);
     this.props.deleteSessionAsync(session, id, currentTime);
+  }
+
+  getHours(milliseconds) {
+    return Math.floor(milliseconds / 1000 / 3600);
+  }
+
+  getMinutes(milliseconds, hours) {
+    return (milliseconds / 1000 / 60) - hours * 60;
   }
 
   render() {
@@ -52,8 +59,9 @@ class Sessions extends Component {
                           <EventIcon className="session__icon" />
                           <div className="session__name session-info">
 
-
-                            <span className="session-info__movie">{session.movieId.name}</span>
+                            <span className="session-info__movie">
+                              {`${session.movieId.name}, ${this.getHours(session.movieId.runningTime)}h ${this.getMinutes(session.movieId.runningTime, this.getHours(session.movieId.runningTime))}m`}
+                            </span>
 
                             <div className="session-info__info">
                               <div className="session-info__place">

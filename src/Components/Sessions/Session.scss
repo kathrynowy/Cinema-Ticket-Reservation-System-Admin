@@ -1,6 +1,7 @@
 @import '../../variables.scss';
 @import '../../mixins.scss';
 
+
 .sessions {
   width: 100%;
   display: flex;
@@ -56,10 +57,12 @@
     width: 98%;
     padding: 8px 2px;
     border: 1px solid $blackBorder;
+    margin-bottom: 10px;
     font-size: 18px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    border-radius: 10px;
 
     .session-info {
       height: 100px;
@@ -73,17 +76,19 @@
         font-size: 22px;
         font-weight: 600;
         align-self: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        overflow: hidden;
       }
 
       &__info {
         display: flex;
         flex-direction: row;
         width: 100%;
+        padding-left: 5px;
       }
 
       &__place{
-        width: 33%;
+        width: 30%;
         flex-direction: column;
         display: flex;
         flex-wrap: wrap;
@@ -92,7 +97,7 @@
       }
 
       &__hall-info {
-        width: 33%;
+        width: 30%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -106,7 +111,7 @@
       }
 
       &__time {
-        width: 30%;
+        width: 35%;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -125,11 +130,6 @@
       }
     }
 
-
-    &:not(:first-child) {
-      border-top: none;
-    }
-
     &__icon {
       @include mainIcon();
 
@@ -140,6 +140,119 @@
 
     &__name {
       width: 80%;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .sessions {
+    .session {
+      width: 98%;
+      margin-bottom: 8px;
+  
+      .session-info {
+        &__movie {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+  
+        &__hall-info {
+          font-size: 16px;
+        }
+  
+        &__time {
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+} 
+
+@media only screen and (max-width: 768px) { 
+  .sessions {
+    &__list {
+      width: 100%;
+    }
+
+    .session {
+      width: 97%;
+      margin-bottom: 8px;
+  
+      .session-info {
+        &__movie {
+          margin-bottom: 7px;
+        }
+
+        &__place {
+          font-size: 16px;
+        }
+  
+        &__hall-info {
+          font-size: 16px;
+        }
+
+        &__time {
+          padding: 3px 2px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .sessions {
+    &__list {
+      width: 98%;
+    }
+
+    .session {
+      margin-bottom: 10px;
+  
+      .session-info {
+        &__place {
+          font-size: 18px;
+        }
+  
+        &__hall-info {
+          font-size: 18px;
+        }
+
+        &__time {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 993px) { 
+  .sessions {
+    .session {
+      width: 98%;
+      margin-bottom: 15px;
+  
+      .session-info {
+        &__movie {
+          font-size: 22px;
+          margin-bottom: 10px;
+        }
+
+        &__place {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+  
+        &__hall-info {
+          font-size: 20px;
+        }
+  
+        &__time {
+          height: 40px;
+          font-size: 20px;
+        }
+      }
     }
   }
 }
