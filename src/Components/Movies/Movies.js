@@ -60,7 +60,7 @@ class Movies extends Component {
 }
 
 const mapStateToProps = store => ({
-  movies: store.movies.movies,
+  movies: store.movies.allMovies,
   errors: store.movies.errors
 })
 

@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import axios from 'axios';
+import { axiosBaseUrl } from "./configs/config";
 
 import App from './App';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -12,9 +13,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import rootReducer from "./reducers/index";
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
-
-
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.baseURL = axiosBaseUrl;
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,4 +23,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
