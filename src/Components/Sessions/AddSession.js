@@ -16,7 +16,8 @@ import {
   editSessionAsync,
   getSessionsAsync,
   clearTimes
-} from '../../actions/session'
+} from '../../actions/session';
+import { showSnackbar } from '../../actions/snackbar';
 
 import {
   getMoviesAsync
@@ -50,10 +51,9 @@ class AddSession extends Component {
     this.props.getMovies();
   }
 
-  onSelectCity = city => {
+  onSelectCity = async (city) => {
     this.setState({ city });
-
-    this.props.getCinemas(city.name);
+    await this.props.getCinemas(city.name);
   }
 
   onSelectCinema = cinema => {
@@ -67,8 +67,42 @@ class AddSession extends Component {
   onSelectMovie = movie => this.setState({ movie });
 
   onSelectDate = date => {
+    const newSession = {
+      times: this.props.times,
+      cinemaId: this.state.cinema.id,
+      movieId: this.state.movie.id,
+      hallId: this.state.hall.id
+    }
+
+    const existingSession = this.isSessionExist(this.props.sessions, newSession);
+
     this.setState({ date });
-    this.props.addTime(date);
+    let isTimeAvailable = true;
+
+    if (date < new Date().getTime()) {
+      isTimeAvailable = false;
+    } else if (existingSession) {
+      const times = [...existingSession.times, ...this.props.times];
+      isTimeAvailable = this.checkAvailable(times, date, this.state.movie.runningTime);
+    } else {
+      isTimeAvailable = this.checkAvailable(this.props.times, date, this.state.movie.runningTime);
+    }
+
+    isTimeAvailable
+      ? this.props.addTime(date)
+      : this.props.showSnackbar("it's wrong time")
+  }
+
+  isSessionExist(sessions, newSession) {
+    return this.props.sessions.find(session => {
+      return (session.cinemaId.id === newSession.cinemaId
+        && session.hallId.id === newSession.hallId
+        && session.movieId.id === newSession.movieId)
+    })
+  }
+
+  checkAvailable(times, newSessionTime, length) {
+    return times.every(time => time + length > newSessionTime || time < length + newSessionTime)
   }
 
   onAddSession = async () => {
@@ -78,11 +112,13 @@ class AddSession extends Component {
       movieId: this.state.movie.id,
       hallId: this.state.hall.id
     }
+
     const existSession = this.props.sessions.find(session => {
       return (session.cinemaId.id === newSession.cinemaId
         && session.hallId.id === newSession.hallId
         && session.movieId.id === newSession.movieId)
     })
+
     if (existSession) {
       newSession.times = [...newSession.times, ...existSession.times];
       await this.props.editSession(newSession, existSession.id);
@@ -127,6 +163,7 @@ class AddSession extends Component {
   }
 
   render() {
+    const isDisabled = !(this.state.movie && this.state.city && this.state.cinema && this.state.hall);
     return (
       <form className="session" onSubmit={(e) => this.handleSubmit(e)}>
         <span className="session__label"> City </span>
@@ -140,7 +177,7 @@ class AddSession extends Component {
         <CustomSelect
           errorName={this.state.errors && this.state.errors.cinema}
           name="cinema" value={this.state.cinema}
-          items={this.props.cinemas}
+          items={this.props.cinemas || []}
           onSelect={this.onSelectCinema}
         />
         <span className="session__label"> Hall </span>
@@ -148,7 +185,7 @@ class AddSession extends Component {
           errorName={this.state.errors && this.state.errors.hall}
           name="hall"
           value={this.state.hall}
-          items={this.props.halls}
+          items={this.props.halls || []}
           onSelect={this.onSelectHall}
         />
         <span className="session__label"> Movie </span>
@@ -156,15 +193,15 @@ class AddSession extends Component {
           errorName={this.state.errors && this.state.errors.movie}
           name="movie"
           value={this.state.movie}
-          items={this.props.movies}
+          items={this.props.movies || []}
           onSelect={this.onSelectMovie}
         />
-        <div className="session__add-time-button">
+        <div className={"session__add-time-button" + (isDisabled ? " session__add-time-button_disabled" : " ")}>
           <span className="session__label"> Add time</span>
           <CustomDatePicker
             type="date-time"
             label="Date & Time"
-            onSelect={this.onSelectDate}
+            onSelect={(date) => this.onSelectDate(date)}
           />
         </div>
         <span className="session_error">{this.state.errors && this.state.errors.times}</span>
@@ -191,7 +228,7 @@ class AddSession extends Component {
 }
 
 const mapStateToProps = store => ({
-  cinemas: store.sessions.allCinemas,
+  cinemas: store.sessions.cinemas,
   halls: store.sessions.halls,
   sessions: store.sessions.allSessions,
   times: store.sessions.times,
@@ -200,7 +237,10 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   getCinemas(city) {
-    dispatch(getCinemasByCity(city));
+    return dispatch(getCinemasByCity(city));
+  },
+  showSnackbar(message) {
+    dispatch(showSnackbar(message));
   },
   getSessionsAsync() {
     dispatch(getSessionsAsync());

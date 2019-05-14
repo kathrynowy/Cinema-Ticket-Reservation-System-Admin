@@ -17,6 +17,10 @@
     @include addContainer();
 
     margin-bottom: 0px;
+
+    &_disabled {
+      pointer-events:none;
+    }
   }
 
   &__add-icon {
