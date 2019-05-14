@@ -34,10 +34,10 @@ class App extends Component {
     return (
       <div className="App">
         <Router > {
-
           this.props.isAdminLoggedIn
             ? (<div className="container">
               <NestedList />
+              <Route path="/cinemas" component={Cinemas} />
               <Route exact path={["/cinema/add", "/cinema/:id/edit"]} component={AddCinema} />
               <Route path="/movies" component={Movies} />
               <Route path={["/movie/add", "/movie/:id/edit"]} component={AddMovie} />

@@ -24,8 +24,8 @@ import './Cinemas.scss';
 
 
 class Cinemas extends Component {
-  componentDidMount() {
-    this.props.getCinemasAsync();
+  async componentDidMount() {
+    await this.props.getCinemasAsync();
     this.props.clearHalls();
     this.props.clearHall();
   }
@@ -82,7 +82,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   getCinemasAsync() {
-    dispatch(getCinemasAsync());
+    return dispatch(getCinemasAsync());
   },
   clearHalls() {
     dispatch(clearHalls());
