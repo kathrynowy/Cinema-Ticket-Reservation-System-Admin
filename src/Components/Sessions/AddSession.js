@@ -82,7 +82,7 @@ class AddSession extends Component {
     if (date < new Date().getTime()) {
       isTimeAvailable = false;
     } else if (existingSession) {
-      const times = [...existingSession.times, ...this.props.times || []];
+      const times = [...existingSession.times, ...this.props.times];
       isTimeAvailable = this.checkAvailable(times, date, this.state.movie.runningTime);
     } else {
       isTimeAvailable = this.checkAvailable(this.props.times, date, this.state.movie.runningTime);
