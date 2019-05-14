@@ -136,9 +136,8 @@ class AddMovie extends Component {
         <button
           type="submit"
           className="movie__add-movie"
-        > {
-            this.isMovieExist ? 'Save' : 'Add'
-          }
+        >
+          {this.isMovieExist ? 'Save' : 'Add'}
         </button>
       </form>
     );

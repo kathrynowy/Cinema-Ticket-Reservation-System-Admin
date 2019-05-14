@@ -14,7 +14,7 @@ html, body {
   flex-direction: column;
 }
 
-.App {
+.app {
   text-align: center;
   padding: 5% 20%;
   display: flex;
@@ -23,8 +23,14 @@ html, body {
   background: linear-gradient(15deg,rgb(233, 177, 201),rgb(236, 219, 188) 66%,rgb(203, 231, 247));
 }
 
-@media only screen and (max-width: 850px) {
-  .App {
+@media only screen and (max-width: 1200px) {
+  .app {
+    padding: 20px 120px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .app {
     padding: 20px 60px;
   }
 }
@@ -33,11 +39,14 @@ html, body {
   .container {
    flex-direction: column;
   }
+  .app {
+    padding: 10px 40px;
+  }
 }
 
 @media only screen and (max-width: 420px) {
-  .App {
-    padding: 10px 15px;
+  .app {
+    padding: 5px 10px;
   }
 }
 

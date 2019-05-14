@@ -18,10 +18,20 @@ import { logOut } from '../../actions/auth'
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 220,
+    width: 220,
     backgroundColor: theme.palette.background.paper,
     zIndex: 0,
-    position: 'static'
+    position: 'static',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      width: 300
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 200,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 220,
+    },
+
   },
   nested: {
     paddingLeft: theme.spacing.unit * 4,
