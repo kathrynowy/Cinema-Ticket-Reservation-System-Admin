@@ -16,7 +16,7 @@ import {
   EDIT_NEW_HALL
 } from '../actionTypes';
 
-import axios from '../configs/axios';
+import axios from 'axios';
 
 
 export const editHallAsync = (hall, id) => {

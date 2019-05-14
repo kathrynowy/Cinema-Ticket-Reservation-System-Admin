@@ -16,7 +16,7 @@ import {
   EDIT_SESSION_SUCCESS
 } from '../actionTypes';
 
-import axios from '../configs/axios';
+import axios from 'axios';
 
 
 export const addSessionAsync = (session) => {
