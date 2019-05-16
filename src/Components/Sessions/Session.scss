@@ -148,6 +148,10 @@
 
 @media only screen and (max-width: 992px) {
   .sessions {
+    &__list {
+      width: 100%;
+    }
+
     .session {
       margin-bottom: 8px;
   
@@ -246,3 +250,12 @@
     }
   }
 }
+
+@media only screen and (min-width: 1250px) {
+  .sessions {
+    &__list {
+      width: 80%;
+    }
+  }
+}
+
