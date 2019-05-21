@@ -21,6 +21,8 @@ import {
   clearCinemas
 } from '../../actions/cinema';
 
+import { showSnackbar } from '../../actions/snackbar';
+
 import {
   Add as AddIcon,
   Edit as EditIcon,
@@ -96,10 +98,18 @@ class AddCinema extends Component {
       additionalServices: this.state.additionalServices.map(({ name, cost }) => ({ name, cost }))
     };
 
-    await this.isCinemaExist
-      ? this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
-      : this.props.onAddСinema(cinema, this.props.halls);
+    if (this.isCinemaExist) {
+      await this.props.onEditСinema(this.props.match.params.id, cinema, this.props.halls)
+    } else {
+      for (let i = 0; i < this.props.cinemas.length; i++) {
+        if (this.props.cinemas[i].name === cinema.name && this.props.cinemas[i].city === cinema.city) {
+          return this.props.showSnackbar('This name is already exists');
+        }
+      }
+      await this.props.onAddСinema(cinema, this.props.halls);
+    }
 
+    this.props.clearHalls();
     this.props.history.push(`/cinemas`);
   }
 
@@ -197,7 +207,8 @@ class AddCinema extends Component {
     event.preventDefault();
     this.setState({
       errors: {}
-    })
+    });
+
     const data = { ...this.state, halls: this.props.halls };
     const rules = {
       city: 'required|string',
@@ -211,9 +222,7 @@ class AddCinema extends Component {
     }
 
     validateAll(data, rules, messages)
-      .then(() => {
-        this.addCinema();
-      })
+      .then(() => this.addCinema())
       .catch(errors => {
         const formattesErrors = {};
         errors.forEach(error => formattesErrors[error.field] = error.message)
@@ -323,7 +332,9 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   onAddСinema(cinema, halls) {
-    dispatch(addCinemaAsync(cinema, halls));
+    return dispatch(addCinemaAsync(cinema, halls));
+  },
+  clearHalls() {
     dispatch(clearHalls());
   },
   clearCinemaInfo() {
@@ -332,6 +343,9 @@ const mapDispatchToProps = dispatch => ({
   },
   saveCinemaInfo(name, city) {
     dispatch(saveCinemaInfo(name, city));
+  },
+  showSnackbar(message) {
+    dispatch(showSnackbar(message));
   },
   onEditСinema(id, cinema, halls) {
     dispatch(editCinemaAsync(id, cinema));

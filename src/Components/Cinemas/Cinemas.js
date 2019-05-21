@@ -56,7 +56,7 @@ class Cinemas extends Component {
                         <HomeIcon className="cinema__icon" />
                         <Link to={{ pathname: `/cinema/${cinema.id}/edit` }} className="cinema__item-link">
                           <li className="cinema__name">
-                            {cinema.name}
+                            {cinema.name}, {cinema.city}
                           </li>
                         </Link>
                         <DeleteIcon
